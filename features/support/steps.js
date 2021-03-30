@@ -1,6 +1,5 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const assert = require('assert').strict;
-// const puppeteer = require('puppeteer');
+const { expect } = require('chai');
 
 // Example from cucumber.js docs
 
@@ -13,15 +12,20 @@ When('I increment the variable by {int}', function (number) {
 });
 
 Then('the variable should contain {int}', function (number) {
-  assert.equal(this.variable, number);
+  expect(this.variable).equals(number);
 });
 
-// ----
+// Test to make sure browser automation is configured properly
 
-Given("I'm using a browser", async function () {
-  if (this.page != null) {
-    await this.page.goto('http://localhost:3000/');
-    await this.page.screenshot({ path: 'localhost.png' });
-  }
-  assert.equal(true, true);
+When('I visit {string}', async function (url) {
+  await this.page.goto(url);
+});
+
+Then('I see a {string} image', async function (imageId) {
+  const logo = await this.page.$(`img[data-test-id='${imageId}']`);
+  expect(logo).to.exist;
+});
+
+Then('capture a screenshot named {string}', async function (filename) {
+  await this.page.screenshot({ path: filename });
 });

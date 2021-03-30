@@ -22,12 +22,24 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "cucumber": "./node_modules/.bin/cucumber-js"
+    "cucumber": "./node_modules/.bin/cucumber-js",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -44,6 +56,12 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^7.0.0",
+    "@storybook/addon-actions": "^6.2.0",
+    "@storybook/addon-essentials": "^6.2.0",
+    "@storybook/addon-links": "^6.2.0",
+    "@storybook/node-logger": "^6.2.0",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.2.0",
     "@tailwindcss/postcss7-compat": "^2.0.4",
     "autoprefixer": "^9.8.6",
     "chai": "^4.3.4",

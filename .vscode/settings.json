@@ -2,11 +2,15 @@
   "cSpell.ignoreWords": [
     "aerosolve",
     "browserslist",
+    "compat",
     "craco",
     "get",
     "jsxdev",
+    "keychain",
+    "postcss",
     "react",
     "start",
+    "tailwindcss",
     "ttfb"
   ]
 }

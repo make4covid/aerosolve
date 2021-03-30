@@ -1,3 +1,32 @@
+# Aerosolve
+
+## Contributing
+
+### Running Tests
+
+Features are tested using Cucumber.js with Puppeteer to automate browser actions.
+When you run tests on MacOS, you might repeatedly encounter the prompt:
+'Do you want to the application Chromium.app to accept incoming network connections?'
+
+To resolve this, create a self-signed certificate using Keychain Access and use it to sign the chromium app that puppeteer is using.
+
+1. Go to `Keychain Access > Certificate Assistant > Create a Certificate`
+2. When prompted, create the certificate with the following properties:
+
+```
+Name:               Puppeteer
+Identity Type:      Self Signed Root
+Certificate Type:   Code Signing
+```
+
+3. Finally, codesign Puppeteer:
+
+```bash
+$ sudo codesign --deep -s Puppeteer -f ./node_modules/puppeteer/.local-chromium/mac-*/chrome-mac/Chromium.app
+```
+
+For more information on this issue, see https://github.com/puppeteer/puppeteer/issues/4752
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

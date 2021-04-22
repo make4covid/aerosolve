@@ -1,5 +1,6 @@
 import React from 'react'
 import { Selected } from '../../../stories/Box.stories'
+import checkmark from './Checkmark.png'
 
 export interface SidebarGroupComponentProps {
     //Name of the component.
@@ -19,22 +20,22 @@ const SidebarGroupComponent: React.FC<SidebarGroupComponentProps> = ({ component
 
     if(completed){
         return (
-            <div className="w-56 rounded-t-md border">
-                <h1 className="componentName text-blue-600 text-sm flex font-sans font-normal ">{componentName}
-                <span className="text-white bg-yellow-400 float-right"> 
-
-                    <img src="./Checkmark.png" className="shadow rounded max-w-full h-auto align-middle border-none" />
-
-                </span>
+            <div className=" rounded-t-md border relative h-8 w-56 ">
+                <h1 className=" text-blue-600 text-sm  font-sans font-normal absolute  left-0 w-23">{componentName}
                 </h1>
+                {/* <span className="self-center "> 
+                    <img src={checkmark}/>
+                </span> */}
+                 <img src={checkmark} className="self-center absolute p-2 right-0 w-23"/>
+
             </div>
         )
     }
 
     else if (selected){
         return (
-            <div className="w-56 rounded-b-md border bg-blue-500">
-            <h1 className="componentName text-white text-sm flex font-sans font-normal">{componentName}
+            <div className="w-56 h-8 rounded-b-md border bg-blue-500 flex">
+            <h1 className=" text-white text-sm  font-sans font-normal">{componentName}
             </h1>
             </div>
 
@@ -43,8 +44,8 @@ const SidebarGroupComponent: React.FC<SidebarGroupComponentProps> = ({ component
 
     else{//Default
         return(
-            <div className="w-56 rounded-md border">
-            <h1 className="componentName text-gray-500 bg-white text-sm flex font-sans font-medium divide-y divide-gray-500">{componentName}
+            <div className="w-56 h-8 rounded-md border flex">
+            <h1 className=" text-gray-500 bg-white text-sm  font-sans font-medium divide-y divide-gray-500">{componentName}
             </h1>
             </div>
         )

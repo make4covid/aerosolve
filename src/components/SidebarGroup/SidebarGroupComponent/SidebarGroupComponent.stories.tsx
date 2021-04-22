@@ -26,7 +26,7 @@ Default.parameters = {
 
 export const Selected = Template.bind({});
 Selected.args = {
-    componentName: "Selected Sample Component",
+    componentName: "Selected Component",
     completed: false,
     selected: true
 }
@@ -39,7 +39,7 @@ Selected.parameters = {
 
 export const Completed = Template.bind({});
 Completed.args = {
-    componentName: "Completed Sample Component",
+    componentName: "Completed Component",
     completed: true,
     selected: false
 }

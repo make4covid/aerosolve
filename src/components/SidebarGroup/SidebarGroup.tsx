@@ -1,34 +1,27 @@
 import React from 'react'
-import SidebarGroupHeader from './SidebarGroupHeader/SidebarGroupHeader'
-import SidebarGroupComponent from './SidebarGroupComponent/SidebarGroupComponent'
-import { Header } from '../../stories/Header'
+import SidebarGroupItem, { SidebarGroupItemProps } from './SidebarGroupItem/SidebarGroupItem'
 
 export interface SidebarGroupProps {
-    //SidebarGrup header name.
     header: string,
-
-    // Uses two different SidebarGrop components so we need to pass two names.
-    component1Name: string,
-    component2Name: string,
-
-    //Selected and completed states for both components.
-    component1Selected?: boolean,
-    component1Completed?: boolean,
-
-    component2Selected?: boolean,
-    component2Completed?: boolean
-  }
-  
-
-export const SidebarGroup: React.FC<SidebarGroupProps>= ({header, component1Name, component2Name, component1Completed, component1Selected, component2Completed, component2Selected}) => {
-    return (
-        <div className = "sidebarGroup">
-            <SidebarGroupHeader header={header}/>
-            <SidebarGroupComponent componentName={component1Name} completed={component1Completed} selected={component1Selected}/>
-            <SidebarGroupComponent componentName={component2Name} completed={component2Completed} selected={component2Selected}/>
-        </div>
-    )
+    items: SidebarGroupItemProps[]
 }
 
+export const SidebarGroup: React.FC<SidebarGroupProps> = ({ header, items }) => {
+
+    const listItems = items.map((item) =>
+        <React.Fragment key={item.value}>
+            <SidebarGroupItem value={item.value} status={item.status} action={item.action} />
+        </React.Fragment>
+    );
+
+    return (
+        <div className="sidebarGroup">
+            <h1 className="sidebarGroupHeader text-gray-500 flex font-sans font-bold text-sm text-center">
+                {header}
+            </h1>
+            <ul>{listItems}</ul>
+        </div>
+    );
+}
 export default SidebarGroup
 

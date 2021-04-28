@@ -3,9 +3,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      backgroundImage: theme => ({
-        // 'checkmark': "url('./Checkmark.png')",
-       })
+      
 
 
     },

@@ -1,8 +1,9 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react';
-import {SidebarGroup, SidebarGroupProps} from './SidebarGroup';
+import { SidebarGroup, SidebarGroupProps } from './SidebarGroup';
+import { SidebarGroupItem, SidebarGroupItemProps, ItemStatus } from './SidebarGroupItem/SidebarGroupItem'
 
-export default{
+export default {
     title: 'Aerosolve/Atoms/SidebarGroup',
     component: SidebarGroup
 }
@@ -10,40 +11,38 @@ export default{
 const Template: Story<SidebarGroupProps> = (args) => <SidebarGroup {...args} />;
 
 export const Default = Template.bind({});
+const DefaultItems: SidebarGroupItemProps[] = [
+    { value: "Inactive Item 1", status: ItemStatus.Inactive, action: () => null }, //Just passing empty function for now.
+    { value: "Inactive Item 2", status: ItemStatus.Inactive, action: () => null },
+];
+
 Default.args = {
-    header: "Default SidebarGroup",
-    component1Name: "Incomplete Component 1",
-    component2Name: "Incomplete Component 2",
-    component1Completed: false,
-    component1Selected: false,
-    component2Completed: false,
-    component2Selected: false
+    header: "Inactive SidebarGroup",
+    items: DefaultItems
 }
 
 Default.parameters = {
     design: {
         type: 'figma',
         url: 'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=737%3A2504',
-      }
+    }
+}
 
+export const CompletedAndActive = Template.bind({});
+const CompletedAndActiveItems: SidebarGroupItemProps[] = [
+    { value: "Completed Item", status: ItemStatus.Completed, action: () => null }, //Just passing empty function for now.
+    { value: "Active Item", status: ItemStatus.Active, action: () => null },
+];
+
+CompletedAndActive.args = {
+    header: "Completed And Active SidebarGroup",
+    items: CompletedAndActiveItems
+}
+
+CompletedAndActive.parameters = {
+    design: {
+        type: 'figma',
+        url: 'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=737%3A2520',
     }
 
-    export const CompletedAndSelected = Template.bind({});
-    CompletedAndSelected.args = {
-        header: "Completed And Selected SidebarGroup",
-        component1Name: "Completed Option",
-        component2Name: "Selected Option",
-        component1Completed: true, 
-        component1Selected: false,
-        component2Completed: false,
-        component2Selected : true,
-
-    }
-
-    CompletedAndSelected.parameters = {
-        design: {
-            type: 'figma',
-            url: 'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=737%3A2520',
-          }
-    
-        }
+}

@@ -19,7 +19,7 @@ export const SidebarGroup: React.FC<SidebarGroupProps> = ({ header, items }) => 
             <h1 className="sidebarGroupHeader text-gray-500 flex font-sans font-bold text-sm text-center">
                 {header}
             </h1>
-            <ul>{listItems}</ul>
+            <div className="border border-gray-300 rounded-md overflow-hidden w-52">{listItems}</div>
         </div>
     );
 }

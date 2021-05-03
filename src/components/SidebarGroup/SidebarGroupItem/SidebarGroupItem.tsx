@@ -1,5 +1,6 @@
 import React from 'react'
-import checkmark from './Checkmark.png'
+// import checkmark from './Checkmark.png'
+import {ReactComponent as CheckboxIcon} from './checkbox.svg'
 
 export enum ItemStatus {
     Active,
@@ -14,38 +15,18 @@ export interface SidebarGroupItemProps {
 }
 
 export const SidebarGroupItem: React.FC<SidebarGroupItemProps> = ({ status, value, action }) => {
+    let statusStyles = ""
 
-    {/*TODO: Need to figure out a way to round only the top and bottom components */ }
+    status == ItemStatus.Active && (statusStyles = "text-white bg-blue-600 cursor-default")
+    status == ItemStatus.Inactive && (statusStyles = "text-gray-300 hover:bg-blue-100 hover:text-blue-600 cursor-pointer")
+    status == ItemStatus.Completed && (statusStyles = "text-blue-600 hover:bg-blue-100 cursor-pointer")
 
-    if (status === ItemStatus.Completed) {
-        return (
-            <div className=" rounded-t-md border relative h-8 w-56 ">
-                <h1 className=" text-blue-600 text-sm  font-sans font-normal absolute  left-0 w-23">{value}
-                </h1>
-                <img src={checkmark} className="self-center absolute p-2 right-0 w-23" />
-
-            </div>
-        )
-    }
-
-    else if (status === ItemStatus.Active) {
-        return (
-            <div className="w-56 h-8 rounded-b-md border bg-blue-500 flex">
-                <h1 className=" text-white text-sm  font-sans font-normal">{value}
-                </h1>
-            </div>
-
-        )
-    }
-
-    else {//Default
-        return (
-            <div className="w-56 h-8 rounded-md border flex">
-                <h1 className=" text-gray-500 bg-white text-sm  font-sans font-medium divide-y divide-gray-500">{value}
-                </h1>
-            </div>
-        )
-    }
+    return (
+        <div className={"font-sans font-normal relative flex flex-row items-center justify-between px-2 py-1 transition duration-200 " + statusStyles}>
+            <div className="text-sm">{value}</div>
+            {status == ItemStatus.Inactive || <CheckboxIcon className={"fill-current"} height="16" width="16"/>}
+        </div>
+    )
 }
 
 export default SidebarGroupItem

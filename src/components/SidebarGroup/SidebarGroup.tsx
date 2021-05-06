@@ -10,13 +10,13 @@ export const SidebarGroup: React.FC<SidebarGroupProps> = ({ header, items }) => 
 
     const listItems = items.map((item) =>
         <React.Fragment key={item.value}>
-            <SidebarGroupItem value={item.value} status={item.status} action={item.action} />
+            <SidebarGroupItem value={item.value} status={item.status} />
         </React.Fragment>
     );
 
     return (
         <div className="sidebarGroup">
-            <h1 className="sidebarGroupHeader text-gray-500 flex font-sans font-bold text-sm text-center">
+            <h1 className="sidebarGroupHeader text-gray-500 flex font-sans font-bold text-sm text-center mx-2 my-1">
                 {header}
             </h1>
             <div className="border border-gray-300 rounded-md overflow-hidden w-52">{listItems}</div>

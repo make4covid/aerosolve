@@ -11,10 +11,10 @@ export enum ItemStatus {
 export interface SidebarGroupItemProps {
     status: ItemStatus,
     value: string,
-    action: () => void
+    route?: string
 }
 
-export const SidebarGroupItem: React.FC<SidebarGroupItemProps> = ({ status, value, action }) => {
+export const SidebarGroupItem: React.FC<SidebarGroupItemProps> = ({ status, value, route }) => {
     let statusStyles = ""
 
     status === ItemStatus.Active && (statusStyles = "text-white bg-blue-600 cursor-default")
@@ -22,7 +22,7 @@ export const SidebarGroupItem: React.FC<SidebarGroupItemProps> = ({ status, valu
     status === ItemStatus.Completed && (statusStyles = "text-blue-600 hover:bg-blue-100 cursor-pointer")
 
     return (
-        <div className={"font-sans font-normal relative flex flex-row items-center justify-between px-2 py-1 transition duration-200 " + statusStyles}>
+        <div className={"font-sans font-normal relative flex flex-row items-center justify-between px-2 py-1 bg-white transition duration-200 " + statusStyles}>
             <div className="text-sm">{value}</div>
             {status === ItemStatus.Inactive || <Checkmark className={"fill-current"} height="16" width="16"/>}
         </div>

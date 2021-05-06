@@ -14,9 +14,9 @@ export const CompletedActiveInactive = Template.bind({});
 CompletedActiveInactive.args = {
     header: "Sidebar Group",
     items: [
-        { value: "Completed Item", status: ItemStatus.Completed, action: () => null },
-        { value: "Active Item", status: ItemStatus.Active, action: () => null },
-        { value: "Inactive Item", status: ItemStatus.Inactive, action: () => null },
+        { value: "Completed Item", status: ItemStatus.Completed, route: "test" },
+        { value: "Active Item", status: ItemStatus.Active, route: "test" },
+        { value: "Inactive Item", status: ItemStatus.Inactive, route: "test"},
     ]
 }
 

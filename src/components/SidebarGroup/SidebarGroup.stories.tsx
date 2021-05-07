@@ -1,22 +1,22 @@
 import { Story } from '@storybook/react';
-import { SidebarGroup, SidebarGroupProps } from './SidebarGroup';
-import { ItemStatus } from './SidebarGroupItem/SidebarGroupItem'
+import { SidebarGroup, NavGroup } from './SidebarGroup';
 
 export default {
     title: 'Aerosolve/Atoms/SidebarGroup',
     component: SidebarGroup
 }
 
-const Template: Story<SidebarGroupProps> = (args) => <SidebarGroup {...args} />;
+const Template: Story<NavGroup> = (args) => <SidebarGroup {...args} />;
 
 export const CompletedActiveInactive = Template.bind({});
 
 CompletedActiveInactive.args = {
     header: "Sidebar Group",
     items: [
-        { value: "Completed Item", status: ItemStatus.Completed, route: "test" },
-        { value: "Active Item", status: ItemStatus.Active, route: "test" },
-        { value: "Inactive Item", status: ItemStatus.Inactive, route: "test"},
+        { value: "Completed Item", active: false, route: "test", completed: true },
+        { value: "Active Completed Item", active: true, route: "test", completed: true},
+        { value: "Inactive Item", active: false, route: "test", completed: false},
+        { value: "Active Incomplete Item", active: true, route: "test", completed: true},
     ]
 }
 

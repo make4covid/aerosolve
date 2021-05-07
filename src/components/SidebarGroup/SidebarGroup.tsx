@@ -1,27 +1,27 @@
 import React from 'react'
-import SidebarGroupItem, { SidebarGroupItemProps } from './SidebarGroupItem/SidebarGroupItem'
+import { SidebarGroupItem, NavGroupItem } from './SidebarGroupItem/SidebarGroupItem'
 
-export interface SidebarGroupProps {
-    header: string,
-    items: SidebarGroupItemProps[]
+export type NavGroup = {
+  header: string
+  items: NavGroupItem[]
 }
 
-export const SidebarGroup: React.FC<SidebarGroupProps> = ({ header, items }) => {
 
-    const listItems = items.map((item) =>
+export const SidebarGroup: React.FC<NavGroup> = (props) => {
+
+    const listItems = props.items.map((item, index) =>
         <React.Fragment key={item.value}>
-            <SidebarGroupItem value={item.value} status={item.status} />
+            <SidebarGroupItem {...item} style={index === 0 ? {borderTop: 0} : {}}/>
         </React.Fragment>
     );
 
     return (
-        <div className="sidebarGroup">
+        <div className="sidebarGroup my-4">
             <h1 className="sidebarGroupHeader text-gray-500 flex font-sans font-bold text-sm text-center mx-2 my-1">
-                {header}
+                {props.header}
             </h1>
-            <div className="border border-gray-300 rounded-md overflow-hidden w-52">{listItems}</div>
+            <div className="rounded-md overflow-hidden w-52">{listItems}</div>
         </div>
     );
 }
-export default SidebarGroup
 

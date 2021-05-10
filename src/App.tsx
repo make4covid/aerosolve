@@ -1,52 +1,74 @@
 import './App.css';
-import SidebarGroup, {SidebarGroupProps} from 'components/SidebarGroup/SidebarGroup'
-import { ItemStatus } from 'components/SidebarGroup/SidebarGroupItem/SidebarGroupItem';
+
 import Sidebar from "react-sidebar"
+import { SidebarNavigation, NavGroup } from 'components/SidebarNavigation'
+import React, { useState } from 'react';
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  // Link
 } from "react-router-dom";
 
-const group: SidebarGroupProps = { 
-  header: "Group 1", 
-  items: [
-    {
-      route: "/about", 
-      status: ItemStatus.Inactive, 
-      value: "About"
-    },{
-      route: "/", 
-      status: ItemStatus.Inactive, 
-      value: "Home"
-    },{
-      route: "/users", 
-      status: ItemStatus.Inactive, 
-      value: "users"
-    }
-  ]
-}
+const defaultNavGroups: NavGroup[] = [
+  { 
+    header: "Safety Goal", 
+    items: [
+      {
+        route: "/target-occupancy", 
+        completed: true,
+        value: "Target Occupancy"
+      }
+    ]
+  },
+  {
+    header: "Space Informaiton",
+    items: [
+      {
+        route: "/location",
+        completed: true,
+        value: "Location"
+      },{
+        route: "/type-of-space", 
+        completed: true,
+        value: "Type of Space"
+      },{
+        route: "/area-of-space", 
+        completed: true,
+        active: true,
+        value: "Area of Space"
+      },{
+        route: "/ceiling-height", 
+        completed: false,
+        value: "Ceiling Height"
+      }
+    ]
+  }
+]
 
 function App() {
+  const [navGroups] = useState(defaultNavGroups)
+
   return (
     <Router>
-      <Sidebar sidebarClassName="p-8 bg-gray-200" docked shadow={false} open sidebar={<div className="App">
-          <SidebarGroup items={group.items} header={group.header}/>
-        </div>}>
-      <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-      </Sidebar>
+      <div className="App">
+        <Sidebar sidebarClassName="p-8 bg-gray-200" docked shadow={false} open sidebar={
+            <SidebarNavigation navGroups={navGroups}/>
+          }>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/users">
+              <Users />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Sidebar>
+      </div>
     </Router>
   );
 }

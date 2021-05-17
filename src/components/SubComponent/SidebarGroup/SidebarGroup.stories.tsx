@@ -2,7 +2,7 @@ import { Story } from '@storybook/react';
 import { SidebarGroup, NavGroup } from './SidebarGroup';
 
 export default {
-    title: 'Aerosolve/Atoms/SidebarGroup',
+    title: 'Aerosolve/Atoms/SubComponent/SidebarGroup',
     component: SidebarGroup
 }
 

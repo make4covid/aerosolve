@@ -218,10 +218,10 @@ function App() {
 
   return (
     <Router>
-      <div className="grid grid-cols-2 divide-x divide-green-500">
-        <div>
+      <div className="grid grid-cols-4">
+        <div >
           <Sidebar sidebarClassName="p-8 bg-gray-200" docked shadow={false} open sidebar={
-              <div>
+              <div className="w-16 md:w-32 lg:w-48">
                 <div className="cursor-pointer">
                   <AerosolveLogo/>
                 </div>
@@ -233,7 +233,7 @@ function App() {
           </Sidebar>
         </div>
 
-        <div>
+        <div className="col-span-3">
         {currentState === "Target Occupancy" && <TargetOccupancy {...TargetOccupancyDefaultProps}/>}
         {currentState === "Location" && <Location {...LocationDefaultProps}/>}
         {currentState === "Type of Space" && <TypeOfSpace {...TypeOfSpaceDefaultProps}/>}
@@ -246,7 +246,6 @@ function App() {
         {currentState === "Mask Fit" && <MaskFit {...MaskFitDefaultProps}/>}
         {currentState === "Ventilation + Filtration" && <Ventilation_Filtration {...Ventilation_Filtration_Default_Props}/>}
         </div>
-
       </div>
     </Router>
   );

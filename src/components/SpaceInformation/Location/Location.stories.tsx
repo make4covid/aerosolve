@@ -17,7 +17,7 @@ Activity.args = {
     question:"Where is the occupied space located",
     recommendation:"This space is safe for 30 people for 6 out of 8 target hours",
     hours:8, //Should update this from Promise call function
-    description:"Different age groups of people have different risk levels in the events of an aero"
+    description:"Different age groups of people have different risk levels in the events of an aerosol infection"
 }
 
 

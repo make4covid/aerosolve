@@ -1,26 +1,22 @@
 import { Story } from '@storybook/react';
-import { GroupActivity, CardGroup } from './GroupActivity';
+import { InputLocation, InputLocationProps } from './InputLocation';
 
 export default {
-    title: 'Aerosolve/Atoms/SubComponent/SelectionCardGroupActivity',
-    component: GroupActivity
+    title: 'Aerosolve/Atoms/SpaceInformation/Location/InputLocation',
+    component: InputLocation
 }
 
-const Template: Story<CardGroup> = (args) => <GroupActivity {...args} />;
+const Template: Story<InputLocationProps> = (args) => <InputLocation {...args} />;
 
-export const Activity = Template.bind({});
+export const InputLocationActivity = Template.bind({});
 
-Activity.args = {
+InputLocationActivity.args = {
     header: "Activity",
-    items: [
-        { title: "Living Room", activity: ["Hiking,Snowing,Skiing"] ,image:KidImage},
-        { title: "Classroom", activity: ["Driving,Partying, Whatnoting"] , image:KidImage},
-
-    ]
+    location: "CO,USA"
 }
 
 
-Activity.parameters = {
+InputLocationActivity.parameters = {
     design: {
         type: 'figma',
         url: 'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=1584%3A5819',

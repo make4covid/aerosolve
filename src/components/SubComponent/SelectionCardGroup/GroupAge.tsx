@@ -3,7 +3,7 @@ import {ItemAge,CardGroupItem} from "./SelectionCardGroupItem/ItemAge";
 
 
 export type CardGroup = {
-    header: string
+    header?: string
     items: CardGroupItem[]
 }
 
@@ -18,9 +18,6 @@ export const GroupAge: React.FC<CardGroup> = (props) => {
 
     return (
         <div className="">
-            <h1 className="s">
-                {props.header}
-            </h1>
             <div className="grid grid-cols-3 gap-x-1 gap-y-1">{listItems}</div>
         </div>
     );

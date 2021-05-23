@@ -2,6 +2,9 @@ import React, { CSSProperties } from 'react'
 import {PageHeader} from "../../SubComponent/PageHeader/PageHeader";
 import {SelectionSliderHeight} from "../../SubComponent/SelectionSlider/SelectionHeight/SelectionSliderHeight";
 import {NumberOfOccupants} from "../../SubComponent/NumberOfOccupants/NumberOfOccupants";
+import {InputLocation} from "../../SubComponent/InputLocation/InputLocation";
+import {LeftPanel} from "./LeftPanel/LeftPanel";
+import {RightPanel} from "./RightPanel/RightPanel";
 
 export type LocationProps={
     header?: string,
@@ -48,10 +51,16 @@ export const Location: React.FC<LocationProps> = (props) => {
 
                 </div>
                 <div className="row-span-2 position:relative z-2">
-                    <NumberOfOccupants nOfOccupant={30}/>
+                    <InputLocation location={"CO"}/>
                 </div>
-                <div className="row-span-2">
-                    <SelectionSliderHeight value={12}/>
+
+                <div className="grid grid-cols-2">
+                    <div className="col-span-1">
+                        <LeftPanel rate={"Low Risk"} description={"due to high vaccination rate"}/>
+                    </div>
+                    <div className="col-span-1">
+                        <RightPanel confirmed_case={11021} today_case={17} death_total_case={420} death_today_case={0} vaccination_rate={22} vaccination_total={1272898} relative_air_humidity={47}/>
+                    </div>
                 </div>
 
             </div>

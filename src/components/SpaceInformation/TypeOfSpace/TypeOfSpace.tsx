@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react'
 import {PageHeader,PageHeaderProps} from "../../SubComponent/PageHeader/PageHeader";
-
+import {GroupSpace} from "../../SubComponent/SelectionCardGroup/GroupSpace"
+import {CardGroupItem} from "../../SubComponent/SelectionCardGroup/SelectionCardGroupItem/ItemSpace";
 
 export type TypeOfSpaceProps={
     header?: string,
@@ -11,12 +12,21 @@ export type TypeOfSpaceProps={
     description: string
 }
 
+
+const defaultTypeOfSpaceGroup:CardGroupItem[] = [
+    { value: "Living Room",risk:"Low Risk",active: true, route: "test", completed: true},
+    { value: "Classroom",  risk:"High Risk", active: false, route: "test", completed: false},
+    { value: "Classroom1", risk:"Medium Risk", active: false, route: "test", completed: false},
+    { value: "Classroom2",  risk:"High Risk", active: false, route: "test", completed: false},
+
+]
+
 export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
 
     return (
         <div>
             <PageHeader {...props}/>
-            <h1>Entry to TypeOfSpace</h1>
+            <GroupSpace items={defaultTypeOfSpaceGroup}/>
         </div>
     )
 }

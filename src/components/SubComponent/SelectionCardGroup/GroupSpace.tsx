@@ -2,7 +2,7 @@ import React from 'react'
 import {ItemSpace, CardGroupItem } from './SelectionCardGroupItem/ItemSpace'
 
 export type CardGroup = {
-    header: string
+    header?: string
     items: CardGroupItem[]
 }
 

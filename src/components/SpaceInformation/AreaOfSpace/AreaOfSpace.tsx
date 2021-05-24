@@ -4,6 +4,7 @@ import {SelectionSliderHeight} from "../../SubComponent/SelectionSlider/Selectio
 
 import {LeftPanel} from "./LeftPanel/LeftPanel";
 import {RightPanel} from "./RightPanel/RightPanel";
+import {PageFooter} from "../../SubComponent/PageFooter/PageFooter";
 
 export type AreaOfSpaceProps={
     header?: string,
@@ -61,7 +62,7 @@ export const AreOfSpace: React.FC<AreaOfSpaceProps> = (props) => {
                 <div className="row-span-2">
                     <SelectionSliderHeight value={5}/>
                 </div>
-
+                <PageFooter/>
             </div>
         </div>
     )

@@ -1,17 +1,16 @@
-import React ,  { Dispatch, SetStateAction } from 'react'
+import React, {Dispatch, SetStateAction, useContext, useState} from 'react'
 import {SidebarGroup, NavGroup} from 'components/SubComponent/SidebarGroup/SidebarGroup'
+import {PageContext} from "../../context";
 export type { NavGroup } from 'components/SubComponent/SidebarGroup/SidebarGroup'
 
-type NavGroups = {
-  navGroups: NavGroup[],
-  setNavGroups: Dispatch<SetStateAction<NavGroup[]>>
-  handleChange?: (newValue: React.SetStateAction<string>) => void
-}
 
-export const SidebarNavigation: React.FC<NavGroups> = (props) => {
+
+export const SidebarNavigation: React.FC<{  }> = (props) => {
+    // @ts-ignore
+    const { contextState, updateContext } = useContext(PageContext);
     return (
     <div>
-      { props.navGroups.map((group) => <SidebarGroup  handleChange={props.handleChange} items={group.items} header={group.header}/>) }
+      { contextState.defaultNavGroups.map((group:any) => <SidebarGroup   items={group.items} header={group.header}/>) }
     </div>
   )
 }

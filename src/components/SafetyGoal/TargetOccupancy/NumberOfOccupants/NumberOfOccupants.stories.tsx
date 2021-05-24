@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react';
-import { OccupantsCard,OccupantsCardProps} from '../OccupantsCard/OccupantsCard';
+import { OccupantsCard,OccupantsCardProps} from '../../../SubComponent/OccupantsCard/OccupantsCard';
 import {NumberOfOccupants} from "./NumberOfOccupants"
 
 export default {

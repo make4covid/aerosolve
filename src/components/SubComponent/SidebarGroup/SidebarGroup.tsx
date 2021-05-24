@@ -4,14 +4,13 @@ import { SidebarGroupItem, NavGroupItem } from './SidebarGroupItem/SidebarGroupI
 export type NavGroup = {
   header: string
   items: NavGroupItem[]
-  handleChange?: (newValue: React.SetStateAction<string>) => void
 }
 
 export const SidebarGroup: React.FC<NavGroup> = (props) => {
 
     const listItems = props.items.map((item, index) =>
         <React.Fragment key={item.value}>
-            <SidebarGroupItem {...item} handleChange={props.handleChange} style={index === 0 ? {borderTop: 0} : {}}/>
+            <SidebarGroupItem {...item}  style={index === 0 ? {borderTop: 0} : {}}/>
         </React.Fragment>
     );
 

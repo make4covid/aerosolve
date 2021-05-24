@@ -1,10 +1,11 @@
 import React, { CSSProperties } from 'react'
 import {PageHeader} from "../../SubComponent/PageHeader/PageHeader";
 import {SelectionSliderHeight} from "../../SubComponent/SelectionSlider/SelectionHeight/SelectionSliderHeight";
-import {NumberOfOccupants} from "../../SubComponent/NumberOfOccupants/NumberOfOccupants";
+import {NumberOfOccupants} from "../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants";
 import {InputLocation} from "../../SubComponent/InputLocation/InputLocation";
 import {LeftPanel} from "./LeftPanel/LeftPanel";
 import {RightPanel} from "./RightPanel/RightPanel";
+import {PageFooter} from "../../SubComponent/PageFooter/PageFooter";
 
 export type LocationProps={
     header?: string,
@@ -64,6 +65,7 @@ export const Location: React.FC<LocationProps> = (props) => {
                 </div>
 
             </div>
+            <PageFooter/>
         </div>
     )
 }

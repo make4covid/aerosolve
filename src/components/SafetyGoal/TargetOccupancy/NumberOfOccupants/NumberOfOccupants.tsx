@@ -1,9 +1,9 @@
 import React, {CSSProperties, useState} from 'react'
-import {OccupantsCard,OccupantsCardProps} from "../OccupantsCard/OccupantsCard";
-import head_white from "../../../icons/head_white.png";
-import body_white from "../../../icons/body_white.png"
-import head_blue from "../../../icons/head_blue.png"
-import body_blue from "../../../icons/body_blue.png"
+import {OccupantsCard,OccupantsCardProps} from "../../../SubComponent/OccupantsCard/OccupantsCard";
+import head_white from "../../../../icons/head_white.png";
+import body_white from "../../../../icons/body_white.png"
+import head_blue from "../../../../icons/head_blue.png"
+import body_blue from "../../../../icons/body_blue.png"
 
 export const NumberOfOccupants: React.FC<OccupantsCardProps> = (props) => {
 
@@ -26,33 +26,34 @@ export const NumberOfOccupants: React.FC<OccupantsCardProps> = (props) => {
         }
     }
 
+
     return (
-        <div className="container h-auto w-auto bg-gray-300 rounded-sm">
+        <div className="h-auto w-auto rounded-xl bg-gray-300">
             <div className="grid grid-cols-3 gap-2">
-                <div className="col-span-1">
+                <div className="col-span-1 px-3 text-gray-700 font-semibold text-lg">
                     <p>Number of Occupants</p>
                     { nOfOccupant.map((value,index) =>{
                         if(value == 0){
                             return (
-                                <div>
-                                    <img src={head_white}/>
+                                <span className="inline-block p-1">
+                                    <img className="px-1" src={head_white}/>
                                     <img src={body_white}/>
-                                </div>
+                                </span>
                             )}
                         else{
                             return (
-                                <div>
-                                    <img src={head_blue}/>
+                                <span className="inline-block p-1">
+                                    <img className="px-1" src={head_blue}/>
                                     <img src={body_blue}/>
-                                </div>
+                                </span>
                             )}
                     })}
                 </div>
                 <div className="col-span-1"/>
-
-                <div className="col-span-1">
-                    <p>Target number of occupants intended for the space to be occupied in a single setting.</p>
+                    <p className="text-base font-medium">Target number of occupants intended for the space to be occupied in a single setting.</p>
                     <OccupantsCard nOfOccupant={occupant} plus={plus} minus={minus}/>
+                <div className="col-span-1">
+
                 </div>
 
             </div>

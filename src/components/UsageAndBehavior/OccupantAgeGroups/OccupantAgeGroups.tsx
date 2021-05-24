@@ -1,10 +1,11 @@
 import React, {CSSProperties, useState} from 'react'
 import {PageHeader} from "../../SubComponent/PageHeader/PageHeader";
 import {SelectionSliderHeight} from "../../SubComponent/SelectionSlider/SelectionHeight/SelectionSliderHeight";
-import {NumberOfOccupants} from "../../SubComponent/NumberOfOccupants/NumberOfOccupants";
+import {NumberOfOccupants} from "../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants";
 import {GroupAge,} from "../../SubComponent/GroupAge";
 import {CardGroupItem} from "../../SubComponent/SelectionCardGroup/SelectionCardGroupItem/ItemAge";
 import KidImage from "../../../icons/KidImage.png"
+import {PageFooter} from "../../SubComponent/PageFooter/PageFooter";
 export type OccupantAgeGroupProps={
     header?: string,
     title:string,
@@ -62,7 +63,7 @@ export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
 
                 </div>
 
-                <div>
+                <div className="relative">
                     <button onClick={handleSwitchMode} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Basic</button>
 
                     <button onClick={handleSwitchMode} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Advanced</button>
@@ -88,6 +89,9 @@ export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
                     </div>
                     }
                 </div>
+            </div>
+            <div className="relative">
+                <PageFooter/>
             </div>
         </div>
     )

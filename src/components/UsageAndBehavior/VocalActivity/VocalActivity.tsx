@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react'
 import {PageHeader, PageHeaderProps} from "../../SubComponent/PageHeader/PageHeader";
+import {PageFooter} from "../../SubComponent/PageFooter/PageFooter";
 
 
 export type VocalActivityProps={
@@ -15,9 +16,10 @@ export type VocalActivityProps={
 export const VocalActivity: React.FC<VocalActivityProps> = (props) => {
 
     return (
-        <div>
-            <PageHeader {...props}/>
+        <div className="relative">
+
             <h1>Entry to VocalActivity</h1>
+            <PageFooter/>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import {PageHeader,PageHeaderProps} from "../../SubComponent/PageHeader/PageHead
 import {SelectionSliderHeight} from "../../SubComponent/SelectionSlider/SelectionHeight/SelectionSliderHeight";
 import {LeftPanel} from "../AreaOfSpace/LeftPanel/LeftPanel";
 import {RightPanel} from "../AreaOfSpace/RightPanel/RightPanel";
+import {PageFooter} from "../../SubComponent/PageFooter/PageFooter";
 
 
 export type CeilingHeightProps={
@@ -60,8 +61,7 @@ export const CeilingHeight: React.FC<CeilingHeightProps> = (props) => {
                       <SelectionSliderHeight value={10}/>
                   </div>
                 </div>
-
-
+                <PageFooter/>
             </div>
         </div>
     )

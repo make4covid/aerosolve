@@ -14,10 +14,11 @@ export const Header = Template.bind({});
 Header.args = {
     header: "PageHeader",
     title:"01/Target Occupancy",
-    question:"What is the target occupancy for this space",
+    question:"What is the target occupancy for this space?",
     recommendation:"This space is safe for 30 people for 6 out of 8 target hours",
-    hours:8,
-    description:"Nada",
+    hours: 6,
+    people:30,
+    description:"",
 
 }
 

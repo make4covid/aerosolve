@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react'
 import {PageHeader,PageHeaderProps} from "../../SubComponent/PageHeader/PageHeader";
 import {GroupSpace} from "../../SubComponent/SelectionCardGroup/GroupSpace"
 import {CardGroupItem} from "../../SubComponent/SelectionCardGroup/SelectionCardGroupItem/ItemSpace";
+import {PageFooter} from "../../SubComponent/PageFooter/PageFooter";
 
 export type TypeOfSpaceProps={
     header?: string,
@@ -24,9 +25,10 @@ const defaultTypeOfSpaceGroup:CardGroupItem[] = [
 export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
 
     return (
-        <div>
-            <PageHeader {...props}/>
+        <div className="relative">
             <GroupSpace items={defaultTypeOfSpaceGroup}/>
+            <br/>
+            <PageFooter/>
         </div>
     )
 }

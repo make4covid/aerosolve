@@ -9,7 +9,7 @@ export type LeftPanelProps={
 export const LeftPanel: React.FC<LeftPanelProps> = (props) => {
 
     return (
-        <div className="container mx-auto bg-gray-100 rounded-lg">
+        <div className="h-full w-full bg-gray-100 rounded-lg">
             <div className="">
                 Room Size
             </div>

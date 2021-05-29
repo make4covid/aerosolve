@@ -26,11 +26,10 @@ export const NumberOfOccupants: React.FC<OccupantsCardProps> = (props) => {
         }
     }
 
-
     return (
-        <div className="h-auto w-auto rounded-xl bg-gray-300">
-            <div className="grid grid-cols-3 gap-2">
-                <div className="col-span-1 px-3 text-gray-700 font-semibold text-lg">
+        <div className="h-full w-full rounded-xl bg-gray-300 relative">
+            <div className="grid grid-cols-3">
+                <div className="col-span-1 text-gray-700 font-semibold text-lg pl-10" >
                     <p>Number of Occupants</p>
                     { nOfOccupant.map((value,index) =>{
                         if(value == 0){
@@ -48,14 +47,18 @@ export const NumberOfOccupants: React.FC<OccupantsCardProps> = (props) => {
                                 </span>
                             )}
                     })}
+
                 </div>
-                <div className="col-span-1"/>
-                    <p className="text-base font-medium">Target number of occupants intended for the space to be occupied in a single setting.</p>
-                    <OccupantsCard nOfOccupant={occupant} plus={plus} minus={minus}/>
-                <div className="col-span-1">
+                <div className="col-span-1 px-10">
 
                 </div>
 
+                <div className="col-span-1 pr-10 relative">
+                        <p className="text-base font-medium">Target number of occupants intended for the space to be occupied in a single setting.</p>
+                        <div className="z-10 relative">
+                            <OccupantsCard nOfOccupant={occupant} plus={plus} minus={minus}/>
+                        </div>
+                </div>
             </div>
 
         </div>

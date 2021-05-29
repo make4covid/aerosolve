@@ -9,7 +9,7 @@ export type LeftPanelProps={
 export const LeftPanel: React.FC<LeftPanelProps> = (props) => {
 
     return (
-       <div className="container mx-auto bg-blue-500 rounded-lg">
+       <div className="container h-full w-full bg-blue-500 rounded-lg hover:bg-red-700">
             <div className="text-white">
                 The COVID transmissive rate at your current location is at
             </div>

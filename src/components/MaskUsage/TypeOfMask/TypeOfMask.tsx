@@ -15,15 +15,20 @@ export type TypeOfMaskProps={
 export const TypeOfMask: React.FC<TypeOfMaskProps> = (props) => {
 
     return (
-        <div className="container mx-auto px-4 py-8 relative">
-                <div className="">
-                    <PageHeader title={"09/Type Of Mask"}
-                                question={"What is the target occupancy for this space?"} hours={6} people={30}
-                                description={""}/>
-                </div>
-                <div className="">
-                    <PageFooter/>
-                </div>
+        <div className="h-screen grid grid-rows-6 divide-gray-400 gap-4">
+            <div className="row-span-1">
+                <PageHeader title={"09/Type Of Mask"}
+                            question={"What is the target occupancy for this space?"} hours={6} people={30}
+                            description={""}/>
+            </div>
+
+            <div className="row-span-4">
+
+            </div>
+
+            <div className="row-span-1">
+                <PageFooter/>
+            </div>
         </div>
 
     )

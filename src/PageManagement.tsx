@@ -104,7 +104,7 @@ export const PageManagement: React.FC<{ } > = (props) => {
     const { contextState, updateContext } = useContext(PageContext);
 
 
-    return <div>
+    return <div className="m-12 max-h-screen">
         {contextState.page[contextState.index] === "Target Occupancy" && <TargetOccupancy {...TargetOccupancyDefaultProps}/>}
         {contextState.page[contextState.index] === "Location" && <Location {...LocationDefaultProps}/>}
         {contextState.page[contextState.index] === "Type of Space" && <TypeOfSpace {...TypeOfSpaceDefaultProps}/>}

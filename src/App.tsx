@@ -20,23 +20,21 @@ const App: React.FC<{ } > = (props) => {
   return (
     <Router>
       <PageContextProvider>
-        <div className="grid grid-cols-4">
-          <div >
-            <Sidebar sidebarClassName="p-8 bg-gray-200" docked shadow={false} open sidebar={
-
-                <div className="w-16 md:w-32 lg:w-48">
+        <div className="max-w-screen max-h-screen">
+            <Sidebar sidebarClassName="p-8 fixed w-1/6 left-0 bg-gray-200" docked shadow={false} open sidebar={
                   <div className="cursor-pointer">
                     <AerosolveLogo/>
+                    <SidebarNavigation/>
                   </div>
-                  <SidebarNavigation/>
-                </div>
               }
 
             >
             </Sidebar>
-          </div>
+
           {/*row-span-1 doesn't handle button? What is an alternative way to do this?*/}
+          <div className="fixed w-5/6 right-0">
             <PageManagement/>
+          </div>
         </div>
       </PageContextProvider>
     </Router>

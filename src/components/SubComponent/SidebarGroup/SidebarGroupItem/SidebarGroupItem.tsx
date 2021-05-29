@@ -29,7 +29,7 @@ export const SidebarGroupItem: React.FC<NavGroupItem> = (props) => {
 
     return (
         <div onClick={(e)=>{// @ts-ignore
-            handleChange(props.value)}}  style={props.style} className={"font-sans font-normal relative flex flex-row items-center justify-between px-2 py-1 bg-white transition duration-200 border-t" + statusStyles}>
+            handleChange(props.value)}}  style={props.style} className={"font-sans font-normal relative flex flex-row items-center justify-between px-2 py-1 bg-white transition duration-200 border-t cursor-pointer" + statusStyles}>
             <div className="text-sm">{props.value}</div>
              {props.completed  && <Checkmark className={"fill-current"} height="16" width="16"/>}
              {!props.completed && <Checkmark height="16" width="16"/>}

@@ -3,7 +3,7 @@ import {ItemAge,CardGroupItem} from "./SelectionCardGroup/SelectionCardGroupItem
 
 
 export type CardGroup = {
-    header: string
+    header?: string
     items: CardGroupItem[]
 }
 

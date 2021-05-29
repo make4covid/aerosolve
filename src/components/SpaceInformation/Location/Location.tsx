@@ -19,53 +19,30 @@ export type LocationProps={
 export const Location: React.FC<LocationProps> = (props) => {
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="grid grid-rows-6 divide-gray-400 gap-4">
-                <div className="row-span-1">
-                    <div className="grid grid-rows-2 divide-y-2 divide-gray-400 gap-4">
-                        <div className="grid grid-cols-11 divide-x-2 divide-gray-400">
-                            <div className="col-span-6">
-                                <p className="text-3xl font-bold">02/Location</p>
-                            </div>
-                            <div className="col-span-5">
-                                <div className="grid grid-cols-2">
-                                    <div className="col-span-1">
-                                        <p className="text-base font-medium pl-2">This space is safe for 30 people for 6 out of 8 targets hours.</p>
-                                    </div>
-                                    <div className="col-span-1">
-                                        <SelectionSliderHeight value={3}/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-11 divide-x-2 divide-gray-400">
-                            <div className="col-span-6">
-                                <p className="text-base font-medium">What is the occupied space located?</p>
-                            </div>
-                            <div className="col-span-5">
-                                <p>Different age groups of people have different risk levels in the events of an aerosol infection</p>
-                            </div>
-                        </div>
-                    </div>
-
-
+        <div className="h-screen  grid grid-rows-11 divide-gray-400 gap-2 ">
+                <div className="row-span-2">
+                    <PageHeader title={"02/Location"}
+                                question={"What is the target occupancy for this space?"} hours={6} people={30}
+                                description={""}/>
                 </div>
-                <div className="row-span-2 position:relative z-2">
+
+                <div className="row-span-1 relative">
                     <InputLocation location={"CO"}/>
                 </div>
-
-                <div className="grid grid-cols-2">
-                    <div className="col-span-1">
-                        <LeftPanel rate={"Low Risk"} description={"due to high vaccination rate"}/>
-                    </div>
-                    <div className="col-span-1">
-                        <RightPanel confirmed_case={11021} today_case={17} death_total_case={420} death_today_case={0} vaccination_rate={22} vaccination_total={1272898} relative_air_humidity={47}/>
+                <div className="row-span-6 relative">
+                    <div className="h-full w-full grid grid-cols-2">
+                        <div className="col-span-1">
+                            <LeftPanel rate={"Low Risk"} description={"due to high vaccination rate"}/>
+                        </div>
+                        <div className="col-span-1">
+                            <RightPanel confirmed_case={11021} today_case={17} death_total_case={420} death_today_case={0} vaccination_rate={22} vaccination_total={1272898} relative_air_humidity={47}/>
+                        </div>
                     </div>
                 </div>
-
+                <div className="row-span-2 relative">
+                    <PageFooter/>
+                </div>
             </div>
-            <PageFooter/>
-        </div>
+
     )
 }

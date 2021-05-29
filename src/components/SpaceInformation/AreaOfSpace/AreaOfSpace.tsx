@@ -5,6 +5,7 @@ import {SelectionSliderHeight} from "../../SubComponent/SelectionSlider/Selectio
 import {LeftPanel} from "./LeftPanel/LeftPanel";
 import {RightPanel} from "./RightPanel/RightPanel";
 import {PageFooter} from "../../SubComponent/PageFooter/PageFooter";
+import {SelectionCard} from "./Selection/Selection";
 
 export type AreaOfSpaceProps={
     header?: string,
@@ -17,53 +18,30 @@ export type AreaOfSpaceProps={
 export const AreOfSpace: React.FC<AreaOfSpaceProps> = (props) => {
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="grid grid-rows-6 divide-gray-400 gap-4">
-                <div className="row-span-1">
-                    <div className="grid grid-rows-2 divide-y-2 divide-gray-400 gap-4">
-                        <div className="grid grid-cols-11 divide-x-2 divide-gray-400">
-                            <div className="col-span-6">
-                                <p className="text-3xl font-bold">04/Area of Space</p>
-                            </div>
-                            <div className="col-span-5">
-                                <div className="grid grid-cols-2">
-                                    <div className="col-span-1">
-                                        <p className="text-base font-medium pl-2">This space is safe for 30 people for 6 out of 8 targets hours.</p>
-                                    </div>
-                                    <div className="col-span-1">
-                                        <SelectionSliderHeight value={3}/>
-                                    </div>
+        <div className="h-screen grid grid-rows-8 divide-gray-400 gap-4">
+            <div className="row-span-2">
+                <PageHeader title={"04/Area of Space"}
+                            question={"What is the target occupancy for this space?"} hours={6} people={30}
+                            description={""}/>
+            </div>
 
-                                </div>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-11 divide-x-2 divide-gray-400">
-                            <div className="col-span-6">
-                                <p className="text-base font-medium">What is the target occupancy for this space?</p>
-                            </div>
-                            <div className="col-span-5">
-                                <p>Empty...</p>
-                            </div>
-                        </div>
+            <div className="row-span-3 position:relative">
+                <div className="grid grid-cols-2">
+                    <div className="col-span-1">
+                        <LeftPanel size={"small apartment"} description={"18 people or less"}/>
                     </div>
-
-
-                </div>
-                <div className="row-span-2 position:relative z-2">
-                    <div className="grid grid-cols-2">
-                        <div className="col-span-1">
-                            <LeftPanel size={"small apartment"} description={"18 people or less"}/>
-                        </div>
-                        <div className="col-span-1">
-                            <RightPanel/>
-                        </div>
+                    <div className="col-span-1">
+                        <RightPanel/>
                     </div>
                 </div>
-                <div className="row-span-2">
-                    <SelectionSliderHeight value={5}/>
-                </div>
+            </div>
+            <div className="row-span-2">
+                <SelectionCard squareFeet={50}/>
+            </div>
+            <div className="row-span-1">
                 <PageFooter/>
             </div>
         </div>
+
     )
 }

@@ -18,51 +18,27 @@ export type CeilingHeightProps={
 export const CeilingHeight: React.FC<CeilingHeightProps> = (props) => {
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="grid grid-rows-6 divide-gray-400 gap-4">
-                <div className="row-span-1">
-                    <div className="grid grid-rows-2 divide-y-2 divide-gray-400 gap-4">
-                        <div className="grid grid-cols-11 divide-x-2 divide-gray-400">
-                            <div className="col-span-6">
-                                <p className="text-3xl font-bold">05/Ceiling Height</p>
-                            </div>
-                            <div className="col-span-5">
-                                <div className="grid grid-cols-2">
-                                    <div className="col-span-1">
-                                        <p className="text-base font-medium pl-2">This space is safe for 30 people for 6 out of 8 targets hours.</p>
-                                    </div>
-                                    <div className="col-span-1">
-                                        <SelectionSliderHeight value={3}/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-11 divide-x-2 divide-gray-400">
-                            <div className="col-span-6">
-                                <p className="text-base font-medium">What is the target occupancy for this space?</p>
-                            </div>
-                            <div className="col-span-5">
-                                <p>Empty...</p>
-                            </div>
-                        </div>
-                    </div>
+        <div className="h-screen gap-4 grid grid-rows-11 divide-gray-400">
+                <div className="row-span-2">
+                    <PageHeader title={"5/Ceiling Height"} question={"bla"} hours={30} people={30} description={"bla"}/>
 
 
                 </div>
-                <div className="row-span-4 position:relative z-2">
+                <div className="row-span-5">
                   <div>
                       Room Ceiling Height
                       Large room with tall ceilings have more air circulating, so it takes longer for exhaled aerosols to reach a dangerous concentration
 
                   </div>
-
-                  <div>
-                      <SelectionSliderHeight value={10}/>
-                  </div>
                 </div>
-                <PageFooter/>
-            </div>
+                <div className="row-span-3">
+                      <SelectionSliderHeight value={10}/>
+                </div>
+
+                <div className="row-span-1">
+                    <PageFooter/>
+                </div>
+
         </div>
     )
 }

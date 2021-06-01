@@ -3,7 +3,7 @@ import { GroupActivity, CardGroup } from './GroupActivity';
 import KidImage from 'assets/old/KidImage.png';
 
 export default {
-  title: 'Aerosolve/Atoms/SubComponent/SelectionCardGroupActivity',
+  title: 'Aerosolve/Review & Refactor/SelectionCardGroupActivity',
   component: GroupActivity,
 };
 

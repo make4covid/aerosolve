@@ -1,26 +1,26 @@
 import { Story } from '@storybook/react';
-import { OccupantsCard,OccupantsCardProps} from './OccupantsCard';
-
+import { OccupantsCard, OccupantsCardProps } from './OccupantsCard';
 
 export default {
-    title: 'Aerosolve/Atoms/SubComponent/OccupantsCard',
-    component: OccupantsCard
-}
+  title: 'Aerosolve/Review & Refactor/OccupantsCard',
+  component: OccupantsCard,
+};
 
-const Template: Story<OccupantsCardProps> = (args) => <OccupantsCard {...args} />;
+const Template: Story<OccupantsCardProps> = (args) => (
+  <OccupantsCard {...args} />
+);
 
 export const OccupantCard = Template.bind({});
 
 OccupantCard.args = {
-    header: "OccupantCard",
-    nOfOccupant: 50
-
-}
-
+  header: 'OccupantCard',
+  nOfOccupant: 50,
+};
 
 OccupantCard.parameters = {
-    design: {
-        type: 'figma',
-        url: 'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=1584%3A5819',
-    }
-}
+  design: {
+    type: 'figma',
+    url:
+      'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=1584%3A5819',
+  },
+};

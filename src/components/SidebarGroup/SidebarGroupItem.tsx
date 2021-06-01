@@ -4,8 +4,7 @@ import React, {
   SetStateAction,
   useContext,
 } from 'react';
-// import checkmark from './Checkmark.png'
-import { ReactComponent as Checkmark } from 'icons/checkmark.svg';
+import { ReactComponent as Checkmark } from 'assets/icons/checkmark.svg';
 import { PageContext } from 'context';
 
 export type NavGroupItem = {
@@ -41,15 +40,15 @@ export const SidebarGroupItem: React.FC<NavGroupItem> = (props) => {
       }}
       style={props.style}
       className={
-        'font-sans font-normal relative flex flex-row items-center justify-between px-2 py-1 bg-white transition duration-200 border-t cursor-pointer' +
+        'font-sans font-normal relative flex flex-row items-center justify-between px-4 py-2 bg-white transition duration-200 border-t cursor-pointer' +
         statusStyles
       }
     >
-      <div className="text-sm">{props.value}</div>
+      <div>{props.value}</div>
       {props.completed && (
-        <Checkmark className={'fill-current'} height="16" width="16" />
+        <Checkmark className={'fill-current'} height="24" width="24" />
       )}
-      {!props.completed && <Checkmark height="16" width="16" />}
+      {!props.completed && <Checkmark height="24" width="24" />}
     </div>
   );
 };

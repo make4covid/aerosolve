@@ -1,13 +1,15 @@
 import { Story } from '@storybook/react';
-import {AerosolveLogo} from "./AerosolveLogo";
-
+import { AerosolveLogo } from './AerosolveLogo';
 
 export default {
-    title: 'Aerosolve/Atoms/SubComponent/AerosolveLogo',
-    component: AerosolveLogo
-}
+  title: 'Aerosolve/AerosolveLogo',
+  component: AerosolveLogo,
+};
 
-
-const Template: Story<{}> = (args) => <AerosolveLogo {...args} />;
+const Template: Story<{}> = (args) => (
+  <div className="w-96">
+    <AerosolveLogo {...args} />
+  </div>
+);
 
 export const Default = Template.bind({});

@@ -1,8 +1,9 @@
 import { Story } from '@storybook/react';
 import { GroupAge, CardGroup } from './GroupAge';
 import KidImage from 'assets/old/KidImage.png';
+
 export default {
-  title: 'Aerosolve/Atoms/SubComponent/SelectionCardGroupAge',
+  title: 'Aerosolve/Review & Refactor/SelectionCardGroupAge',
   component: GroupAge,
 };
 

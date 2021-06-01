@@ -2,7 +2,7 @@ import { Story } from '@storybook/react';
 import { GroupMask, CardGroup } from './GroupMask';
 import KidImage from 'assets/old/KidImage.png';
 export default {
-  title: 'Aerosolve/Atoms/SubComponent/SelectionCardGroupMask',
+  title: 'Aerosolve/Review & Refactor/SelectionCardGroupMask',
   component: GroupMask,
 };
 

@@ -1,15 +1,10 @@
 import './App.css';
 
 import Sidebar from 'react-sidebar';
-import { SidebarNavigation, NavGroup } from 'components/SidebarNavigation';
+import { SidebarNavigation } from 'components';
 import React, { useContext, useState } from 'react';
 import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  // Link
-} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { PageContext, PageContextProvider } from './context';
 import { PageManagement } from './PageManagement';
@@ -18,24 +13,21 @@ const App: React.FC<{}> = (props) => {
   return (
     <Router>
       <PageContextProvider>
-        <div className="max-w-screen max-h-screen">
+        <div className="max-h-screen max-w-screen">
           <Sidebar
-            sidebarClassName="p-8 fixed w-1/6 left-0 bg-gray-200"
+            sidebarClassName="p-8 fixed w-1/6 left-0 bg-gray-200 max-w-xl"
             docked
             shadow={false}
             open
             sidebar={
-              <div className="cursor-pointer">
+              <div className="w-full cursor-pointer">
                 <AerosolveLogo />
                 <SidebarNavigation />
               </div>
             }
-          ></Sidebar>
-
-          {/*row-span-1 doesn't handle button? What is an alternative way to do this?*/}
-          <div className="fixed w-5/6 right-0">
+          >
             <PageManagement />
-          </div>
+          </Sidebar>
         </div>
       </PageContextProvider>
     </Router>

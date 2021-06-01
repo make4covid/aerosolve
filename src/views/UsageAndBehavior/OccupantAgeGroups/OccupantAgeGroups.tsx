@@ -2,7 +2,7 @@ import React, { CSSProperties, useState } from 'react';
 import { PageHeader } from 'components/PageHeader/PageHeader';
 import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
 import { NumberOfOccupants } from '../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants';
-import { GroupAge } from 'components/GroupAge';
+import { GroupAge } from 'components/SelectionCardGroup/GroupAge';
 import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemAge';
 import KidImage from 'assets/old/KidImage.png';
 import { PageFooter } from 'components/PageFooter/PageFooter';

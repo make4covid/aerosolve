@@ -74,6 +74,7 @@
     "postcss": "^7.0.35",
     "puppeteer": "^8.0.0",
     "storybook-addon-designs": "^6.0.0-alpha.3",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4",
+    "twin.macro": "^2.4.2"
   }
 }

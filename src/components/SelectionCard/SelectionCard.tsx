@@ -1,20 +1,37 @@
 import React from 'react';
+import tw from 'twin.macro';
 
-export interface BoxProps {
+// TODO: Check out "Beamwind" for conditional TW styling
+
+export interface SelectionOptions {
+  title: string;
+  description: string;
+  img?: string;
+}
+export interface SelectionCardProps {
   /**
    * Is this item selected?
    */
   selected?: boolean;
   /**
-   * Optional click handler
+   * Use a column orientation?
    */
-  onClick?: () => void;
+  column?: boolean;
+  // /**
+  //  * Optional click handler
+  //  */
+  onClick: () => void;
 }
 
 /**
  * UI Box for selectable blocks containing information and images
  */
-export const Box: React.FC<BoxProps> = ({ selected = false, ...props }) => {
+export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
+  selected = false,
+  column = false,
+
+  ...props
+}) => {
   return (
     <div
       className={
@@ -22,8 +39,9 @@ export const Box: React.FC<BoxProps> = ({ selected = false, ...props }) => {
         (selected ? 'bg-blue-500 shadow-lg' : 'bg-gray-100 hover:shadow-lg')
       }
       {...props}
-    >
-      {props.children}
-    </div>
+      // onClick={
+      //   props.onClick();
+      // }}
+    ></div>
   );
 };

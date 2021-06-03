@@ -1,7 +1,8 @@
 import React from 'react';
 import tw from 'twin.macro';
 
-// TODO: Check out "Beamwind" for conditional TW styling
+import clsx from 'clsx';
+import { title } from 'process';
 
 export interface SelectionOptions {
   title: string;
@@ -21,6 +22,7 @@ export interface SelectionCardProps {
   //  * Optional click handler
   //  */
   onClick: () => void;
+  className?: string;
 }
 
 /**
@@ -34,14 +36,31 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
 }) => {
   return (
     <div
-      className={
-        'rounded-md w-full h-64 p-5 cursor-pointer transition duration-300 ' +
-        (selected ? 'bg-blue-500 shadow-lg' : 'bg-gray-100 hover:shadow-lg')
-      }
+      className={clsx(
+        'rounded-md w-full p-4 cursor-pointer transition duration-300',
+        selected && 'bg-blue-500 shadow-inner',
+        !selected && 'bg-gray-100 hover:shadow-lg'
+      )}
       {...props}
-      // onClick={
-      //   props.onClick();
-      // }}
-    ></div>
+    >
+      <div
+        className={clsx(
+          'font-bold text-lg transition duration-300 leading-snug whitespace-pre-wrap',
+          selected && 'text-white',
+          !selected && 'text-gray-700'
+        )}
+      >
+        {props.title}
+      </div>
+      <div
+        className={clsx(
+          'font-semibold transition duration-300 leading-snug',
+          selected && 'text-white',
+          !selected && 'text-blue-500'
+        )}
+      >
+        {props.description}
+      </div>
+    </div>
   );
 };

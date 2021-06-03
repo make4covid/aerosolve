@@ -4,12 +4,21 @@ import {
   SelectionOptions,
 } from 'components/SelectionCard/SelectionCard';
 
-import tw from 'twin.macro';
+import clsx from 'clsx';
 
 export interface SelectionGroupProps {
+  /**
+   * Allow multiple selection?
+   */
   multi?: boolean;
+  /**
+   * Array of selected options
+   */
   selected?: number[];
-  onSelect: (selected: number[]) => void;
+  /**
+   * Action to set
+   */
+  setSelected: (selected: number[]) => void;
   options: SelectionOptions[];
 }
 /**
@@ -22,18 +31,18 @@ export const SelectionGroup: React.FC<SelectionGroupProps> = ({
 }) => {
   const toggle = (option: number) => {
     if (!multi) {
-      props.onSelect([option]);
+      props.setSelected([option]);
       return;
     }
 
     const selectedSet = new Set(selected);
     if (selectedSet.has(option)) selectedSet.delete(option);
     else selectedSet.add(option);
-
-    props.onSelect(Array.from(selectedSet));
+    props.setSelected(Array.from(selectedSet));
   };
+
   return (
-    <div>
+    <div className={clsx('grid grid-cols-2 gap-6 max-w-5xl')}>
       {props.options.map((option, index) => (
         <SelectionCard
           {...option}

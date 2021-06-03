@@ -71,6 +71,7 @@
     "@types/react-sidebar": "^3.0.0",
     "autoprefixer": "^9.8.6",
     "chai": "^4.3.4",
+    "clsx": "^1.1.1",
     "postcss": "^7.0.35",
     "puppeteer": "^8.0.0",
     "storybook-addon-designs": "^6.0.0-alpha.3",

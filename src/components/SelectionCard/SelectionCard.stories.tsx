@@ -1,6 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { SelectionCard, BoxProps } from './SelectionCard';
+import {
+  SelectionCard,
+  SelectionCardProps,
+  SelectionOptions,
+} from './SelectionCard';
 
 import { withDesign } from 'storybook-addon-designs';
 
@@ -10,7 +14,7 @@ export default {
   decorators: [withDesign],
 } as Meta;
 
-const Template: Story<BoxProps> = (args) => (
+const Template: Story<SelectionCardProps & SelectionOptions> = (args) => (
   <div className="w-1/3">
     <SelectionCard {...args} title="A Title" description="A Description" />
   </div>

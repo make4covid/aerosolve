@@ -1,8 +1,5 @@
 import React from 'react';
-import tw from 'twin.macro';
-
 import clsx from 'clsx';
-import { title } from 'process';
 
 export interface SelectionOptions {
   title: string;
@@ -61,6 +58,7 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
       >
         {props.description}
       </div>
+      {props.img && <img src={props.img} alt="" />}
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react';
 import { SelectionGroup, SelectionGroupProps } from './SelectionGroup';
 
+import KidImage from 'assets/old/KidImage.png';
+
 import { withDesign } from 'storybook-addon-designs';
 import { SelectionOptions } from 'components/SelectionCard/SelectionCard';
 
@@ -15,7 +17,7 @@ const options: SelectionOptions[] = [
   {
     title: 'Card 1\nMultiline title',
     description: 'Description 1',
-    img: 'assets/old/KidImage.png',
+    img: KidImage,
   },
   {
     title: 'Card 2',

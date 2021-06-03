@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react';
 import { SelectionGroup, SelectionGroupProps } from './SelectionGroup';
 
-import KidImage from 'assets/old/KidImage.png';
+import Kids from 'assets/images/kids.png';
 
 import { withDesign } from 'storybook-addon-designs';
 import { SelectionOptions } from 'components/SelectionCard/SelectionCard';
@@ -17,38 +17,41 @@ const options: SelectionOptions[] = [
   {
     title: 'Card 1\nMultiline title',
     description: 'Description 1',
-    img: KidImage,
+    img: Kids,
   },
   {
     title: 'Card 2',
     description: 'Description 2',
+    img: Kids,
   },
   {
     title: 'Card 3',
     description: 'Description 2',
+    img: Kids,
   },
   {
     title: 'Card 4',
     description: 'Description 2',
+    img: Kids,
   },
 ];
 
 const Template: Story<SelectionGroupProps> = (args) => {
-  const [selected, setSelected] = useState([1, 2] as number[]);
+  const [selected, setSelected] = useState([] as number[]);
 
   return (
     <div>
-      <SelectionGroup
-        selected={selected}
-        setSelected={setSelected}
-        options={options}
-      />
+      <SelectionGroup {...args} selected={selected} setSelected={setSelected} />
     </div>
   );
 };
 
 export const SingleSelect = Template.bind({});
-SingleSelect.args = {};
+SingleSelect.args = {
+  options,
+  multi: true,
+  cardCol: false,
+};
 
 SingleSelect.parameters = {
   design: {

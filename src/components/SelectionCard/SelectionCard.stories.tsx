@@ -1,5 +1,8 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
+
+import Kids from 'assets/images/kids.png';
+
 import {
   SelectionCard,
   SelectionCardProps,
@@ -27,10 +30,10 @@ PlainSelected.args = { selected: true };
 
 export const RowUnselected = Template.bind({});
 export const RowSelected = Template.bind({});
-RowUnselected.args = { selected: false, img: 'source' };
-RowSelected.args = { selected: true, img: 'source' };
+RowUnselected.args = { selected: false, img: Kids, column: false };
+RowSelected.args = { selected: true, img: Kids, column: false };
 
 export const ColUnselected = Template.bind({});
 export const ColSelected = Template.bind({});
-ColUnselected.args = { selected: false, img: 'source', column: true };
-ColSelected.args = { selected: true, img: 'source', column: true };
+ColUnselected.args = { selected: false, img: Kids, column: true };
+ColSelected.args = { selected: true, img: Kids, column: true };

@@ -16,17 +16,30 @@ export interface SelectionGroupProps {
    */
   selected?: number[];
   /**
-   * Action to set
+   * Number of columns to use in the grid
+   */
+  columns?: number;
+  /**
+   * Action to set selected options
    */
   setSelected: (selected: number[]) => void;
+  /**
+   * Orient card as column?
+   */
+  cardCol?: boolean;
+  /**
+   * Data for available options
+   */
   options: SelectionOptions[];
 }
 /**
  * Group of selection cards
  */
 export const SelectionGroup: React.FC<SelectionGroupProps> = ({
-  multi = false,
+  multi = true,
   selected = [],
+  columns = 2,
+  cardCol = false,
   ...props
 }) => {
   const toggle = (option: number) => {
@@ -42,14 +55,15 @@ export const SelectionGroup: React.FC<SelectionGroupProps> = ({
   };
 
   return (
-    <div className={clsx('grid grid-cols-2 gap-6 max-w-5xl')}>
+    <div className={clsx(`grid grid-cols-${columns} gap-6 max-w-5xl`)}>
       {props.options.map((option, index) => (
         <SelectionCard
           {...option}
-          selected={selected.includes(index)}
+          selected={selected?.includes(index)}
           onClick={() => {
             toggle(index);
           }}
+          column={cardCol}
         ></SelectionCard>
       ))}
     </div>

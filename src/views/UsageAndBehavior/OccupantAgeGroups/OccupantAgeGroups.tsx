@@ -2,8 +2,6 @@ import React, { CSSProperties, useState } from 'react';
 import { PageHeader } from 'components/PageHeader/PageHeader';
 import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
 import { NumberOfOccupants } from '../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants';
-import { GroupAge } from 'components/SelectionCardGroup/GroupAge';
-import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemAge';
 import KidImage from 'assets/old/KidImage.png';
 import { PageFooter } from 'components/PageFooter/PageFooter';
 export type OccupantAgeGroupProps = {
@@ -15,6 +13,7 @@ export type OccupantAgeGroupProps = {
   description: string;
 };
 
+/*
 const DefaultOccupantAgeGroup: CardGroupItem[] = [
   {
     value: 'Living Room',
@@ -44,6 +43,8 @@ const DefaultOccupantAgeGroup: CardGroupItem[] = [
     completed: false,
   },
 ];
+
+ */
 
 export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
   const [mode, setMode] = useState(false);
@@ -90,7 +91,7 @@ export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
           {!mode && (
             <div>
               <div className="">
-                <GroupAge items={DefaultOccupantAgeGroup} />
+                {/*<GroupAge items={DefaultOccupantAgeGroup} />*/}
               </div>
             </div>
           )}

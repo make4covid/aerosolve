@@ -4,7 +4,7 @@ import tw from 'twin.macro';
 
 export interface SelectionOptions {
   title: string;
-  description: string;
+  description?: string;
   img?: string;
 }
 export interface SelectionCardProps {
@@ -12,6 +12,9 @@ export interface SelectionCardProps {
    * Is this item selected?
    */
   selected?: boolean;
+  /**
+   *
+   */
   /**
    * Use a column orientation?
    */
@@ -34,7 +37,7 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
   return (
     <div
       className={clsx(
-        'rounded-lg w-full p-3 cursor-pointer transition duration-200 flex justify-between',
+        'relative rounded-lg w-full p-3 cursor-pointer transition duration-200 flex justify-between',
         selected && 'bg-blue-500 shadow-inner',
         !selected && 'bg-gray-200 hover:shadow-lg',
         column && 'flex-col',
@@ -60,10 +63,15 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
               !selected && 'text-blue-500'
             )}
           >
-            {props.description}
+            {props.description != null && props.description}
           </div>
         </div>
-        <div className="w-6 h-6 mt-5 font-bold text-center text-gray-200 bg-gray-400 rounded-full">
+
+        <div className={clsx(
+            "w-6 h-6 mt-5 font-bold text-center text-gray-200 bg-gray-400 rounded-full",
+            props.description == null && "absolute mx-3 my-2 bottom-0 left-0"
+        )}
+        >
           ?
         </div>
       </div>

@@ -1,11 +1,11 @@
-import React, { CSSProperties } from 'react';
+import React, {CSSProperties, useState} from 'react';
 import { PageHeader, PageHeaderProps } from 'components/PageHeader/PageHeader';
-import { GroupSpace } from 'components/SelectionCardGroup/GroupSpace';
-import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemSpace';
 import { PageFooter } from 'components/PageFooter/PageFooter';
 import { InputLocation } from 'components/InputLocation/InputLocation';
 import { LeftPanel } from '../Location/LeftPanel/LeftPanel';
 import { RightPanel } from '../Location/RightPanel/RightPanel';
+import {SelectionGroup} from "../../../components/SelectionCardGroup/SelectionGroup";
+import {SelectionOptions} from "../../../components/SelectionCard/SelectionCard";
 
 export type TypeOfSpaceProps = {
   header?: string;
@@ -16,6 +16,7 @@ export type TypeOfSpaceProps = {
   description: string;
 };
 
+/*
 const defaultTypeOfSpaceGroup: CardGroupItem[] = [
   {
     value: 'Living Room',
@@ -47,7 +48,49 @@ const defaultTypeOfSpaceGroup: CardGroupItem[] = [
   },
 ];
 
+
+ */
+
+
+let options: SelectionOptions[] =
+    [
+
+        {
+            title: 'Living Room',
+            description: 'Lowest Risk'
+        },
+        {
+            title: 'Classroom',
+            description: 'Lowest Risk',
+        },
+        {
+            title: 'Place of Worship',
+            description: 'Medium Risk',
+        },
+        {
+            title: 'Restaurant',
+            description: 'Medium Risk',
+        },
+        {
+            title: 'Office',
+            description: 'Medium Risk',
+        },
+        {
+            title: 'Bus/Train',
+            description: 'Higher Risk',
+        },
+        {
+            title: 'Commercial Airline',
+            description: 'Higher Risk',
+        },
+        {
+            title: 'Grocery Store',
+            description: 'Higher Risk',
+        },
+
+    ];
 export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
+    const [selected, setSelected] = useState([] as number[]);
   return (
     <div className="h-screen  grid grid-rows-8 divide-gray-400 gap-2 ">
       <div className="row-span-2">
@@ -61,7 +104,8 @@ export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
       </div>
 
       <div className="row-span-5 relative">
-        <GroupSpace items={defaultTypeOfSpaceGroup} />
+        {/*<GroupSpace items={defaultTypeOfSpaceGroup} /> */}
+        <SelectionGroup options = {options} multi={false} cardCol={false} columns={3} selected={selected} setSelected={setSelected}/>
       </div>
       <div className="row-span-1 relative">
         <PageFooter />

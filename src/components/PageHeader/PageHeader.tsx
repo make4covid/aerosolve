@@ -1,5 +1,5 @@
 import React, { CSSProperties }from 'react'
-import  {SelectionSliderHeight} from "../SelectionSlider/SelectionHeight/SelectionSliderHeight"
+import  {SelectionSlider} from "../SelectionSlider/SelectionSlider"
 export type PageHeaderProps = {
     header?: string,
     title: string,
@@ -24,7 +24,7 @@ export const PageHeader: React.FC<PageHeaderProps> = (props) => {
                                 <p className="text-base font-medium pl-2">This space is safe for <span className="text-blue-600">{props.people}</span> people for <span className="text-red-600">{props.hours}</span> out of <span className="text-red-600">8</span> targets hours.</p>
                             </div>
                             <div className="col-span-1">
-                                <SelectionSliderHeight value={3}/>
+                                <div>Selection Slider</div>
                             </div>
 
                         </div>

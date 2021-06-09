@@ -122,7 +122,7 @@ export const PageManagement: React.FC<{}> = (props) => {
   const { contextState, updateContext } = useContext(PageContext);
 
   return (
-    <div className="m-12 max-h-screen">
+    <div className="m-16 h-full">
       {contextState.page[contextState.index] === 'Target Occupancy' && (
         <TargetOccupancy {...TargetOccupancyDefaultProps} />
       )}

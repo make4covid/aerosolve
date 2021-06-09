@@ -1,8 +1,9 @@
 import React, { CSSProperties, useContext } from 'react';
 import { PageHeader, PageHeaderProps } from 'components/PageHeader/PageHeader';
-import { NumberOfOccupants } from './NumberOfOccupants/NumberOfOccupants';
+import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants';
 import { HoursCard } from './HoursCard/HoursCard';
 import { PageFooter } from 'components/PageFooter/PageFooter';
+import {PlainCard} from "../../../components/PlainCard/PlainCard";
 
 export type TargetOccupancyItem = {
   header?: string;
@@ -15,8 +16,7 @@ export type TargetOccupancyItem = {
 
 export const TargetOccupancy: React.FC<TargetOccupancyItem> = (props) => {
   return (
-    <div className="h-screen grid grid-rows-10 divide-gray-400 gap-2">
-      <div className="row-span-1.5">
+    <div className="w-full h-full">
         <PageHeader
           title={'01/Target Occupancy'}
           question={'What is the target occupancy for this space?'}
@@ -24,16 +24,27 @@ export const TargetOccupancy: React.FC<TargetOccupancyItem> = (props) => {
           people={30}
           description={''}
         />
+
+      <br/>
+      <div className="w-full h-96 relative bg-gray-300 rounded-xl">
+        <PlainCard title={"Target Number of Occupants\n"}
+                   description={`Target number of occupants~\n
+                                intended for the space to be~\n
+                                occupied in a single setting.~\n
+                                `}
+                   occupants={true}
+        />
       </div>
-      <div className="row-span-4 relative gap-2 relative">
-        <NumberOfOccupants nOfOccupant={30} />
+      <br/>
+      <div className="w-full h-64 relative bg-gray-300 rounded-xl">
+        <PlainCard title={"Target Number of Hours"}
+                   description={"Target number of occupants intended for\n the space to be occupied in a single\nsetting."}
+                   hours={true}
+        />
       </div>
-      <div className="row-span-2.5 relative gap-2">
-        <HoursCard hours={30} />
-      </div>
-      <div className="row-span-1.5 relative gap-2">
-        <PageFooter />
-      </div>
+      <br/>
+      <PageFooter />
+
     </div>
   );
 };

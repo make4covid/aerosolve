@@ -89,11 +89,11 @@ let options: SelectionOptions[] =
         },
 
     ];
+
 export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
-    const [selected, setSelected] = useState([] as number[]);
+  const [selected, setSelected] = useState([] as number[]);
   return (
-    <div className="h-screen  grid grid-rows-8 divide-gray-400 gap-2 ">
-      <div className="row-span-2">
+    <div className="w-full h-full">
         <PageHeader
           title={'03/Type of Space'}
           question={'What is the target occupancy for this space?'}
@@ -101,15 +101,15 @@ export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
           people={30}
           description={''}
         />
-      </div>
-
-      <div className="row-span-5 relative">
+        <br/>
+        <div className="w-full h-64 bg-gray-400 rounded-2xl">Living Room Description</div>
+        <br/>
+        <div className="">
         {/*<GroupSpace items={defaultTypeOfSpaceGroup} /> */}
-        <SelectionGroup options = {options} multi={false} cardCol={false} columns={3} selected={selected} setSelected={setSelected}/>
-      </div>
-      <div className="row-span-1 relative">
+            <SelectionGroup options = {options} multi={false} cardCol={false} columns={3} selected={selected} setSelected={setSelected}/>
+        </div>
         <PageFooter />
-      </div>
+
     </div>
   );
 };

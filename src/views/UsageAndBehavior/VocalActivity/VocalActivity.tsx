@@ -3,7 +3,6 @@ import { PageHeader, PageHeaderProps } from 'components/PageHeader/PageHeader';
 import { PageFooter } from 'components/PageFooter/PageFooter';
 import { LeftPanel } from '../../SpaceInformation/AreaOfSpace/LeftPanel/LeftPanel';
 import { RightPanel } from '../../SpaceInformation/AreaOfSpace/RightPanel/RightPanel';
-import { SelectionCard } from '../../SpaceInformation/AreaOfSpace/Selection/Selection';
 
 export type VocalActivityProps = {
   header?: string;

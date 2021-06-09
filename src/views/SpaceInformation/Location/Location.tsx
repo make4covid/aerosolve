@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { PageHeader } from 'components/PageHeader/PageHeader';
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
-import { NumberOfOccupants } from '../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants';
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider';
+import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants';
 import { InputLocation } from 'components/InputLocation/InputLocation';
 import { LeftPanel } from './LeftPanel/LeftPanel';
 import { RightPanel } from './RightPanel/RightPanel';
@@ -18,8 +18,8 @@ export type LocationProps = {
 
 export const Location: React.FC<LocationProps> = (props) => {
   return (
-    <div className="h-screen  grid grid-rows-11 divide-gray-400 gap-2 ">
-      <div className="row-span-2">
+    <div className="h-full width-full">
+      <div className="">
         <PageHeader
           title={'02/Location'}
           question={'What is the target occupancy for this space?'}
@@ -28,32 +28,36 @@ export const Location: React.FC<LocationProps> = (props) => {
           description={''}
         />
       </div>
-
-      <div className="row-span-1 relative">
+      <br/>
+      <br/>
+      <div className="h-16">
         <InputLocation location={'CO'} />
       </div>
-      <div className="row-span-6 relative">
-        <div className="h-full w-full grid grid-cols-2">
-          <div className="col-span-1">
+
+      <br/>
+
+      <div className="w-full h-3/5 flex flex-cols space-x-4">
+        <div className="flex-2 w-2/7">
             <LeftPanel
-              rate={'Low Risk'}
-              description={'due to high vaccination rate'}
+            title={'The COVID transmissive\nrate at your current\nlocation is at'}
+            rate={'Low Risk'}
+            description={'due to high vaccination rate'}
             />
-          </div>
-          <div className="col-span-1">
-            <RightPanel
-              confirmed_case={11021}
-              today_case={17}
-              death_total_case={420}
-              death_today_case={0}
-              vaccination_rate={22}
-              vaccination_total={1272898}
-              relative_air_humidity={47}
-            />
-          </div>
         </div>
+        <div className="flex-1 w-5/7">
+            <RightPanel
+            confirmed_case={11021}
+            today_case={17}
+            death_total_case={420}
+            death_today_case={0}
+            vaccination_rate={22}
+            vaccination_total={1272898}
+            relative_air_humidity={47}
+        />
+    </div>
       </div>
-      <div className="row-span-2 relative">
+      <br/>
+      <div className="">
         <PageFooter />
       </div>
     </div>

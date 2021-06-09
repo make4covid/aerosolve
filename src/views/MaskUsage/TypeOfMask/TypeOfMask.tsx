@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { PageHeader, PageHeaderProps } from 'components/PageHeader/PageHeader';
 import { PageFooter } from 'components/PageFooter/PageFooter';
-import { NumberOfOccupants } from '../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants';
+import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants';
 import { HoursCard } from '../../SafetyGoal/TargetOccupancy/HoursCard/HoursCard';
 
 export type TypeOfMaskProps = {

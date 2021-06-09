@@ -2,11 +2,14 @@ import { Story } from '@storybook/react';
 import { InputLocation, InputLocationProps } from './InputLocation';
 
 export default {
-    title: 'Aerosolve/Atoms/SpaceInformation/Location/InputLocation',
+    title: 'Aerosolve/Atoms/InputLocation',
     component: InputLocation
 }
 
-const Template: Story<InputLocationProps> = (args) => <InputLocation {...args} />;
+const Template: Story<InputLocationProps> = (args) =>
+    <div className="w-full h-24">
+        <InputLocation {...args} />;
+    </div>
 
 export const InputLocationActivity = Template.bind({});
 

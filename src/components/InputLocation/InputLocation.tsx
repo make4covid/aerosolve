@@ -8,18 +8,24 @@ export type InputLocationProps = {
 
 export const InputLocation: React.FC<InputLocationProps> = (props) => {
   return (
-    <div className="h-full w-full grid grid-cols-8 bg-gray-200 rounded-lg">
-      <div className="col-span-3">
-        <div className="m-4">
-          <img className="inline-block px-2" src={Location_Pointer} />
-          <p className="inline-block font-medium text-2xl py-4">Location</p>
+    <div className="h-full w-full flex bg-gray-400">
+      <div className="flex-1">
+        <div className="m-3">
+          <img className="inline-block px-2 mx-1" src={Location_Pointer} />
+          <p className="inline-block font-medium text-2xl py-4 mx-2">Location</p>
         </div>
       </div>
 
       <input
-        className="col-span-5 w-5/8 m-4 w-9/10 h-9/10 bg-white border-2 border-blue-500 rounded-lg gap-2"
+        className="flex-1 bg-white h-16 w-32 m-4 border-2 border-blue-500 rounded-2xl gap-2"
         placeholder="State"
       />
+
+        <input
+            className="flex-1 bg-white h-16 w-32 m-4 border-2 border-blue-500 rounded-2xl gap-2"
+            placeholder="County"
+        />
+
     </div>
-  );
+  )
 };

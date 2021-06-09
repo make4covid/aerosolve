@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { PageHeader, PageHeaderProps } from 'components/PageHeader/PageHeader';
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider';
 import { LeftPanel } from '../AreaOfSpace/LeftPanel/LeftPanel';
 import { RightPanel } from '../AreaOfSpace/RightPanel/RightPanel';
 import { PageFooter } from 'components/PageFooter/PageFooter';
@@ -34,7 +34,7 @@ export const CeilingHeight: React.FC<CeilingHeightProps> = (props) => {
         </div>
       </div>
       <div className="row-span-3">
-        <SelectionSliderHeight value={10} />
+
       </div>
 
       <div className="row-span-1">

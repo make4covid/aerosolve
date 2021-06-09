@@ -1,11 +1,11 @@
 import React, { CSSProperties } from 'react';
 import { PageHeader } from 'components/PageHeader/PageHeader';
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider';
 
 import { LeftPanel } from './LeftPanel/LeftPanel';
 import { RightPanel } from './RightPanel/RightPanel';
 import { PageFooter } from 'components/PageFooter/PageFooter';
-import { SelectionCard } from './Selection/Selection';
+import {PlainCard} from "../../../components/PlainCard/PlainCard";
 
 export type AreaOfSpaceProps = {
   header?: string;
@@ -17,36 +17,36 @@ export type AreaOfSpaceProps = {
 };
 export const AreOfSpace: React.FC<AreaOfSpaceProps> = (props) => {
   return (
-    <div className="h-screen grid grid-rows-8 divide-gray-400 gap-4">
-      <div className="row-span-2">
+    <div className="w-full h-full">
         <PageHeader
-          title={'04/Area of Space'}
-          question={'What is the target occupancy for this space?'}
-          hours={6}
-          people={30}
-          description={''}
+        title={'04/Area of Space'}
+        question={'What is the target occupancy for this space?'}
+        hours={6}
+        people={30}
+        description={''}
         />
-      </div>
-
-      <div className="row-span-3 position:relative">
-        <div className="grid grid-cols-2">
-          <div className="col-span-1">
-            <LeftPanel
-              size={'small apartment'}
-              description={'18 people or less'}
-            />
-          </div>
-          <div className="col-span-1">
-            <RightPanel />
-          </div>
+        <br/>
+        <div className="w-full lg:h-96 flex flex-cols space-x-4">
+            <div className="flex-2 w-2/7">
+                <LeftPanel
+                size={'small apartment'}
+                description={'18 people or less'}
+                />
+            </div>
+            <div className="flex-1 w-2/7">
+                <RightPanel />
+            </div>
         </div>
-      </div>
-      <div className="row-span-2">
-        <SelectionCard squareFeet={50} />
-      </div>
-      <div className="row-span-1">
+        <br/>
+        <div className="w-full lg:h-64 bg-gray-300">
+            <PlainCard title={"Target Number of Hours"}
+                       description={"Target number of occupants intended for\n the space to be occupied in a single\nsetting."}
+                       sqfeet={true}
+            />
+        </div>
+        <br/>
         <PageFooter />
-      </div>
+
     </div>
   );
 };

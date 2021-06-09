@@ -6,5 +6,9 @@ export type RightPanelProps = {
 };
 
 export const RightPanel: React.FC<RightPanelProps> = (props) => {
-  return <img src={Area} />;
+  return (
+      <div className="w-full h-full bg-gray-500">
+        <img src={Area} />
+      </div>
+  )
 };

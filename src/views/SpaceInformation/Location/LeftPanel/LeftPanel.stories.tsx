@@ -6,8 +6,10 @@ export default {
     component: LeftPanel
 }
 
-const Template: Story<LeftPanelProps> = (args) => <LeftPanel {...args} />;
-
+const Template: Story<LeftPanelProps> = (args) =>
+    <div className="w-96 h-72 ">
+        <LeftPanel {...args} />;
+    </div>
 export const LeftPanel_Activity = Template.bind({});
 
 

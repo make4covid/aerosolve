@@ -1,9 +1,11 @@
 import React, { CSSProperties, useState } from 'react';
 import { PageHeader } from 'components/PageHeader/PageHeader';
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
-import { NumberOfOccupants } from '../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants';
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider';
+import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants';
 import KidImage from 'assets/old/KidImage.png';
 import { PageFooter } from 'components/PageFooter/PageFooter';
+import {SelectionGroup} from "../../../components/SelectionCardGroup/SelectionGroup";
+import {SelectionOptions} from "../../../components/SelectionCard/SelectionCard";
 export type OccupantAgeGroupProps = {
   header?: string;
   title: string;
@@ -13,48 +15,34 @@ export type OccupantAgeGroupProps = {
   description: string;
 };
 
-/*
-const DefaultOccupantAgeGroup: CardGroupItem[] = [
-  {
-    value: 'Living Room',
-    age: '0 - 16 Years Old',
-    risk: 'Low Risk',
-    active: true,
-    image: KidImage,
-    route: 'test',
-    completed: true,
-  },
-  {
-    value: 'Classroom',
-    age: '17 - 63 Years Old',
-    risk: 'High Risk',
-    active: false,
-    image: KidImage,
-    route: 'test',
-    completed: false,
-  },
-  {
-    value: 'Classroom1',
-    age: '64+ Years Old',
-    risk: 'Medium Risk',
-    active: false,
-    image: KidImage,
-    route: 'test',
-    completed: false,
-  },
-];
+let options: SelectionOptions[] =
+    [
 
- */
+        {
+            title: 'Children/Teens\n0-16 Years Old',
+            description: 'Lowest Risk',
+
+        },
+        {
+            title: 'Adults\n17 - 63 Years Old',
+            description: 'Medium Risk',
+        },
+        {
+            title: 'Seniors\n64+ Years Old',
+            description: 'Higher Risk',
+        }
+    ];
+
 
 export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
   const [mode, setMode] = useState(false);
-
+  const [selected, setSelected] = useState([] as number[]);
   function handleSwitchMode() {
     setMode(!mode);
   }
   return (
-    <div className="h-screen grid grid-rows-6 divide-gray-400 gap-4">
-      <div className="row-span-1">
+    <div className="w-full h-full">
+
         <PageHeader
           title={'06/Occupant Age Groups'}
           question={'What is the target occupancy for this space?'}
@@ -62,9 +50,8 @@ export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
           people={30}
           description={''}
         />
-      </div>
-
-      <div className="row-span-4">
+      <br/>
+      <div className="">
         <div>
           <div className="inline-block relative left-0">
             <p>Please select all that apply. Mouse button.</p>
@@ -101,18 +88,17 @@ export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
           {mode && (
             <div>
               <div className="">
-                <SelectionSliderHeight value={3} />
-                <SelectionSliderHeight value={5} />
-                <SelectionSliderHeight value={10} />
+
               </div>
             </div>
           )}
         </div>
       </div>
+      <br/>
+        <SelectionGroup options = {options} multi={true} cardCol={false} columns={3} selected={selected} setSelected={setSelected}/>
+      <br/>
+      <PageFooter />
 
-      <div className="row-span-1">
-        <PageFooter />
-      </div>
     </div>
   );
 };

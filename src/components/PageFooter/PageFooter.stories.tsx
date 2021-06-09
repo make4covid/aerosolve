@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import { PageFooter } from './PageFooter';
 
 export default {
-  title: 'Aerosolve/Review & Refactor/PageFooter',
+  title: 'Aerosolve/Atoms/PageFooter',
   component: PageFooter,
 };
 

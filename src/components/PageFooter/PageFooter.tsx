@@ -21,28 +21,31 @@ export const PageFooter: React.FC<{}> = (props) => {
     });
   }
   return (
-    <div className="flex justify-between">
-      <button
-        onClick={(e) => {
-          moveUp(e);
-        }}
-      >
-        <img src={LeftArrow} />
-      </button>
-      <div>
-        <button>
-          <img className="cursor-pointer" src={I} />
-        </button>
-        <button>
-          <img className="cursor-pointer" src={Ellipse} />
-        </button>
-      </div>
+    <div className="relative flex space-around">
+          <button className="absolute"
+            onClick={(e) => {
+              moveUp(e);
+            }}
+          >
+            <img src={LeftArrow} />
+          </button>
+          <div>
+
+            <button className="absolute left-16 cursor-pointer w-32 h-8 bg-yellow-500 rounded-lg">
+                <div className="flex -mt-1">
+                    <p className="flex-1 m-2">i</p>
+                    <p className="flex-1 m-2">Information</p>
+                </div>
+            </button>
+          </div>
+
       <button
         onClick={(e) => {
           moveDown(e);
         }}
       >
-        <img className="cursor-pointer" src={RightArrow} />
+
+        <img className="absolute cursor-pointer right-8 " src={RightArrow} />
       </button>
     </div>
   );

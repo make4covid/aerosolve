@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react';
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider';
 
 export type HoursCardProps = {
   header?: string;
@@ -24,7 +24,7 @@ export const HoursCard: React.FC<HoursCardProps> = (props) => {
           </div>
         </div>
         <div className="row-span-1">
-          <SelectionSliderHeight value={20} />
+          <SelectionSlider value={20} min={"0"} max={"24"} unit={"hours"} arrayValue={Array.from({length: 13}, (_, i) => i + 2)}/>
         </div>
       </div>
     </div>

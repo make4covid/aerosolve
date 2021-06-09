@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react'
 
 export type LeftPanelProps={
     header?: string,
+    title: string,
     rate: string,
     description: string
 }
@@ -9,18 +10,19 @@ export type LeftPanelProps={
 export const LeftPanel: React.FC<LeftPanelProps> = (props) => {
 
     return (
-       <div className="container h-full w-full bg-blue-500 rounded-lg hover:bg-red-700">
-            <div className="text-white">
-                The COVID transmissive rate at your current location is at
-            </div>
+       <div className="h-full w-full bg-blue-500 flex flex-col rounded-lg hover:bg-red-700">
+            <br/>
+            <p className="text-white text-2xl mx-4">
+                {props.title}
+            </p>
 
-            <div className="text-white text-xl">
+            <p className="text-white text-4xl mx-4">
                 {props.rate}
-            </div>
+            </p>
 
-            <div className="text-white">
+            <p className="text-white mx-4">
                 {props.description}
-            </div>
+            </p>
        </div>
     )
 }

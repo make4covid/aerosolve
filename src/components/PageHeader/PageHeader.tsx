@@ -1,44 +1,40 @@
-import React, { CSSProperties }from 'react'
-import  {SelectionSliderHeight} from "../SelectionSlider/SelectionHeight/SelectionSliderHeight"
+import { ProgressIndicator } from 'components/ProgressBar/ProgressIndicator'
+import React, { CSSProperties } from 'react'
 export type PageHeaderProps = {
-    header?: string,
-    title: string,
-    question: string,
-    recommendation?: string,
-    hours: number,
-    people: number,
-    description: string,
-    style?: CSSProperties
+  header?: string
+  title: string
+  question: string
+  recommendation?: string
+  description: string
+  style?: CSSProperties
+  safeHours: number
+  targetHours: number
+  targetOccupancy: number
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = (props) => {
-    return (
-            <div className="grid gap-4 gap-x-2 grid-rows-2 divide-y-2 divide-gray-400">
-                <div className="grid grid-cols-11 divide-x-2 divide-gray-400">
-                    <div className="col-span-6">
-                        <p className="text-3xl font-bold">{props.title}</p>
-                    </div>
-                    <div className="col-span-5">
-                        <div className="grid grid-cols-2">
-                            <div className="col-span-1">
-                                <p className="text-base font-medium pl-2">This space is safe for <span className="text-blue-600">{props.people}</span> people for <span className="text-red-600">{props.hours}</span> out of <span className="text-red-600">8</span> targets hours.</p>
-                            </div>
-                            <div className="col-span-1">
-                                <SelectionSliderHeight value={3}/>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div className="grid grid-cols-11 divide-x-2 divide-gray-400 border-l-2">
-                    <div className="col-span-6">
-                            <p className="text-base font-medium text-gray-500 text-2xl px-3">{props.question}</p>
-                    </div>
-                    <div className="col-span-5">
-                        <p>{props.description}</p>
-                    </div>
-                </div>
-            </div>
-    );
+  return (
+    <div
+      style={{ gridTemplateColumns: '3fr 2fr', gridTemplateRows: 'max-content max-content' }}
+      className="grid w-full grid-rows-2 divide-x-2 divide-y-2 divide-gray-400 gap-y-4"
+    >
+      <div>
+        <h1 className="px-5 text-3xl font-bold">{props.title}</h1>
+      </div>
+      <div style={{ borderTop: 0 }} className="border-t-0 border-l-2">
+        <ProgressIndicator
+          className="mx-4"
+          value={props.safeHours}
+          outOf={props.targetHours}
+          people={props.targetOccupancy}
+        ></ProgressIndicator>
+      </div>
+      <div>
+        <p className="px-4 my-2 text-lg font-medium text-gray-500">{props.question}</p>
+      </div>
+      <div className="border-l-2 border-gray-500">
+        <p className="mx-4 my-3 text-sm text-gray-600">{props.description}</p>
+      </div>
+    </div>
+  )
 }
-

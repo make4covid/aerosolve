@@ -1,14 +1,14 @@
-import { Story } from '@storybook/react';
-import { SidebarGroup, NavGroup } from './SidebarGroup';
+import { Story } from '@storybook/react'
+import { SidebarGroup, NavGroup } from './SidebarGroup'
 
 export default {
-  title: 'Aerosolve/Review & Refactor/SidebarGroup',
+  title: 'Aerosolve/Components/SidebarGroup',
   component: SidebarGroup,
-};
+}
 
-const Template: Story<NavGroup> = (args) => <SidebarGroup {...args} />;
+const Template: Story<NavGroup> = (args) => <SidebarGroup {...args} />
 
-export const CompletedActiveInactive = Template.bind({});
+export const CompletedActiveInactive = Template.bind({})
 
 CompletedActiveInactive.args = {
   header: 'Sidebar Group',
@@ -28,7 +28,7 @@ CompletedActiveInactive.args = {
       completed: true,
     },
   ],
-};
+}
 
 CompletedActiveInactive.parameters = {
   design: {
@@ -36,4 +36,4 @@ CompletedActiveInactive.parameters = {
     url:
       'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=737%3A2520',
   },
-};
+}

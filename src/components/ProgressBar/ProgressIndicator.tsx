@@ -35,7 +35,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ children, 
   const [percentComplete, setPercentComplete] = useState(0)
   useEffect(() => {
     setPercentComplete(Math.min(props.value / props.outOf, 1) * 100)
-  })
+  }, [props.value, props.outOf])
   return (
     <div
       style={{ maxWidth: '25ch' }}

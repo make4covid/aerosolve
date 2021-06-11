@@ -1,23 +1,23 @@
 import { Story } from '@storybook/react'
 import { StepViewProps } from 'data'
-import { CeilingHeight } from './CeilingHeight'
+import { VentilationFiltration } from './VentilationFiltration'
 
 export default {
-  title: 'Aerosolve/Atoms/SpaceInformation/CeilingHeight',
-  component: Location,
+  title: 'Aerosolve/Views/VentilationFiltration',
+  component: VentilationFiltration,
 }
 
-const Template: Story<StepViewProps> = (args) => <CeilingHeight {...args} />
+const Template: Story<StepViewProps> = (args) => <VentilationFiltration {...args} />
 
 export const Activity = Template.bind({})
 
 // Activity.args = {
-//   title: '05/Ceiling Height',
-//   question: 'About how tall, on average, is the ceiling in the space?',
+//   title: '11/Ventilation + Filtration',
+//   question: 'Quick survey of the population of occupants in the space',
 //   recommendation: 'This space is safe for 30 people for 6 out of 8 target hours',
 //   hours: 8, //Should update this from Promise call function
 //   description:
-//     'Ceiling height provides accurate data to the calculation of room volume in air exchange rate',
+//     'Different age groups of people have different risk levels in the event of an aerosol infection',
 // }
 
 // Activity.parameters = {

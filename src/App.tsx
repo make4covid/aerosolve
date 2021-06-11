@@ -1,37 +1,68 @@
-import './App.css';
+import './App.css'
 
-import Sidebar from 'react-sidebar';
-import { SidebarNavigation } from 'components';
-import React, { useContext, useState } from 'react';
-import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo';
-import { BrowserRouter as Router } from 'react-router-dom';
+import Sidebar from 'react-sidebar'
+import { Navigation } from 'components/Navigation/Navigation'
+import React, { useReducer } from 'react'
+import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import { PageContext, PageContextProvider } from './context';
-import { PageManagement } from './PageManagement';
+import { AppContext, contextReducer, initialState, Actions } from './context'
+import { PageHeader } from 'components/PageHeader/PageHeader'
+
+import { Home } from 'views'
+
+import * as data from 'data'
 
 const App: React.FC<{}> = (props) => {
+  const [state, setState] = useReducer(contextReducer, initialState)
+
+  const completeStep = (route: string) => {
+    setState({ type: Actions.setStepCompleted, payload: { step: route } })
+  }
+
   return (
     <Router>
-      <PageContextProvider>
+      <AppContext.Provider value={state}>
         <div className="max-h-screen max-w-screen">
           <Sidebar
-            sidebarClassName="p-8 fixed w-1/6 left-0 bg-gray-200 max-w-xl"
+            sidebarClassName="fixed left-0 max-w-xs p-8 bg-gray-200 w-1/3"
             docked
             shadow={false}
             open
             sidebar={
               <div className="w-full cursor-pointer">
                 <AerosolveLogo />
-                <SidebarNavigation />
+                <Navigation navGroups={data.navGroups} stepStatus={state.stepStatus} />
               </div>
             }
           >
-            <PageManagement />
+            <Switch>
+              <Route exact path="/">
+                <Home></Home>
+              </Route>
+              {data.steps.map((step) => {
+                const StepView = step.component
+                return (
+                  <Route exact path={step.route}>
+                    <PageHeader
+                      title={step.title}
+                      description={step.header.description}
+                      prompt={step.header.prompt}
+                    ></PageHeader>
+                    <StepView
+                      onComplete={() => {
+                        completeStep(step.route)
+                      }}
+                    ></StepView>
+                  </Route>
+                )
+              })}
+            </Switch>
           </Sidebar>
         </div>
-      </PageContextProvider>
+      </AppContext.Provider>
     </Router>
-  );
-};
+  )
+}
 
-export default App;
+export default App

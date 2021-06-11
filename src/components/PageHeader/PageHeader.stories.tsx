@@ -11,12 +11,8 @@ const Template: Story<PageHeaderProps> = (args) => <PageHeader {...args} />
 export const Header = Template.bind({})
 
 Header.args = {
-  header: 'PageHeader',
   title: '01/Target Occupancy',
-  question: 'What is the target occupancy for this space?',
-  targetHours: 6,
-  safeHours: 4,
-  targetOccupancy: 30,
+  prompt: 'What is the target occupancy for this space?',
   description: 'This is a description',
 }
 

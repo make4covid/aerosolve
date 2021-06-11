@@ -20,6 +20,6 @@ export const NumberOfOccupantCard = Template.bind({});
 
 NumberOfOccupantCard.args = {
   header: 'OccupantCard',
-  nOfOccupant: 50,
+  occupant: 50,
   lineBreak: 10
 };

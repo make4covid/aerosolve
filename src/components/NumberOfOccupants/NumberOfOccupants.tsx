@@ -10,7 +10,7 @@ import body_blue from 'assets/old/body_blue.png';
 
 export type NumberOfOccupantsProps = {
   header?: string;
-  nOfOccupant: number;
+  occupant: number;
   style?: CSSProperties;
   lineBreak?: number
 };
@@ -21,25 +21,25 @@ export const NumberOfOccupants: React.FC<NumberOfOccupantsProps> = ({
       ...props
             }
 ) => {
-  const [blue, setBlue] = useState(Array(5).fill(1));
-  const [white, setWhite] = useState(Array(30).fill(0));
   return (
     <div className="h-full w-full rounded-xl bg-gray-300 relative">
+
         <div className="text-gray-700 font-semibold text-lg">
-          {blue.map((value, index) => {
+
+          {(Array(props.occupant).fill(1)).map((value, index) => {
               return (
-                  <span className="inline-block lg:p-2">
+                <span className="inline-block lg:p-2">
                   <img className="px-1" src={head_blue} />
                   <img src={body_blue} />
                 </span>
               );
           })}
 
-            {white.map((value, index) => {
+            {(Array(20 ).fill(0)).map((value, index) => {
                 return (
-                    <span className="inline-block lg:p-2">
-                  <img className="px-1" src={head_white} />
-                  <img src={body_white} />
+                <span className="inline-block lg:p-2">
+                      <img className="px-1" src={head_white} />
+                      <img src={body_white} />
                 </span>
 
                 );

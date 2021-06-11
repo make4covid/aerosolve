@@ -14,7 +14,7 @@ export const OccupantCard = Template.bind({});
 
 OccupantCard.args = {
   header: 'OccupantCard',
-  nOfOccupant: 50,
+  occupant: 50,
 };
 
 OccupantCard.parameters = {

@@ -3,7 +3,7 @@ import Plus_Sign from 'assets/old/Plus_Sign.png';
 import Minus_Sign from 'assets/old/Minus_Sign.png';
 export type OccupantsCardProps = {
   header?: string;
-  nOfOccupant: number;
+  occupant: number;
   style?: CSSProperties;
    /**
     * Action to set selected options
@@ -14,12 +14,12 @@ export type OccupantsCardProps = {
 export const OccupantsCard: React.FC<OccupantsCardProps> = (props) => {
 
 
-    function plus(value: number) {
-        props.setOccupant(value + 1)
+    function plus() {
+        props.setOccupant(props.occupant + 1)
     }
 
-    function minus(value: number) {
-        props.setOccupant(value - 1)
+    function minus() {
+        props.setOccupant(props.occupant - 1)
     }
 
     return (
@@ -32,9 +32,7 @@ export const OccupantsCard: React.FC<OccupantsCardProps> = (props) => {
                     <div className="flex flex-row justify-evenly">
                 <span
                     className="flex-1 text-3xl cursor-pointer"
-                    onClick={(e) => {
-                        minus(props.nOfOccupant);
-                    }}
+                    onClick={minus}
                 >
                   <button className="lg:px-6 lg:py-3">
                     <img className="w-12 h-8" src={Minus_Sign}/>{' '}
@@ -42,13 +40,13 @@ export const OccupantsCard: React.FC<OccupantsCardProps> = (props) => {
                 </span>
 
                         <span className="flex-1 text-5xl text-blue-500 text-center font-bold">
-                  {props.nOfOccupant}
+                  {props.occupant}
                 </span>
                         <span
                             className="flex-1 text-3xl cursor-pointer"
-                            onClick={(e) => {
-                                plus(props.nOfOccupant);
-                            }}
+                            onClick={
+                                plus
+                            }
                         >
                   <button className="lg:px-6 lg:py-3">
                     <img className="w-12 h-8" src={Plus_Sign}/>

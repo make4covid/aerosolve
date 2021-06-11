@@ -1,11 +1,12 @@
-import React, {CSSProperties, useState} from 'react';
+import React, {CSSProperties, useEffect, useState} from 'react';
 import { PageHeader, PageHeaderProps } from 'components/PageHeader/PageHeader';
 import { PageFooter } from 'components/PageFooter/PageFooter';
 import { InputLocation } from 'components/InputLocation/InputLocation';
 import { LeftPanel } from '../Location/LeftPanel/LeftPanel';
 import { RightPanel } from '../Location/RightPanel/RightPanel';
 import {SelectionGroup} from "../../../components/SelectionCardGroup/SelectionGroup";
-import {SelectionOptions} from "../../../components/SelectionCard/SelectionCard";
+import {SelectionCard, SelectionOptions} from "../../../components/SelectionCard/SelectionCard";
+import Kids from 'assets/images/kids.png';
 
 export type TypeOfSpaceProps = {
   header?: string;
@@ -16,40 +17,6 @@ export type TypeOfSpaceProps = {
   description: string;
 };
 
-/*
-const defaultTypeOfSpaceGroup: CardGroupItem[] = [
-  {
-    value: 'Living Room',
-    risk: 'Low Risk',
-    active: true,
-    route: 'test',
-    completed: true,
-  },
-  {
-    value: 'Classroom',
-    risk: 'High Risk',
-    active: false,
-    route: 'test',
-    completed: false,
-  },
-  {
-    value: 'Classroom1',
-    risk: 'Medium Risk',
-    active: false,
-    route: 'test',
-    completed: false,
-  },
-  {
-    value: 'Classroom2',
-    risk: 'High Risk',
-    active: false,
-    route: 'test',
-    completed: false,
-  },
-];
-
-
- */
 
 
 let options: SelectionOptions[] =
@@ -91,8 +58,12 @@ let options: SelectionOptions[] =
     ];
 
 export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
+
+
   const [selected, setSelected] = useState([] as number[]);
-  return (
+
+
+    return (
     <div className="w-full h-full">
         <PageHeader
           title={'03/Type of Space'}
@@ -102,12 +73,22 @@ export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
           description={''}
         />
         <br/>
-        <div className="w-full h-64 bg-gray-400 rounded-2xl">Living Room Description</div>
+        { selected.length == 1 &&
+            <div className="w-full lg:h-40 relative bg-gray-300 rounded-xl">
+                <SelectionCard selected={false} img={""} column={false} title={options[selected[0]].title} description={options[selected[0]].description}/>
+            </div>
+        }
+        { selected.length == 0 && <
+            div className="w-full lg:h-40 relative bg-gray-300 rounded-xl">
+                <SelectionCard selected={false} img={""} column={false} title={ options[0].title} description={ options[0].description}/>
+            </div>
+
+        }
         <br/>
-        <div className="">
-        {/*<GroupSpace items={defaultTypeOfSpaceGroup} /> */}
-            <SelectionGroup options = {options} multi={false} cardCol={false} columns={3} selected={selected} setSelected={setSelected}/>
+        <div className="w-full h-1/2 relative bg-gray-300 rounded-xl">
+            <SelectionGroup options = {options} multi={false} cardCol={false} columns={3} selected={selected} setSelected={setSelected} />
         </div>
+        <br/>
         <PageFooter />
 
     </div>

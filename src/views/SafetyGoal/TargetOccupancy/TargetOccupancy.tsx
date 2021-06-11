@@ -26,7 +26,7 @@ export const TargetOccupancy: React.FC<TargetOccupancyItem> = (props) => {
         />
 
       <br/>
-      <div className="w-full h-96 relative bg-gray-300 rounded-xl">
+      <div className="w-full lg:h-96 relative bg-gray-300 rounded-xl">
         <PlainCard title={"Target Number of Occupants\n"}
                    description={`Target number of occupants~\n
                                 intended for the space to be~\n

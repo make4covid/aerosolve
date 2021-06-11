@@ -14,25 +14,34 @@ export type RightPanelProps={
 export const RightPanel: React.FC<RightPanelProps> = (props) => {
 
     return (
-        <div className="h-full w-full bg-gray-500 rounded-lg">
-            <div className="text-white">
-                <div className="bg-gray-400">Confirmed Covid Cases in Colorado</div>
-                <div className="bg-gray-600">{props.confirmed_case}  + {props.today_case} cases today</div>
+        <div className="flex flex-col h-full w-full bg-gray-100 rounded-lg">
+            <div className="flex-1 text-white mx-8">
+                <div className="text-2xl text-gray-400 font-bold">Confirmed Covid Cases in Colorado</div>
+                <div >
+                    <span className="text-gray-500 text-4xl font-semibold">{props.confirmed_case}</span>
+                    <span className="text-gray-600 text-2xl font-semibold">&ensp;+{props.today_case} cases today</span>
+                </div>
             </div>
 
-            <div className="text-white text-xl">
-                <div className="bg-gray-400">Deaths</div>
-                <div className="bg-gray-600">{props.death_today_case}     + {props.death_today_case} cases today</div>
+            <div className="flex-1 text-white text-xl mx-8">
+                <div className="text-2xl text-gray-400 font-bold">Deaths</div>
+                <div >
+                    <span className="text-gray-500 text-4xl font-semibold">{props.death_today_case}</span>
+                    <span className="text-gray-600 text-2xl font-semibold">&emsp;+{props.death_today_case} cases today</span>
+                </div>
             </div>
 
-            <div className="text-white">
-                <div className="bg-gray-400">Vaccination Rate</div>
-                <div className="bg-gray-600">{props.vaccination_rate}  {props.vaccination_total} people fully immunized</div>
+            <div className="flex-1 text-white mx-8">
+                <div className="text-2xl text-gray-400 font-bold">Vaccination Rate</div>
+                <div>
+                    <span className="text-gray-500 text-4xl font-semibold">{props.vaccination_rate}%</span>
+                    <span className="text-gray-600 text-2xl font-semibold">&emsp;{props.vaccination_total} people fully immunized</span>
+                </div>
             </div>
 
-            <div className="">
-                <div className="bg-gray-400">Relative Air Humidity</div>
-                <div className="bg-gray-600">{props.relative_air_humidity}</div>
+            <div className="flex-1 text-white mx-8">
+                <div className="text-2xl text-gray-400 font-bold">Relative Air Humidity</div>
+                <div className="text-gray-600 text-2xl font-semibold">{props.relative_air_humidity}%</div>
             </div>
         </div>
     )

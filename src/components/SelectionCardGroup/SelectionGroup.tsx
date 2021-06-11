@@ -31,6 +31,11 @@ export interface SelectionGroupProps {
    * Data for available options
    */
   options: SelectionOptions[];
+  /**
+   * Optional click handler
+   * Input Click, output element number
+   */
+  onClick?: (e:any) => void;
 }
 /**
  * Group of selection cards
@@ -64,7 +69,7 @@ export const SelectionGroup: React.FC<SelectionGroupProps> = ({
             toggle(index);
           }}
           column={cardCol}
-        ></SelectionCard>
+        />
       ))}
     </div>
   );

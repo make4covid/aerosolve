@@ -22,7 +22,7 @@ export interface SelectionCardProps {
   // /**
   //  * Optional click handler
   //  */
-  onClick: () => void;
+  onClick?: (e:any) => void;
   className?: string;
 }
 
@@ -34,6 +34,7 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
   column = false,
   ...props
 }) => {
+
   return (
     <div
       className={clsx(

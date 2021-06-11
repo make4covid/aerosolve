@@ -19,44 +19,44 @@ export type LocationProps = {
 export const Location: React.FC<LocationProps> = (props) => {
   return (
     <div className="h-full width-full">
-      <div className="">
         <PageHeader
-          title={'02/Location'}
-          question={'What is the target occupancy for this space?'}
-          hours={6}
-          people={30}
-          description={''}
+        title={'02/Location'}
+        question={'What is the target occupancy for this space?'}
+        hours={6}
+        people={30}
+        description={''}
         />
+      <br/>
+      <div className="w-full lg:h-20 relative  rounded-xl">
+          <div className="h-16">
+            <InputLocation location={'CO'} />
+          </div>
       </div>
       <br/>
-      <br/>
-      <div className="h-16">
-        <InputLocation location={'CO'} />
-      </div>
 
-      <br/>
-
-      <div className="w-full h-3/5 flex flex-cols space-x-4">
-        <div className="flex-2 w-2/7">
-            <LeftPanel
-            title={'The COVID transmissive\nrate at your current\nlocation is at'}
-            rate={'Low Risk'}
-            description={'due to high vaccination rate'}
+      <div className="w-full h-3/5 relative">
+          <div className="w-full h-full flex flex-cols space-x-4">
+            <div className="w-2/5">
+                <LeftPanel
+                title={'The COVID transmissive rate at your current\nlocation is at'}
+                rate={'Low Risk'}
+                description={'due to high vaccination rate'}
+                />
+            </div>
+            <div className="flex-1 w-5/7">
+                <RightPanel
+                confirmed_case={11021}
+                today_case={17}
+                death_total_case={420}
+                death_today_case={0}
+                vaccination_rate={22}
+                vaccination_total={1272898}
+                relative_air_humidity={47}
             />
-        </div>
-        <div className="flex-1 w-5/7">
-            <RightPanel
-            confirmed_case={11021}
-            today_case={17}
-            death_total_case={420}
-            death_today_case={0}
-            vaccination_rate={22}
-            vaccination_total={1272898}
-            relative_air_humidity={47}
-        />
-    </div>
+                </div>
+          </div>
       </div>
-      <br/>
+
       <div className="">
         <PageFooter />
       </div>

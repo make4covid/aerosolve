@@ -10,17 +10,17 @@ export type LeftPanelProps={
 export const LeftPanel: React.FC<LeftPanelProps> = (props) => {
 
     return (
-       <div className="h-full w-full bg-blue-500 flex flex-col rounded-lg hover:bg-red-700">
-            <br/>
-            <p className="text-white text-2xl mx-4">
+       <div className="flex flex-row h-full w-full bg-blue-500 flex flex-col rounded-2xl hover:bg-red-700 content-center">
+
+            <p className="flex-1 text-white font-semibold text-2xl lg:mx-16 lg:my-12 w-72">
                 {props.title}
             </p>
 
-            <p className="text-white text-4xl mx-4">
+            <p className="flex-1 text-white font-bold text-4xl lg:mx-16">
                 {props.rate}
             </p>
 
-            <p className="text-white mx-4">
+            <p className="flex-1 text-white font-semibold lg:mx-16">
                 {props.description}
             </p>
        </div>

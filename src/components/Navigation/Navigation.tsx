@@ -2,6 +2,7 @@ import React, { CSSProperties, useContext } from 'react'
 import { AppContext } from 'context'
 import { useHistory, useLocation } from 'react-router-dom'
 import { ReactComponent as Checkmark } from 'assets/icons/checkmark.svg'
+import clsx from 'clsx'
 
 export interface NavGroupStep {
   title: string
@@ -71,22 +72,19 @@ type NavStepProps = NavGroupStep & {
 }
 
 const NavigationStep: React.FC<NavStepProps> = (props) => {
-  let statusStyles = props.active
-    ? ' text-white bg-blue-600 cursor-default '
-    : ' text-gray-300 hover:bg-blue-100 hover:text-blue-600 cursor-pointer '
-  props.complete && (statusStyles += ' text-blue-600 hover:bg-blue-100 cursor-pointer ')
-
   return (
     <div
+      onClick={props.onClick}
       style={props.style}
-      className={
-        'font-sans font-normal relative flex flex-row items-center justify-between px-4 py-2 bg-white transition duration-200 border-t cursor-pointer' +
-        statusStyles
-      }
+      className={clsx(
+        'font-sans font-normal relative flex flex-row items-center justify-between px-4 py-2 bg-white transition duration-200 border-t cursor-pointer',
+        props.active && 'text-white bg-blue-600 cursor-default',
+        props.active || 'text-gray-300 hover:bg-blue-100 hover:text-blue-600 cursor-pointer',
+        props.complete && 'text-blue-600 hover:bg-blue-100 cursor-pointer'
+      )}
     >
       <div>{props.title}</div>
       {props.complete && <Checkmark className={'fill-current'} height="24" width="24" />}
-      {!props.complete && <Checkmark height="24" width="24" />}
     </div>
   )
 }

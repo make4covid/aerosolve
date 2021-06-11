@@ -7,9 +7,9 @@ export interface AppState {
 
 const initialState: AppState = {
   progress: {
-    safeHours: 0,
-    targetHours: 0,
-    targetOccupancy: 0,
+    safeHours: 2,
+    targetHours: 6,
+    targetOccupancy: 20,
   },
   stepStatus: {
     '/target-occupancy': { complete: false },

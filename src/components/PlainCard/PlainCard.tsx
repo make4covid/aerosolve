@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import tw from 'twin.macro';
 import {SelectionSlider} from "../SelectionSlider/SelectionSlider";
@@ -23,6 +23,7 @@ export const PlainCard: React.FC<CardProps &CardOptions> = ({
 
         ...props}) => {
 
+    const [occupant,setOccupant] = useState(0)
     return (
         <div className="w-full h-full rounded-lg px-8 lg:ml-4">
             {props.occupants &&
@@ -35,9 +36,9 @@ export const PlainCard: React.FC<CardProps &CardOptions> = ({
                 </div>
 
                 <div className="flex flex-cols lg:ml-12">
-                    <div className="flex-1 lg:-mt-8"><NumberOfOccupants nOfOccupant={30} lineBreak={10}/></div>
+                    <div className="flex-1 lg:-mt-8"><NumberOfOccupants nOfOccupant={occupant} lineBreak={10}/></div>
                     <div className="flex-1"></div>
-                    <div className="flex-1"><OccupantsCard nOfOccupant={30}/></div>
+                    <div className="flex-1"><OccupantsCard nOfOccupant={occupant} setOccupant={setOccupant}/></div>
                 </div>
             </div>
 

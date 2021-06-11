@@ -21,52 +21,29 @@ export const NumberOfOccupants: React.FC<NumberOfOccupantsProps> = ({
       ...props
             }
 ) => {
-  const [nOfOccupant, setNOfOccupant] = useState(Array(30).fill(0));
-  /*
-  function plus(value: number) {
-    let newNOfOccupant = nOfOccupant;
-    newNOfOccupant[value] = 1;
-    setOccupant(++value);
-    setNOfOccupant(newNOfOccupant);
-  }
-  function minus(value: number) {
-    if (value > 0) {
-      let newNOfOccupant = nOfOccupant;
-      newNOfOccupant[value] = 0;
-      setOccupant(--value);
-      setNOfOccupant(newNOfOccupant);
-    }
-  }
-  */
-
+  const [blue, setBlue] = useState(Array(5).fill(1));
+  const [white, setWhite] = useState(Array(30).fill(0));
   return (
     <div className="h-full w-full rounded-xl bg-gray-300 relative">
         <div className="text-gray-700 font-semibold text-lg">
-          {nOfOccupant.map((value, index) => {
-
-            if(index % lineBreak == 0){
+          {blue.map((value, index) => {
               return (
-                  <br/>
-              )
-            }
-            if (value == 0) {
-              return (
-                <span className="inline-block lg:p-2">
-                  <img className="px-1" src={head_white} />
-                  <img src={body_white} />
-                </span>
-
-              );
-            } else {
-              return (
-                <span className="inline-block lg:p-2">
+                  <span className="inline-block lg:p-2">
                   <img className="px-1" src={head_blue} />
                   <img src={body_blue} />
                 </span>
               );
-            }
-
           })}
+
+            {white.map((value, index) => {
+                return (
+                    <span className="inline-block lg:p-2">
+                  <img className="px-1" src={head_white} />
+                  <img src={body_white} />
+                </span>
+
+                );
+            })}
         </div>
     </div>
 

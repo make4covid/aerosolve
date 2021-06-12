@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight'
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
 
 export type HoursCardProps = {
   header?: string
@@ -21,7 +21,7 @@ export const HoursCard: React.FC<HoursCardProps> = (props) => {
           </div>
         </div>
         <div className="row-span-1">
-          <SelectionSliderHeight value={20} />
+          {/*<SelectionSliderHeight value={20} /> */}
         </div>
       </div>
     </div>

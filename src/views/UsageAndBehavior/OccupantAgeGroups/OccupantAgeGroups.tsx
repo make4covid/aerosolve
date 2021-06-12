@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight'
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
 import { GroupAge } from 'components/SelectionCardGroup/GroupAge'
 import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemAge'
 import KidImage from 'assets/old/KidImage.png'
@@ -83,9 +83,7 @@ export const OccupantAgeGroup: React.FC<StepViewProps> = (props) => {
           {mode && (
             <div>
               <div className="">
-                <SelectionSliderHeight value={3} />
-                <SelectionSliderHeight value={5} />
-                <SelectionSliderHeight value={10} />
+                Slider
               </div>
             </div>
           )}

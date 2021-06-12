@@ -19,7 +19,7 @@ export interface SelectionCardProps {
   // /**
   //  * Optional click handler
   //  */
-  onClick: () => void;
+  onClick?: (e:any) => void;
   className?: string;
 }
 

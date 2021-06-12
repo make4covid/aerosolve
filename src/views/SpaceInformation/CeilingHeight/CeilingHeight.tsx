@@ -1,5 +1,5 @@
 import React from 'react'
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight'
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
 import { StepViewProps } from 'data'
 
 export const CeilingHeight: React.FC<StepViewProps> = (props) => {
@@ -13,7 +13,7 @@ export const CeilingHeight: React.FC<StepViewProps> = (props) => {
         </div>
       </div>
       <div className="row-span-3">
-        <SelectionSliderHeight value={10} />
+          {/*<SelectionSliderHeight value={10} />*/}
       </div>
       <div className="row-span-1"></div>
     </div>

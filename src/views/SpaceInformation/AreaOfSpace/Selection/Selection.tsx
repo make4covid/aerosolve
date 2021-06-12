@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight'
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
 
 export type SelectionCardProps = {
   header?: string
@@ -11,7 +11,7 @@ export const SelectionCard: React.FC<SelectionCardProps> = (props) => {
   return (
     <div className="w-full h-full bg-gray-300 rounded-xl">
       <p className="text-3xl font-bold">Selection</p>
-      <SelectionSliderHeight value={20} />
+        {/*<SelectionSlider value={20} />*/}
     </div>
   )
 }

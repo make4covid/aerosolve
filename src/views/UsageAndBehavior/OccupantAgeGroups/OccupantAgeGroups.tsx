@@ -1,19 +1,10 @@
-import React, { CSSProperties, useState } from 'react';
-import { PageHeader } from 'components/PageHeader/PageHeader';
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
-import { NumberOfOccupants } from '../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants';
-import { GroupAge } from 'components/SelectionCardGroup/GroupAge';
-import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemAge';
-import KidImage from 'assets/old/KidImage.png';
-import { PageFooter } from 'components/PageFooter/PageFooter';
-export type OccupantAgeGroupProps = {
-  header?: string;
-  title: string;
-  question: string;
-  recommendation: string;
-  hours: number;
-  description: string;
-};
+import React, { useState } from 'react'
+import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight'
+import { GroupAge } from 'components/SelectionCardGroup/GroupAge'
+import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemAge'
+import KidImage from 'assets/old/KidImage.png'
+import { PageFooter } from 'components/PageFooter/PageFooter'
+import { StepViewProps } from 'data'
 
 const DefaultOccupantAgeGroup: CardGroupItem[] = [
   {
@@ -43,43 +34,35 @@ const DefaultOccupantAgeGroup: CardGroupItem[] = [
     route: 'test',
     completed: false,
   },
-];
+]
 
-export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
-  const [mode, setMode] = useState(false);
+export const OccupantAgeGroup: React.FC<StepViewProps> = (props) => {
+  const [mode, setMode] = useState(false)
 
   function handleSwitchMode() {
-    setMode(!mode);
+    setMode(!mode)
   }
   return (
-    <div className="h-screen grid grid-rows-6 divide-gray-400 gap-4">
-      <div className="row-span-1">
-        <PageHeader
-          title={'06/Occupant Age Groups'}
-          question={'What is the target occupancy for this space?'}
-          hours={6}
-          people={30}
-          description={''}
-        />
-      </div>
+    <div className="grid h-screen grid-rows-6 gap-4 divide-gray-400">
+      <div className="row-span-1"></div>
 
       <div className="row-span-4">
         <div>
-          <div className="inline-block relative left-0">
+          <div className="relative left-0 inline-block">
             <p>Please select all that apply. Mouse button.</p>
           </div>
 
           <div className="relative inline-block float-right">
             <button
               onClick={handleSwitchMode}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+              className="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
             >
               Basic
             </button>
 
             <button
               onClick={handleSwitchMode}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+              className="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
             >
               Advanced
             </button>
@@ -113,5 +96,5 @@ export const OccupantAgeGroup: React.FC<OccupantAgeGroupProps> = (props) => {
         <PageFooter />
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,8 +1,5 @@
 import React from 'react'
-import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants'
-import { HoursCard } from './HoursCard/HoursCard'
 import { StepViewProps } from 'data'
-import {PageFooter} from '../../../components/PageFooter/PageFooter'
 import {PlainCard} from "../../../components/PlainCard/PlainCard";
 
 export const TargetOccupancy: React.FC<StepViewProps> = (props) => {
@@ -22,7 +19,7 @@ export const TargetOccupancy: React.FC<StepViewProps> = (props) => {
             <div className="w-full h-64 relative bg-gray-300 rounded-xl">
                 <PlainCard title={"Target Number of Hours"}
                            description={"Target number of occupants intended for\n the space to be occupied in a single\nsetting."}
-                           hours={true}
+                           selectionHours={true}
                 />
             </div>
             <br/>

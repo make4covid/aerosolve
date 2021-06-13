@@ -17,7 +17,7 @@ export default {
 
 const Template: Story<CardOptions & CardProps> = (args) => (
     <div>
-        {args.hours &&
+        {args.selectionHours &&
         <div className="w-full h-64 bg-gray-300">
             <PlainCard {...args} title={"Target Number of Hours"}
                        description={"Target number of occupants intended for\n the space to be occupied in a single\nsetting."}/>
@@ -40,5 +40,5 @@ PlainCardOccupant.args={
     occupants:true
 }
 PlainCardHour.args={
-    hours:true
+    selectionHours:true
 }

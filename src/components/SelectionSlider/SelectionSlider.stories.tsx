@@ -1,7 +1,6 @@
 import { Story } from '@storybook/react';
 import { SelectionSlider } from './SelectionSlider';
 import { Slider } from './SelectionSlider';
-import React from "react";
 
 export default {
     title: 'Aerosolve/Review & Refactor/SelectionSlider',

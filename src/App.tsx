@@ -57,7 +57,7 @@ const App: React.FC<{}> = (props) => {
                         onComplete={() => {
                           completeStep(step.route)
                         }}
-                      ></StepView>
+                      />
 
                       <PageFooter/>
                     </div>

@@ -26,17 +26,18 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
 
 
     function setColor(currentCircle: number, currentWidth: number){
-
-        let startPixel = -1;
-
-        props.arrayValue.map((index,item)=> {
-            if (index % 2 == 0) {
+        let startPixel = 0;
+        props.arrayValue.map((item,index)=> {
+            if ((index) % 2 == 0) {
                 if (currentCircle >= (startPixel / 100) * currentWidth) {
-                    $("#small_circle" + item).css("background-color", "blue")
+                    $("#small_circle" + index).css("background-color", "rgba(59, 130, 246, var(--tw-bg-opacity))")
+                    $("#small_number" + index).css("color", "rgba(59, 130, 246, var(--tw-bg-opacity))")
                 } else {
-                    $("#small_circle" + item).css("background-color", "white")
+                    $("#small_circle" + index).css("background-color", "white")
+                    $("#small_number" + index).css("color", "white")
                 }
-                startPixel += 8.4
+
+                startPixel += 8
             }
         })
 
@@ -47,21 +48,34 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
         let circle = $("#slider")
         let rect = circle.get(0).getBoundingClientRect()
         // @ts-ignore
-        $("#circle").css("left",e.clientX - rect.left)
+        $("#circle").css("left",e.clientX - rect.left - inputEl.current.offsetWidth/2)
         // @ts-ignore
         $("#blueSlider").css("width",(inputEl.current.offsetLeft/sliderEL.current.offsetWidth)*sliderEL.current.offsetWidth)
         // @ts-ignore
         $("#rectanglePointer").css("left",e.clientX - rect.left - smallRectangle.current.clientWidth/2)
         // @ts-ignore
         setColor(inputEl.current.offsetLeft,sliderEL.current.clientWidth)
-        // @ts-ignore
-        console.log("Test:",inputEl.current.offsetLeft,startEl.current.offsetLeft - rect.left,inputEl.current.clientWidth,endEL.current.offsetLeft - rect.left)
-        if(props.max.indexOf(">") != -1)
+
+        if(props.max.indexOf(">") != -1){
             // @ts-ignore
-            setValue((inputEl.current.offsetLeft/sliderEL.current.offsetWidth)*parseInt(props.max.substring(props.max.indexOf(">")+1)))
+            let value = ((inputEl.current.offsetLeft+ 16)/sliderEL.current.offsetWidth)*parseInt(props.max.substring(props.max.indexOf(">")+1))
+            if(value < 0) {
+                setValue(0)
+            }
+            else{
+                // @ts-ignore
+                setValue(value)
+            }
+        }
         else{
             // @ts-ignore
-            setValue((inputEl.current.offsetLeft/sliderEL.current.offsetWidth)*parseInt(props.max))
+            let value = ((inputEl.current.offsetLeft+ 16)/sliderEL.current.offsetWidth)*parseInt(props.max)
+            if(value < 0) {
+                setValue(0)
+            }
+            else{
+                setValue(value)
+            }
         }
     }
     function handleDrag(e:any){
@@ -71,37 +85,53 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
             let circle = $("#slider")
             let rect = circle.get(0).getBoundingClientRect()
             // @ts-ignore
-            if(inputEl.current.offsetLeft >= startEl.current.offsetLeft - rect.left && inputEl.current.offsetLeft - rect.left <= endEL.current.offsetLeft + endEL.current.clientWidth - rect.left){
+            if(inputEl.current.offsetLeft >= -inputEl.current.clientWidth/2 && inputEl.current.offsetLeft <= sliderEL.current.clientWidth){
                 // @ts-ignore
-                $("#circle").css("left",e.clientX - rect.left)
+                $("#circle").css("left",e.clientX - rect.left - inputEl.current.offsetWidth/2)
                 // @ts-ignore
                 $("#rectanglePointer").css("left",e.clientX - rect.left - smallRectangle.current.clientWidth/2)
 
             }
             // @ts-ignore
-            else if(inputEl.current.offsetLeft < startEl.current.offsetLeft){
+            else if(inputEl.current.offsetLeft <=  -inputEl.current.clientWidth/2){
                 // @ts-ignore
-                $("#circle").css("left",startEl.current.offsetLeft - rect.left + 10 )
+                $("#circle").css("left",sliderEL.current.offsetLeft -inputEl.current.clientWidth/2)
 
             }
+
             // @ts-ignore
-            else if(inputEl.current.offsetLeft + inputEl.current.clientWidth - rect.left> endEL.current.offsetLeft - rect.left){
+            else if(inputEl.current.offsetLeft + inputEl.current.clientWidth >= sliderEL.current.clientWidth - inputEl.current.clientWidth){
                 // @ts-ignore
-                $("#circle").css("left",endEL.current.offsetLeft - rect.left - 10)
+                $("#circle").css("left", sliderEL.current.clientWidth - inputEl.current.clientWidth)
 
             }
             // @ts-ignore
             $("#blueSlider").css("width",(inputEl.current.offsetLeft/sliderEL.current.offsetWidth)*sliderEL.current.offsetWidth)
-
-            if(props.max.indexOf(">") != -1)
-                // @ts-ignore
-                setValue((inputEl.current.offsetLeft/sliderEL.current.offsetWidth)*parseInt(props.max.substring(props.max.indexOf(">")+1)))
-            else{
-                // @ts-ignore
-                setValue((inputEl.current.offsetLeft/sliderEL.current.offsetWidth)*parseInt(props.max))
-            }
             // @ts-ignore
             setColor(inputEl.current.offsetLeft,sliderEL.current.clientWidth)
+
+            if(props.max.indexOf(">") != -1){
+                // @ts-ignore
+                let value = ((inputEl.current.offsetLeft+ 16)/sliderEL.current.offsetWidth)*parseInt(props.max.substring(props.max.indexOf(">")+1))
+                if(value < 0) {
+                    setValue(0)
+                }
+                else{
+                    // @ts-ignore
+                    setValue(value)
+                }
+            }
+            else{
+                //To-Do add padding instead of hardcoded  number 16 here
+                // @ts-ignore
+                let value = ((inputEl.current.offsetLeft + 16)/sliderEL.current.clientWidth)*parseInt(props.max)
+                if(value < 0) {
+                    setValue(0)
+                }
+                else{
+                    setValue(value)
+                }
+            }
         }
     }
     function handleDragStart(e:any){
@@ -124,13 +154,14 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
     // @ts-ignore
     return (
         <div>
-            <div className="h-full w-full">
-                <div  id="main" className="relative flex flex-row w-screen" onMouseMove={handleDrag} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
-                    <div ref={inputEl} id="circle" className={`absolute h-12 w-12 rounded-full bg-blue-500 -top-4 border-blue-500 cursor-pointer flex justify-center z-20 l-24-8`} />
-                    <div ref={sliderEL} id="slider" className="w-8/12 h-4 flex absolute bg-white z-0 cursor-pointer lg:left-10" onClick={handleClick}>
-                        <div id="blueSlider" className="h-4 flex absolute bg-blue-500 z-10 w-24-12" onClick={handleClick}/>
-                        <div ref={startEl} className="absolute -top-2 z-10 h-8 w-8 bg-white rounded-full l-24-10"/>
+            <div className="w-full h-full">
+                <div id="main" className="relative w-full" onMouseMove={handleDrag} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
+                    <div ref={inputEl} id="circle" className={`absolute h-12 w-12 rounded-full bg-blue-500 -top-5 border-blue-500 cursor-pointer flex justify-center z-20 l-24-12`} />
+                    <div ref={sliderEL} id="slider" className="absolute w-full h-2 flex bg-white z-0 cursor-pointer" onClick={handleClick}/>
+                    <div id="blueSlider" className="absolute h-2 bg-blue-500 z-10 w-24-12" onClick={handleClick}/>
 
+                    <div ref={startEl} className="z-10  absolute -top-2 h-6 w-6 rounded-full l-24-0 cursor-pointer"/>
+                    <div >
                         {props.arrayValue.length > 6 && props.arrayValue.map((item,index)=>{
                             return(
                                 <div>
@@ -140,7 +171,7 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
                                             <div id={"small_circle" + index}
 
                                                  className={
-                                                     clsx(`absolute -top-2 z-10 h-8 w-8 rounded-full l-24-${index} cursor-pointer`,
+                                                     clsx(`absolute -top-2 z-10 h-6 w-6 rounded-full l-24-${index} cursor-pointer ml-1`,
                                                          // @ts-ignore
                                                          index <= 12 && "bg-blue-500" ,
                                                          // @ts-ignore
@@ -153,10 +184,14 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
                                                  onClick={handleClick}
                                             />
 
-                                            <div className={clsx(`absolute -top-10 z-10 l-24-${index} text-white`,
-                                                item < 10 && "ml-3",
-                                                item < 100  && item >= 10 && "ml-2",
-                                                item < 1000  && item >= 100 && "ml-1",
+                                            <div id={"small_number"+index} className={clsx(`absolute -top-10 z-10 l-24-${index} `,
+                                                item < 10 && "pl-3",
+                                                item < 100  && item >= 10 && "pl-2",
+                                                item < 1000  && item >= 100 && "pl-1",
+                                                // @ts-ignore
+                                                index <= 12 && "text-blue-500" ,
+                                                // @ts-ignore
+                                                index > 12 && "text-white"
 
                                             )}
 
@@ -181,7 +216,7 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
                                                  className={
                                                      clsx(`absolute -top-2 z-10 h-8 w-8 rounded-full l-24-${index*4} cursor-pointer`,
                                                          // @ts-ignore
-                                                         index <= 12 && "bg-blue-500",
+                                                         index <= 12 && "bg-blue-200",
                                                          // @ts-ignore
                                                          index > 12 && "bg-white"
                                                      )
@@ -206,30 +241,30 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
 
                         })
                         }
-
-                        <div ref={endEL} className="absolute -top-2 z-10 h-8 w-8 bg-white rounded-full l-24-24"/>
-                        <div id="rectanglePointer" className="absolute -top-28 l-24-10">
-                            <div ref={smallRectangle} id="smallRectangle" className="w-48 h-12 border-8 border-blue-500 flex flex-row space-x-10 rounded-md">
-                                <div className="font-bold text-blue-600 text-2xl">
-                                    {Math.round(value)}
-                                </div>
-
-                                <div className="font-medium text-xl">
-                                    {props.unit}
-                                </div>
+                    </div>
+                    <div ref={endEL} className="absolute w-6 h-6 l-24-24"/>
+                    <div id="rectanglePointer" className="absolute -top-28 l-24-10 ">
+                        <div ref={smallRectangle} id="smallRectangle" className="w-48 h-12 bg-white border-4 border-blue-500 flex flex-row space-x-10 rounded-xl">
+                            <div className="font-bold text-blue-600 text-3xl px-6">
+                                {Math.round(value)}
                             </div>
-                            <div id="smallTriangle"  className="relative">
-                                <div ref={arrowLeft} id="arrowLeft" className="absolute transform w-2 h-10 bg-blue-500 -rotate-45 -top-2 l-24-9">
 
-                                </div>
-                                <div id="arrowRight" className="absolute transform w-2 h-10 bg-blue-500 rotate-45 -top-2 l-24-13">
+                            <div className="font-medium text-xl pt-1">
+                                {props.unit}
+                            </div>
+                        </div>
+                        <div id="smallTriangle"  className="relative">
+                            <div ref={arrowLeft} id="arrowLeft" className="absolute transform w-2 h-10 bg-blue-500 -rotate-45 -top-2 l-24-9">
 
-                                </div>
+                            </div>
+                            <div id="arrowRight" className="absolute transform w-2 h-10 bg-blue-500 rotate-45 -top-2 l-24-13">
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     );
 }

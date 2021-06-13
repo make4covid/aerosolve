@@ -94,7 +94,7 @@ export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
         </div>
         }
         { selected.length == 0 && <
-            div className="w-full lg:h-60 relative bg-gray-300 rounded-xl my-4" >
+            div className="w-full lg:h-60 relative bg-gray-100 rounded-xl my-4" >
           <MainCard title={options[0].title} description={options[0].description} image={options[0].image} rating={options[0].rating}/>
         </div>
 

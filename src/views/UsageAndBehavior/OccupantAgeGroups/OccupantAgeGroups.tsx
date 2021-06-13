@@ -4,7 +4,7 @@ import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider';
 import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants';
 import Kids from 'assets/old/KidImage.png';
 import Mouse from 'assets/icons/mouse.png';
-import {SelectionGroup} from "../../../components/SelectionGroup/SelectionGroup";
+import {SelectionGroup} from "../../../components/SelectionCardGroup/SelectionGroup";
 import {SelectionOptions} from "../../../components/SelectionCard/SelectionCard";
 import {StepViewProps} from "../../../data";
 import clsx from "clsx";

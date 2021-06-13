@@ -4,7 +4,7 @@ import { PageFooter } from 'components/PageFooter/PageFooter';
 import { InputLocation } from 'components/InputLocation/InputLocation';
 import { LeftPanel } from '../Location/LeftPanel/LeftPanel';
 import { RightPanel } from '../Location/RightPanel/RightPanel';
-import {SelectionGroup} from "../../../components/SelectionGroup/SelectionGroup";
+import {SelectionGroup} from "../../../components/SelectionCardGroup/SelectionGroup";
 import {SelectionCard, SelectionOptions} from "../../../components/SelectionCard/SelectionCard";
 import Kids from 'assets/images/kids.png';
 import {StepViewProps} from "../../../data";

@@ -48,6 +48,10 @@ export const SelectionSlider: React.FC<Slider> = (props) => {
         let circle = $("#slider")
         let rect = circle.get(0).getBoundingClientRect()
         // @ts-ignore
+        console.log("Total width:",sliderEL.current.clientWidth)
+        // @ts-ignore
+        console.log("Check:",e.clientX - rect.left - inputEl.current.offsetWidth/2)
+        // @ts-ignore
         $("#circle").css("left",e.clientX - rect.left - inputEl.current.offsetWidth/2)
         // @ts-ignore
         $("#blueSlider").css("width",(inputEl.current.offsetLeft/sliderEL.current.offsetWidth)*sliderEL.current.offsetWidth)

@@ -67,17 +67,36 @@ export const PlainCard: React.FC<CardProps &CardOptions> = ({
 
             {
                 props.selectionSquareFt &&
-                <div>
-                    <div className="flex flex-row">
-                        <p className="flex-1 font-medium text-2xl mx-4">{props.title}</p>
-                        <p className={"flex-1"}/>
-                        <p className={"flex-1 mx-4"}>{props.description}</p>
+                <div  className="w-full h-full flex flex-col p-4">
+                    <div className="flex-1">
+                        <div className="flex flex-row">
+                            <p className="flex-1 font-medium text-2xl">{props.title}</p>
+                            <p className="flex-1"/>
+                            <p className="flex-1">{props.description}</p>
+                        </div>
                     </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <SelectionSlider value={600} min={"0"} max={">10000"} unit={"sq. feet"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/>
+                    <div className="flex-1"/>
+                    <div className="w-full h-full flex-1">
+                        <SelectionSlider value={600} min={"0"} max={">10000"} unit={"sq. feet"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/>
+                    </div>
+                </div>
+
+            }
+
+            {
+                props.selectionHeight &&
+                <div  className="w-full h-full flex flex-col p-4">
+                    <div className="flex-1">
+                        <div className="flex flex-row">
+                            <p className="flex-1 font-medium text-2xl">{props.title}</p>
+                            <p className="flex-1"/>
+                            <p className="flex-1">{props.description}</p>
+                        </div>
+                    </div>
+                    <div className="flex-1"/>
+                    <div className="w-full h-full flex-1">
+                        <SelectionSlider value={600} min={"0"} max={">10000"} unit={"sq. feet"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/>
+                    </div>
                 </div>
 
             }

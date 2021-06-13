@@ -9,7 +9,7 @@ import {PlainCard} from "../../../components/PlainCard/PlainCard";
 export const AreaOfSpace: React.FC<StepViewProps> = (props) => {
     return (
         <div className="w-full h-full my-4">
-            <div className="w-full lg:h-96 rounded-xl">
+            <div className="w-full lg:h-96  rounded-xl">
                 <div className="flex">
                     <div className="inline-block w-6/12 h-80 rounded-3xl">
                         <div className="w-2/3 h-full">

@@ -19,14 +19,14 @@ export type LocationProps = {
 
 export const Location: React.FC<StepViewProps> = (props) => {
     return (
-        <div className="h-full max-h-screen width-full">
+        <div className="max-h-screen width-full">
             <div className="w-full lg:h-20 relative  rounded-xl my-8">
                 <div className="h-16">
                     <InputLocation location={'CO'} />
                 </div>
             </div>
 
-            <div className="w-full  h-96 flex flex-cols space-x-4">
+            <div className="w-full lg:h-96 flex flex-cols space-x-4">
                 <div className="flex-1 w-2/5">
                     <LeftPanel
                         title={'The COVID transmissive rate at your current\nlocation is at'}
@@ -34,7 +34,7 @@ export const Location: React.FC<StepViewProps> = (props) => {
                         description={'due to high vaccination rate'}
                     />
                 </div>
-                    <div className="flex-1 w-5/7 ">
+                    <div className="flex-1 w-3/5 ">
                         <RightPanel
                             confirmed_case={11021}
                             today_case={17}

@@ -3,9 +3,11 @@ import clsx from 'clsx';
 import tw from 'twin.macro';
 
 export interface SelectionOptions {
-  title: string;
-  description: string;
-  img?: string;
+  title: string
+  description: string
+  rating?: string
+  img?: string
+  image?: string //For display image in TypeOfSpace MainPanel
 }
 export interface SelectionCardProps {
   /**
@@ -60,7 +62,7 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
               !selected && 'text-blue-500'
             )}
           >
-            {props.description}
+            {props.rating}
           </div>
         </div>
         <div className="w-6 h-6 mt-5 font-bold text-center text-gray-200 bg-gray-400 rounded-full">

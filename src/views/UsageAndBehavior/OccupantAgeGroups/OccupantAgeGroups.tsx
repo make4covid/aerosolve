@@ -1,100 +1,101 @@
-import React, { useState } from 'react'
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight'
-import { GroupAge } from 'components/SelectionCardGroup/GroupAge'
-import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemAge'
-import KidImage from 'assets/old/KidImage.png'
-import { PageFooter } from 'components/PageFooter/PageFooter'
-import { StepViewProps } from 'data'
+import React, { CSSProperties, useState } from 'react';
+import { PageHeader } from 'components/PageHeader/PageHeader';
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider';
+import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants';
+import Kids from 'assets/old/KidImage.png';
+import Mouse from 'assets/icons/mouse.png';
+import {SelectionGroup} from "../../../components/SelectionCardGroup/SelectionGroup";
+import {SelectionOptions} from "../../../components/SelectionCard/SelectionCard";
+import {StepViewProps} from "../../../data";
+import clsx from "clsx";
 
-const DefaultOccupantAgeGroup: CardGroupItem[] = [
-  {
-    value: 'Living Room',
-    age: '0 - 16 Years Old',
-    risk: 'Low Risk',
-    active: true,
-    image: KidImage,
-    route: 'test',
-    completed: true,
-  },
-  {
-    value: 'Classroom',
-    age: '17 - 63 Years Old',
-    risk: 'High Risk',
-    active: false,
-    image: KidImage,
-    route: 'test',
-    completed: false,
-  },
-  {
-    value: 'Classroom1',
-    age: '64+ Years Old',
-    risk: 'Medium Risk',
-    active: false,
-    image: KidImage,
-    route: 'test',
-    completed: false,
-  },
-]
+let options: SelectionOptions[] =
+    [
+
+      {
+        title: 'Children/Teens\n0-16 Years Old',
+        description:"",
+        rating: 'Lower Risk',
+        img: Kids
+
+      },
+      {
+        title: 'Adults\n17 - 63 Years Old',
+        description:"",
+        rating: 'Medium Risk',
+        img: Kids
+      },
+      {
+        title: 'Seniors\n64+ Years Old',
+        description:"",
+        rating: 'Higher Risk',
+        img: Kids
+      }
+    ];
+
 
 export const OccupantAgeGroup: React.FC<StepViewProps> = (props) => {
-  const [mode, setMode] = useState(false)
-
-  function handleSwitchMode() {
-    setMode(!mode)
+  const [mode, setMode] = useState(false); //False means Basic , True means Advanced
+  const [selected, setSelected] = useState([] as number[]);
+  function handleSwitchMode(e:any) {
+    e.preventDefault()
+    setMode(!mode);
   }
   return (
-    <div className="grid h-screen grid-rows-6 gap-4 divide-gray-400">
-      <div className="row-span-1"></div>
+      <div className="w-full max-h-screen">
+        <div className="my-8">
+          <div>
+            <div className=" inline-block relative">
+              <p className="inline-block">Please select all that apply. </p>
+              <img className="inline-block" src={Mouse} alt={""}/>
+            </div>
 
-      <div className="row-span-4">
-        <div>
-          <div className="relative left-0 inline-block">
-            <p>Please select all that apply. Mouse button.</p>
+            <div className="relative inline-block float-right w-64 h-18 bg-white border-2 border-gray-400 rounded-3xl">
+              <button
+                  onClick={handleSwitchMode}
+                  className={clsx("inline-block w-28 h-10 m-1 relative rounded-3xl float-left  text-white font-bold  rounded cursor-pointer",
+                      !mode && "bg-blue-500",
+                       mode && "bg-white text-gray-200"
+                      )
+                  }
+              >
+                Basic
+              </button>
+
+              <button
+                  onClick={handleSwitchMode}
+                  className={clsx("inline-block w-28 h-10 m-1 relative rounded-3xl float-right text-white font-bold  rounded cursor-pointer",
+                      !mode && "bg-white text-gray-200",
+                      mode && "bg-blue-500 "
+                      )}
+              >
+                Advanced
+              </button>
+            </div>
           </div>
 
-          <div className="relative inline-block float-right">
-            <button
-              onClick={handleSwitchMode}
-              className="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
-            >
-              Basic
-            </button>
+          <div>
+            {!mode && (
+                <div>
+                  <div className="">
+                    {/*<GroupAge items={DefaultOccupantAgeGroup} />*/}
+                  </div>
+                </div>
+            )}
+          </div>
 
-            <button
-              onClick={handleSwitchMode}
-              className="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
-            >
-              Advanced
-            </button>
+          <div>
+            {mode && (
+                <div>
+                  <div className="">
+
+                  </div>
+                </div>
+            )}
           </div>
         </div>
 
-        <div>
-          {!mode && (
-            <div>
-              <div className="">
-                <GroupAge items={DefaultOccupantAgeGroup} />
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div>
-          {mode && (
-            <div>
-              <div className="">
-                <SelectionSliderHeight value={3} />
-                <SelectionSliderHeight value={5} />
-                <SelectionSliderHeight value={10} />
-              </div>
-            </div>
-          )}
-        </div>
+        <SelectionGroup options = {options} multi={true} cardCol={true} columns={3} selected={selected} setSelected={setSelected}/>
       </div>
-
-      <div className="row-span-1">
-        <PageFooter />
-      </div>
-    </div>
-  )
-}
+  );
+};

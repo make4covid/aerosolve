@@ -1,17 +1,52 @@
-import React from 'react'
-import { PageFooter } from 'components/PageFooter/PageFooter'
+import React, {useState} from 'react'
 import { StepViewProps } from 'data'
+import Mouse from "../../../assets/icons/mouse.png";
+import {SelectionGroup} from "../../../components/SelectionCardGroup/SelectionGroup";
+import {SelectionOptions} from "../../../components/SelectionCard/SelectionCard";
+import Kids from "../../../assets/old/KidImage.png";
+
+let options: SelectionOptions[] =
+    [
+
+        {
+            title: 'Resting',
+            description:"",
+            rating: '',
+            img: Kids
+
+        },
+        {
+            title: 'Standing',
+            description:"",
+            rating: '',
+            img: Kids
+        },
+        {
+            title: 'Exercise',
+            description:"",
+            rating: '',
+            img: Kids
+        },
+        {
+            title: 'Heavy Exercise',
+            description:"",
+            rating: '',
+            img: Kids
+        }
+    ];
+
+
 
 export const PhysicalActivity: React.FC<StepViewProps> = (props) => {
-  return (
-    <div className="grid h-screen grid-rows-6 gap-4 divide-gray-400">
-      <div className="row-span-1"></div>
+    const [selected,setSelected] = useState([] as number[]);
+    return (
+        <div className="max-h-screen w-full">
+            <div className="py-4">
+                <p className="inline-block text-xl text-bold">Please select all that apply. </p>
+                <img className="inline-block -py-2" src={Mouse} alt={""}/>
+            </div>
+            <SelectionGroup options = {options} multi={true} cardCol={false} columns={2} selected={selected} setSelected={setSelected}/>
 
-      <div className="row-span-4"></div>
-
-      <div className="row-span-1">
-        <PageFooter />
-      </div>
-    </div>
-  )
+        </div>
+    );
 }

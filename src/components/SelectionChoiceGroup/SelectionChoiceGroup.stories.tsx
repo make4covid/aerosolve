@@ -1,8 +1,18 @@
-import React from 'react'
-import { StepViewProps } from 'data'
-import {SelectionChoiceGroup} from "../../components/SelectionChoiceGroup/SelectionChoiceGroup";
-import {SelectionOption} from "../../components/SelectionChoice/SelectionChoiceItem/SelectionChoiceItem";
-import {SelectionChoiceOption} from "../../components/SelectionChoice/SelectionChoice";
+import React, {useState} from 'react';
+import { Story, Meta } from '@storybook/react';
+
+import { withDesign } from 'storybook-addon-designs';
+import {SelectionChoiceGroup} from "./SelectionChoiceGroup";
+import {SelectionChoiceGroupOptions} from "./SelectionChoiceGroup";
+import {SelectionOption} from "../SelectionChoice/SelectionChoiceItem/SelectionChoiceItem";
+import {SelectionChoiceOption} from "../SelectionChoice/SelectionChoice";
+
+export default {
+    title: 'Aerosolve/Atoms/Selection Choice Group',
+    component: SelectionChoiceGroup,
+    decorators: [withDesign],
+} as Meta;
+
 
 let options1 : SelectionOption[] =[
     {
@@ -71,10 +81,16 @@ let options : SelectionChoiceOption[] =[
     }
 ]
 
-export const VentilationFiltration: React.FC<StepViewProps> = (props) => {
-  return (
-    <div className="w-full h-3/5">
-     <SelectionChoiceGroup options={options} noDescription={false}/>
-    </div>
-  )
+const Template: Story<SelectionChoiceGroupOptions> = (args) => {
+
+    return (
+        <div className="w-screen h-screen">
+            <SelectionChoiceGroup {...args}/>
+        </div>
+    )
+}
+
+export const PlainUnselected = Template.bind({});
+PlainUnselected.args={
+    options
 }

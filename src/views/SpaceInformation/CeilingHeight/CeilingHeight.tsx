@@ -1,21 +1,24 @@
 import React from 'react'
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight'
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
 import { StepViewProps } from 'data'
+import {PlainCard} from "../../../components/PlainCard/PlainCard";
+import Kids from 'assets/images/kids.png';
 
 export const CeilingHeight: React.FC<StepViewProps> = (props) => {
   return (
-    <div className="grid h-screen gap-4 divide-gray-400 grid-rows-11">
-      <div className="row-span-2"></div>
-      <div className="row-span-5">
-        <div>
-          Room Ceiling Height Large room with tall ceilings have more air circulating, so it takes
-          longer for exhaled aerosols to reach a dangerous concentration
+    <div className="w-full h-full">
+        <div className="w-full h-96 bg-gray-100 flex flex-row my-4">
+            <div className="flex-1 p-4">
+                <p className="text-3xl text-bold">Room Ceiling Height</p>
+                <p className="text-lg ">Large rooms with tall ceilings have more air circulating, so it takes longer for exhaled aerosols to reach a dangerous concentration. </p>
+            </div>
+            <div className="flex-1 p-8">
+                <img src={Kids} alt={""}/>
+            </div>
         </div>
-      </div>
-      <div className="row-span-3">
-        <SelectionSliderHeight value={10} />
-      </div>
-      <div className="row-span-1"></div>
+        <div className="w-full h-64 bg-gray-100">
+          <PlainCard selectionHeight={true} title={"Selection"} description={""}/>
+        </div>
     </div>
   )
 }

@@ -12,6 +12,7 @@ import { PageHeader } from 'components/PageHeader/PageHeader'
 import { Home } from 'views'
 
 import * as data from 'data'
+import {PageFooter} from "./components/PageFooter/PageFooter";
 
 const App: React.FC<{}> = (props) => {
   const [state, setState] = useReducer(contextReducer, initialState)
@@ -49,12 +50,16 @@ const App: React.FC<{}> = (props) => {
                         title={String(step.index! + 1).padStart(2, '0') + ' / ' + step.title}
                         description={step.header.description}
                         prompt={step.header.prompt}
-                      ></PageHeader>
+                        hours={30} people={30} >
+
+                      </PageHeader>
                       <StepView
                         onComplete={() => {
                           completeStep(step.route)
                         }}
-                      ></StepView>
+                      />
+
+                      <PageFooter/>
                     </div>
                   </Route>
                 )

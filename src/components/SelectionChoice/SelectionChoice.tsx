@@ -6,9 +6,9 @@ import {SelectionChoiceItem, SelectionOption} from "./SelectionChoiceItem/Select
 export interface SelectionChoiceOption{
     options: SelectionOption[]
     title: string
-    description: string
+    description?: string
     index?: number
-
+    noDescription?: boolean
 }
 export interface SelectionChoiceProps{
     setSelected?: (selected: number[]) => void
@@ -49,14 +49,19 @@ export const SelectionChoice: React.FC<SelectionChoiceOption & SelectionChoicePr
             props.setSelectedArray([...tempt])
     };
     return(
-        <div className="max-h-screen max-w-screen grid grid-cols-6">
+        <div className="w-full h-full grid grid-cols-6">
             <div className="col-span-1 pl-4">
-                <p className="text-xl font-bold">
+                <p className={clsx(" font-bold",
+                        props.noDescription && "text-3xl",
+                        !props.noDescription && "text-xl"
+                            ,)
+                    }>
                     {props.title}
                 </p>
-                <p className="">
+                { !props.noDescription && <p className="">
                     {props.description}
                 </p>
+                }
             </div>
             <div className="col-span-5 flex">
             {props.options.map((option,index) =>(

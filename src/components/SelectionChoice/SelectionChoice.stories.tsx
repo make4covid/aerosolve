@@ -35,10 +35,10 @@ export default {
 } as Meta;
 
 const Template: Story<SelectionChoiceOption & SelectionChoiceProps> = (args) => {
-    const [selected, setSelected] = useState([] as number[]);
+    const [selectedArray, setSelectedArray] = useState(Array.from(Array(args.options.length).keys()).map(() => new Array(2).fill(-1)) as number[][]);
     return (
         <div className="w-screen h-32 bg-gray-200 rounded-2xl">
-            <SelectionChoice {...args}  selected={selected}  setSelected={setSelected}/>
+            <SelectionChoice {...args}  selectedArray={selectedArray}  setSelectedArray={setSelectedArray}/>
         </div>
     )
 }

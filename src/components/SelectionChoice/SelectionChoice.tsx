@@ -7,7 +7,7 @@ export interface SelectionChoiceOption{
     options: SelectionOption[]
     title: string
     description: string
-    index: number
+    index?: number
 
 }
 export interface SelectionChoiceProps{
@@ -43,6 +43,7 @@ export const SelectionChoice: React.FC<SelectionChoiceOption & SelectionChoicePr
                 }
             }
             if(!collision){
+                // @ts-ignore
                 tempt[props.index] = [props.index,option]
             }
             props.setSelectedArray([...tempt])
@@ -62,7 +63,9 @@ export const SelectionChoice: React.FC<SelectionChoiceOption & SelectionChoicePr
                 <div className="inline-grid flex-grow m-2">
                     <SelectionChoiceItem
                         {...option}
-                        selected={JSON.stringify(selectedArray[props.index])===JSON.stringify([props.index,index])}
+                        selected={
+                            // @ts-ignore
+                            JSON.stringify(selectedArray[props.index])===JSON.stringify([props.index,index])}
                         onClick={()=>toggle(index)}
                     >
 

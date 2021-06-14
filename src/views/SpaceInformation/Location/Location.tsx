@@ -1,44 +1,21 @@
-import React, { CSSProperties } from 'react';
-import { PageHeader } from 'components/PageHeader/PageHeader';
-import { SelectionSliderHeight } from 'components/SelectionSlider/SelectionHeight/SelectionSliderHeight';
-import { NumberOfOccupants } from '../../SafetyGoal/TargetOccupancy/NumberOfOccupants/NumberOfOccupants';
-import { InputLocation } from 'components/InputLocation/InputLocation';
-import { LeftPanel } from './LeftPanel/LeftPanel';
-import { RightPanel } from './RightPanel/RightPanel';
-import { PageFooter } from 'components/PageFooter/PageFooter';
+import React from 'react'
+import { InputLocation } from 'components/InputLocation/InputLocation'
+import { LeftPanel } from './LeftPanel/LeftPanel'
+import { RightPanel } from './RightPanel/RightPanel'
+import { StepViewProps } from 'data'
 
-export type LocationProps = {
-  header?: string;
-  title: string;
-  question: string;
-  recommendation: string;
-  hours: number;
-  description: string;
-};
-
-export const Location: React.FC<LocationProps> = (props) => {
+export const Location: React.FC<StepViewProps> = (props) => {
   return (
-    <div className="h-screen  grid grid-rows-11 divide-gray-400 gap-2 ">
-      <div className="row-span-2">
-        <PageHeader
-          title={'02/Location'}
-          question={'What is the target occupancy for this space?'}
-          hours={6}
-          people={30}
-          description={''}
-        />
-      </div>
+    <div className="grid h-screen gap-2 divide-gray-400 grid-rows-11 ">
+      <div className="row-span-2"></div>
 
-      <div className="row-span-1 relative">
+      <div className="relative row-span-1">
         <InputLocation location={'CO'} />
       </div>
-      <div className="row-span-6 relative">
-        <div className="h-full w-full grid grid-cols-2">
+      <div className="relative row-span-6">
+        <div className="grid w-full h-full grid-cols-2">
           <div className="col-span-1">
-            <LeftPanel
-              rate={'Low Risk'}
-              description={'due to high vaccination rate'}
-            />
+            <LeftPanel rate={'Low Risk'} description={'due to high vaccination rate'} />
           </div>
           <div className="col-span-1">
             <RightPanel
@@ -53,9 +30,7 @@ export const Location: React.FC<LocationProps> = (props) => {
           </div>
         </div>
       </div>
-      <div className="row-span-2 relative">
-        <PageFooter />
-      </div>
+      <div className="relative row-span-2"></div>
     </div>
-  );
-};
+  )
+}

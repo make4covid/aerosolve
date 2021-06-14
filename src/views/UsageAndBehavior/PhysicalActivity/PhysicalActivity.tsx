@@ -1,28 +1,11 @@
-import React, { CSSProperties } from 'react';
-import { PageHeader } from 'components/PageHeader/PageHeader';
-import { PageFooter } from 'components/PageFooter/PageFooter';
+import React from 'react'
+import { PageFooter } from 'components/PageFooter/PageFooter'
+import { StepViewProps } from 'data'
 
-export type PhysicalActivityProps = {
-  header?: string;
-  title: string;
-  question: string;
-  recommendation: string;
-  hours: number;
-  description: string;
-};
-
-export const PhysicalActivity: React.FC<PhysicalActivityProps> = (props) => {
+export const PhysicalActivity: React.FC<StepViewProps> = (props) => {
   return (
-    <div className="h-screen grid grid-rows-6 divide-gray-400 gap-4">
-      <div className="row-span-1">
-        <PageHeader
-          title={'08/Physical Activity'}
-          question={'What is the target occupancy for this space?'}
-          hours={6}
-          people={30}
-          description={''}
-        />
-      </div>
+    <div className="grid h-screen grid-rows-6 gap-4 divide-gray-400">
+      <div className="row-span-1"></div>
 
       <div className="row-span-4"></div>
 
@@ -30,5 +13,5 @@ export const PhysicalActivity: React.FC<PhysicalActivityProps> = (props) => {
         <PageFooter />
       </div>
     </div>
-  );
-};
+  )
+}

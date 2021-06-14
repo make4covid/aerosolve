@@ -1,20 +1,7 @@
-import React, { CSSProperties } from 'react';
-import { PageHeader, PageHeaderProps } from 'components/PageHeader/PageHeader';
-import { GroupSpace } from 'components/SelectionCardGroup/GroupSpace';
-import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemSpace';
-import { PageFooter } from 'components/PageFooter/PageFooter';
-import { InputLocation } from 'components/InputLocation/InputLocation';
-import { LeftPanel } from '../Location/LeftPanel/LeftPanel';
-import { RightPanel } from '../Location/RightPanel/RightPanel';
-
-export type TypeOfSpaceProps = {
-  header?: string;
-  title: string;
-  question: string;
-  recommendation: string;
-  hours: number;
-  description: string;
-};
+import React from 'react'
+import { GroupSpace } from 'components/SelectionCardGroup/GroupSpace'
+import { CardGroupItem } from 'components/SelectionCardGroup/SelectionCardGroupItem/ItemSpace'
+import { StepViewProps } from 'data'
 
 const defaultTypeOfSpaceGroup: CardGroupItem[] = [
   {
@@ -45,27 +32,17 @@ const defaultTypeOfSpaceGroup: CardGroupItem[] = [
     route: 'test',
     completed: false,
   },
-];
+]
 
-export const TypeOfSpace: React.FC<TypeOfSpaceProps> = (props) => {
+export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
   return (
-    <div className="h-screen  grid grid-rows-8 divide-gray-400 gap-2 ">
-      <div className="row-span-2">
-        <PageHeader
-          title={'03/Type of Space'}
-          question={'What is the target occupancy for this space?'}
-          hours={6}
-          people={30}
-          description={''}
-        />
-      </div>
+    <div className="grid h-screen gap-2 divide-gray-400 grid-rows-8 ">
+      <div className="row-span-2"></div>
 
-      <div className="row-span-5 relative">
+      <div className="relative row-span-5">
         <GroupSpace items={defaultTypeOfSpaceGroup} />
       </div>
-      <div className="row-span-1 relative">
-        <PageFooter />
-      </div>
+      <div className="relative row-span-1"></div>
     </div>
-  );
-};
+  )
+}

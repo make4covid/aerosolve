@@ -2,21 +2,34 @@ import { Story } from '@storybook/react'
 import { ProgressIndicator, ProgressIndicatorProps } from './ProgressIndicator'
 
 export default {
-  title: 'Aerosolve/Components/ProgressIndicator',
+  title: 'Aerosolve/Components/Progress Indicator',
   component: ProgressIndicator,
 }
 
 const Template: Story<{}> = (args) => <ProgressIndicator {...(args as ProgressIndicatorProps)} />
 
-export const OccupantCard = Template.bind({})
+export const BelowTarget = Template.bind({})
+export const AtTarget = Template.bind({})
+export const AboveTarget = Template.bind({})
 
-OccupantCard.args = {
+BelowTarget.args = {
   value: 6,
   outOf: 8,
   people: 30,
 }
 
-OccupantCard.parameters = {
+AtTarget.args = {
+  value: 8,
+  outOf: 8,
+  people: 30,
+}
+AboveTarget.args = {
+  value: 10,
+  outOf: 8,
+  people: 30,
+}
+
+BelowTarget.parameters = {
   design: {
     type: 'figma',
     url:

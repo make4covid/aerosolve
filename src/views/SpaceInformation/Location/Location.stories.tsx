@@ -1,15 +1,13 @@
 import { Story } from '@storybook/react'
 import { StepViewProps } from 'data'
-import { Location } from './Location'
+import { Location as LocationComponent } from './Location'
 
 export default {
-  title: 'Aerosolve/Views/SpaceInformation/Location',
-  component: Location,
+  title: 'Aerosolve/Views/Space Information/Location',
+  component: LocationComponent,
 }
 
-const Template: Story<StepViewProps> = (args) => <Location {...args} />
-
-export const Activity = Template.bind({})
+export const Location: Story<StepViewProps> = (args) => <LocationComponent {...args} />
 
 // Activity.args = {
 //   title: '02/Location',

@@ -1,39 +1,36 @@
-import React, { useState } from 'react'
-import { StepViewProps } from 'data'
-import Mouse from 'assets/icons/mouse.png'
-import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
-import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
+import React, { CSSProperties, useState } from 'react'
+import { PageHeader } from 'components/PageHeader/PageHeader'
+import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
+import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants'
 import Kids from 'assets/old/KidImage.png'
+import Mouse from 'assets/icons/mouse.png'
+import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
+import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
+import { StepViewProps } from '../../../data'
 import clsx from 'clsx'
 
 let options: SelectionOptions[] = [
   {
-    title: 'No Masks',
+    title: 'Children/Teens\n0-16 Years Old',
     description: '',
-    rating: '',
+    rating: 'Lower Risk',
     img: Kids,
   },
   {
-    title: 'Cloth Masks',
+    title: 'Adults\n17 - 63 Years Old',
     description: '',
-    rating: '',
+    rating: 'Medium Risk',
     img: Kids,
   },
   {
-    title: 'Surgical Masks',
+    title: 'Seniors\n64+ Years Old',
     description: '',
-    rating: '',
-    img: Kids,
-  },
-  {
-    title: 'N95 Respirators',
-    description: '',
-    rating: '',
+    rating: 'Higher Risk',
     img: Kids,
   },
 ]
 
-export const TypeOfMask: React.FC<StepViewProps> = (props) => {
+export const OccupantAgeGroups: React.FC<StepViewProps> = (props) => {
   const [mode, setMode] = useState(false) //False means Basic , True means Advanced
   const [selected, setSelected] = useState([] as number[])
   function handleSwitchMode(e: any) {
@@ -94,8 +91,8 @@ export const TypeOfMask: React.FC<StepViewProps> = (props) => {
       <SelectionCardGroup
         options={options}
         multi={true}
-        cardCol={false}
-        columns={2}
+        cardCol={true}
+        columns={3}
         selected={selected}
         setSelected={setSelected}
       />

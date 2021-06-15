@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import tw from 'twin.macro';
-import {SelectionSlider} from "../SelectionSlider/SelectionSlider";
 import {OccupantsCard, OccupantsCardProps} from "../OccupantsCard/OccupantsCard";
 import {NumberOfOccupants} from "../NumberOfOccupants/NumberOfOccupants";
 
@@ -59,7 +58,7 @@ export const PlainCard: React.FC<CardProps &CardOptions> = ({
                 </div>
                 <div className="flex-1"/>
                 <div className="w-full h-full flex-1">
-                    <SelectionSlider value={12} min={"0"} max={"24"} unit={"hours"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/>
+                    {/*<SelectionSlider value={12} min={"0"} max={"24"} unit={"hours"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/>*/}
                 </div>
             </div>
 
@@ -77,7 +76,7 @@ export const PlainCard: React.FC<CardProps &CardOptions> = ({
                     </div>
                     <div className="flex-1"/>
                     <div className="w-full h-full flex-1">
-                        <SelectionSlider value={600} min={"0"} max={">10000"} unit={"sq. feet"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/>
+                        {/*<SelectionSlider value={600} min={"0"} max={">10000"} unit={"sq. feet"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/>*/}
                     </div>
                 </div>
 
@@ -95,7 +94,7 @@ export const PlainCard: React.FC<CardProps &CardOptions> = ({
                     </div>
                     <div className="flex-1"/>
                     <div className="w-full h-full flex-1">
-                        <SelectionSlider value={600} min={"0"} max={">10000"} unit={"sq. feet"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/>
+                        {/* <SelectionSlider value={600} min={"0"} max={">10000"} unit={"sq. feet"} arrayValue={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}/> */}
                     </div>
                 </div>
 

@@ -20,5 +20,6 @@ SquareFeetSlider.args = {
     min:100,
     max:10000,
     unit: "sq.feet",
-    arrayValue: [100,500,1000,5000,10000,15000]
+    arrayValue: [100,500,1000,5000,10000,15000],
+    description: ["Small\nBedroom","Living\nRoom","School\nClassroom","Basketball\nCourt","Office\nSpace","Large\nSpace"]
 };

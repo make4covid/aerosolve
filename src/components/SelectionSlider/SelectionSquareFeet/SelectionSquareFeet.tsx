@@ -2,6 +2,7 @@ import React, {CSSProperties, ReactDOM, useEffect, useRef, useState} from 'react
 import { findDOMNode } from 'react-dom'
 import $ from 'jquery';
 import clsx from "clsx";
+import {useCurrentWidth} from "../useCurrentWidth";
 
 export type SelectionSquareFeetProps  = {
     header?: string,
@@ -10,6 +11,7 @@ export type SelectionSquareFeetProps  = {
     max: number,
     unit: string,
     arrayValue: Array<number>,
+    description: Array<string>
     style?: CSSProperties
 }
 
@@ -17,24 +19,50 @@ export const SelectionSquareFeet: React.FC<SelectionSquareFeetProps> = (props) =
     const [value,setValue] = useState(props.value)
     const [start,setStart] = useState(false)
     const [circleLeft,setCircleLeft] = useState(0)
-    const [rectanglePointerLeft,setRectanglePointerLeft]  = useState(-60)
+    const [rectanglePointerLeft,setRectanglePointerLeft]  = useState(-75)
     const [blueSliderWidth, setBlueSliderWidth]   = useState(0)
     const [smallCircle,setSmallCircle] = useState(new Array(props.arrayValue.length).fill(0))
     const sliderEL = useRef(null)
     const circleEl = useRef(null);
     const smallRectangle = useRef(null)
-    const mainCanvasRef = useRef(null)
+    const [circleWidth,setCircleWidth] = useState(0)
+    const width= useCurrentWidth()
 
+    /*Update component after resize*/
     useEffect(()=>{
         let tempt = new Array(props.arrayValue.length)
         // @ts-ignore
-        let step = sliderEL.current.offsetWidth/(props.arrayValue.length-1)
-        tempt[0] = 0
+        let step = Math.ceil(sliderEL.current.offsetWidth/(props.arrayValue.length-1))
+        tempt[0] = -5
         for(let i = 1; i < props.arrayValue.length;i++){
             tempt[i] = step + tempt[i-1]
         }
         setSmallCircle([...tempt])
-    },[mainCanvasRef])
+        // @ts-ignore
+        setCircleWidth(circleEl.current.offsetWidth)
+
+    },[width])
+
+    /*Update component after drag or click*/
+    useEffect(()=>{
+        //Todo Improve the accuracy of the square feet value
+        for(let i = 1 ; i < smallCircle.length; i++){
+            // @ts-ignore
+            if(circleLeft + circleEl.current.offsetWidth/2 < smallCircle[i]){
+                // @ts-ignore
+                let diff = circleLeft + circleEl.current.offsetWidth/2 - smallCircle[i-1]
+                let value = (diff/(smallCircle[i] + 12)*(props.arrayValue[i])) + props.arrayValue[i-1]
+                setValue(value)
+                break
+            }
+            // @ts-ignore
+            else if(circleLeft + circleEl.current.offsetWidth/2 == smallCircle[i]){
+                setValue(props.arrayValue[i])
+            }
+        }
+
+    },[circleLeft])
+
     function handleClick(e:any){
         e = e || window.event;
         e.preventDefault()
@@ -42,23 +70,15 @@ export const SelectionSquareFeet: React.FC<SelectionSquareFeetProps> = (props) =
 
         // @ts-ignore
         let circleLeft = e.clientX - sliderEL.current.getBoundingClientRect().left - circleEl.current.offsetWidth/2
-        // @ts-ignore
-        setCircleLeft(circleLeft)
-        // @ts-ignore
-        setBlueSliderWidth((circleLeft/sliderEL.current.offsetWidth)*sliderEL.current.offsetWidth)
-
-        // @ts-ignore
-        for(let i = 1 ; i < smallCircle.length; i++){
+        if(circleLeft >=0) {
             // @ts-ignore
-            if(circleLeft + circleEl.current.offsetWidth/2 <= smallCircle[i]){
-                // @ts-ignore
-                let value = ((((circleLeft)/smallCircle[i]))*(props.arrayValue[i])) + props.arrayValue[i-1]
-                setValue(value)
-                break
-            }
+            setCircleLeft(circleLeft <= 0 ? 0 : circleLeft)
+            // @ts-ignore
+            setBlueSliderWidth((circleLeft / sliderEL.current.offsetWidth) * sliderEL.current.offsetWidth)
+            // @ts-ignore
+            setRectanglePointerLeft(e.clientX - sliderEL.current.getBoundingClientRect().left - smallRectangle.current.clientWidth / 2)
         }
-        // @ts-ignore
-        setRectanglePointerLeft(e.clientX - sliderEL.current.getBoundingClientRect().left - smallRectangle.current.clientWidth/2)
+        return
     }
     function handleDrag(e:any){
         if(start) {
@@ -69,7 +89,7 @@ export const SelectionSquareFeet: React.FC<SelectionSquareFeetProps> = (props) =
             // @ts-ignore
             if(circleLeft >= -circleEl.current.clientWidth/2 && circleLeft <= sliderEL.current.clientWidth){
                 // @ts-ignore
-                setCircleLeft(circleLeft)
+                setCircleLeft(circleLeft < 0 ? 0 : circleLeft)
             }
             // @ts-ignore
             else if(circleLeft <=  -circleEl.current.clientWidth/2){
@@ -84,15 +104,6 @@ export const SelectionSquareFeet: React.FC<SelectionSquareFeetProps> = (props) =
             // @ts-ignore
             setBlueSliderWidth((circleEl.current.offsetLeft/sliderEL.current.offsetWidth)*sliderEL.current.offsetWidth)
 
-            for(let i = 1 ; i < smallCircle.length; i++){
-                // @ts-ignore
-                if(circleLeft + circleEl.current.offsetWidth/2 <= smallCircle[i]){
-                    // @ts-ignore
-                    let value = ((((circleLeft)/smallCircle[i]))*(props.arrayValue[i])) + props.arrayValue[i-1]
-                    setValue(value)
-                    break
-                }
-            }
             // @ts-ignore
             setRectanglePointerLeft(e.clientX - sliderEL.current.getBoundingClientRect().left - smallRectangle.current.clientWidth/2)
         }
@@ -111,10 +122,10 @@ export const SelectionSquareFeet: React.FC<SelectionSquareFeetProps> = (props) =
     return (
         <div>
             <div className="w-full h-full">
-                <div ref = {mainCanvasRef} className="relative w-full" onMouseMove={handleDrag} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
+                <div className="relative w-full" onMouseMove={handleDrag} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
                     <div ref={circleEl} id="circle" style={{left:circleLeft}} className={`absolute h-12 w-12 rounded-full bg-blue-500 -top-5 border-blue-500 cursor-pointer flex justify-center z-20`} />
                     <div ref={sliderEL} id="slider" className="absolute w-full h-2 flex bg-white z-0 cursor-pointer" onClick={handleClick}/>
-                    <div id="blueSlider" style={{width:blueSliderWidth+5}} className={`absolute h-2 bg-blue-500 z-10`}   onClick={handleClick}/>
+                    <div id="blueSlider" style={{width:blueSliderWidth+5}} className={`absolute h-2 bg-blue-500 z-10 cursor-pointer`}   onClick={handleClick}/>
                     <div>
                         { props.arrayValue.map((item,index)=>{
                             return(
@@ -124,8 +135,7 @@ export const SelectionSquareFeet: React.FC<SelectionSquareFeetProps> = (props) =
                                             <div
                                                 id={"small_circle" +index}
                                                 style={{
-                                                    // @ts-ignore
-                                                    backgroundColor: (circleLeft >= smallCircle[index]) ? "rgba(59, 130, 246, var(--tw-bg-opacity))" : "white",
+                                                    backgroundColor: (circleLeft + circleWidth>= smallCircle[index]) ? "rgba(59, 130, 246, var(--tw-bg-opacity))" : "white",
                                                     left: smallCircle[index]
                                                 }}
                                                 className={
@@ -142,17 +152,37 @@ export const SelectionSquareFeet: React.FC<SelectionSquareFeetProps> = (props) =
 
                                             <div id={"small_number"+index}
                                                  style={{
-                                                     color: (circleLeft >smallCircle[index]) ? "rgba(59, 130, 246, var(--tw-bg-opacity))" : "white",
+                                                     color: (circleLeft + circleWidth >smallCircle[index]) ? "rgba(59, 130, 246, var(--tw-bg-opacity))" : "white",
                                                      left: smallCircle[index]
                                                  }}
                                                  className={clsx(`absolute -top-10 z-10`,
                                                      index <= 12 && "text-blue-500" ,
                                                      index > 12 && "text-white",
-                                                     item < 10 && " ml-2",
-                                                     item < 100 && " ml-1"
+                                                     item < 100 && " ml-3",
+                                                     item <= 10000 && item >= 1000 && "-ml-1",
+                                                     item <= 100000 && item > 10000 && "-ml-2",
                                                  )}
 
-                                            >{item}</div>
+                                            >{index != props.arrayValue.length-1 ? item : ">" + props.max}</div>
+
+                                            <div id={"small_title"+index}
+                                                 style={{
+                                                     color: (circleLeft + circleWidth >smallCircle[index]) ? "rgba(59, 130, 246, var(--tw-bg-opacity))" : "white",
+                                                     left: smallCircle[index]
+                                                 }}
+                                                 className={clsx(`absolute top-5 z-10 w-10`,
+                                                     index <= 12 && "text-blue-500" ,
+                                                     index > 12 && "text-white",
+                                                     item < 100 && " ml-3",
+                                                     item <= 10000 && item >= 1000 && "-ml-1",
+                                                     item <= 100000 && item > 10000 && "-ml-2",
+                                                 )}
+
+                                            >
+                                                <p>
+                                                    {props.description[index]}
+                                                </p>
+                                            </div>
                                         </div>
                                     }
                                 </div>
@@ -163,10 +193,10 @@ export const SelectionSquareFeet: React.FC<SelectionSquareFeetProps> = (props) =
                     <div id="rectanglePointer" style={{left:rectanglePointerLeft}} className="absolute -top-28">
                         <div ref={smallRectangle} id="smallRectangle" className="w-52 h-12 bg-white border-4 border-blue-500 flex flex-row space-x-10 rounded-xl">
                             <div className="font-bold text-blue-600 text-3xl px-6">
-                                {Math.round(value)}
+                                {value <= props.max ? Math.round(value) : ">" + props.max}
                             </div>
 
-                            <div className="font-medium text-xl pt-1">
+                            <div className="absolute font-medium text-xl pt-1 pl-2 right-2">
                                 {props.unit}
                             </div>
                         </div>

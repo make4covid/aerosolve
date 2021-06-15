@@ -2,7 +2,6 @@ import React from 'react'
 
 import { LeftPanel } from './LeftPanel'
 import { RightPanel } from './RightPanel'
-import { SelectionCard } from './Selection'
 import { StepViewProps } from 'data'
 import { PlainCard } from '../../../components/PlainCard/PlainCard'
 

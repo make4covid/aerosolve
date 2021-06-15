@@ -1,6 +1,5 @@
-import React from 'react';
-import clsx from 'clsx';
-import tw from 'twin.macro';
+import React from 'react'
+import clsx from 'clsx'
 
 export interface SelectionOptions {
   title: string
@@ -13,16 +12,16 @@ export interface SelectionCardProps {
   /**
    * Is this item selected?
    */
-  selected?: boolean;
+  selected?: boolean
   /**
    * Use a column orientation?
    */
-  column?: boolean;
+  column?: boolean
   // /**
   //  * Optional click handler
   //  */
-  onClick?: (e:any) => void;
-  className?: string;
+  onClick?: (e: any) => void
+  className?: string
 }
 
 /**
@@ -87,5 +86,5 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}

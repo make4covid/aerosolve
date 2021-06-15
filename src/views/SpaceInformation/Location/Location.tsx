@@ -1,11 +1,8 @@
-import React, { CSSProperties } from 'react'
-import { PageHeader } from 'components/PageHeader/PageHeader'
-import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
-import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants'
+import React from 'react'
+// import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
 import { InputLocation } from 'components/InputLocation/InputLocation'
 import { LeftPanel } from './LeftPanel'
 import { RightPanel } from './RightPanel'
-import { PageFooter } from 'components/PageFooter/PageFooter'
 import { StepViewProps } from '../../../data'
 
 export type LocationProps = {

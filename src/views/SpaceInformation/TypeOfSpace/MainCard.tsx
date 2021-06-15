@@ -1,6 +1,4 @@
 import React from 'react'
-import clsx from 'clsx'
-import tw from 'twin.macro'
 import Kids from 'assets/images/kids.png'
 
 export interface SelectionOptions {

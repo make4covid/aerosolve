@@ -1,13 +1,12 @@
 import React from 'react'
 import { Story } from '@storybook/react'
-import { PageFooter } from './PageFooter'
+import { PageFooter as PageFooterComponent, PageFooterProps } from './PageFooter'
 
 export default {
-  title: 'Aerosolve/Refactor/PageFooter',
-  component: PageFooter,
+  title: 'Aerosolve/Compositions/PageFooter',
+  component: PageFooterComponent,
 }
 
-// @ts-ignore
-const Template: Story<PageFooter> = ({}) => <PageFooter />
-
-export const Default = Template.bind({})
+export const PageFooter: Story<PageFooterProps> = ({}) => (
+  <PageFooterComponent lastStep={() => {}} nextStep={() => {}} />
+)

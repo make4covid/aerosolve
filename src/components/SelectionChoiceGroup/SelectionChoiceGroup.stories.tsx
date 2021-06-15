@@ -103,9 +103,52 @@ let options: SelectionChoiceOption[] = [
     totalCols:5,
     leftCol:1,
     rightCol:4,
-
     boxCols:options3.length
   },
+]
+
+
+let subOptions: SelectionOption[] = [
+  {
+    button_description: ""
+  },
+
+  {
+    button_description: 'Mostly No',
+  },
+  {
+    button_description: 'Average',
+  },
+  {
+    button_description: 'Mostly Yes',
+  }
+]
+
+let optionTitle: SelectionChoiceOption[] = [
+  {
+    options:subOptions,
+    title: 'Occupants are wearing Masks\nthat completely covering their\nnoise and mounth',
+    totalCols:5,
+    leftCol:2,
+    rightCol:3,
+    boxCols:options.length
+  },
+  {
+    options:subOptions,
+    title: 'Occupants are wearing Masks\nthat completely covering their\nnoise and mounth',
+    totalCols:5,
+    leftCol:2,
+    rightCol:3,
+    boxCols:options.length
+  },
+  {
+    options:subOptions,
+    title: 'Occupants are wearing Masks\nthat completely covering their\nnoise and mounth',
+    totalCols:5,
+    leftCol:2,
+    rightCol:3,
+    boxCols:options.length
+  }
 ]
 
 const Template: Story<SelectionChoiceGroupOptions> = (args) => {
@@ -116,7 +159,14 @@ const Template: Story<SelectionChoiceGroupOptions> = (args) => {
   )
 }
 
-export const PlainUnselected = Template.bind({})
-PlainUnselected.args = {
+export const Description = Template.bind({})
+Description.args = {
   options,
+}
+
+
+export const Title = Template.bind({})
+Title.args = {
+  options:optionTitle,
+  noDescription:true
 }

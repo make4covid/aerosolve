@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react';
-import { SelectionGroup, SelectionGroupProps } from './SelectionGroup';
+import React, { useState } from 'react'
+import { Story, Meta } from '@storybook/react'
+import { SelectionCardGroup, SelectionCardGroupProps } from './SelectionCardGroup'
 
-import Kids from 'assets/images/kids.png';
+import Kids from 'assets/images/kids.png'
 
-import { withDesign } from 'storybook-addon-designs';
-import { SelectionOptions } from 'components/SelectionCard/SelectionCard';
+import { withDesign } from 'storybook-addon-designs'
+import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
 
 export default {
-  title: 'Aerosolve/Selection Group',
-  component: SelectionGroup,
+  title: 'Aerosolve/Compositions/Selection Group',
+  component: SelectionCardGroup,
   decorators: [withDesign],
-} as Meta;
+} as Meta
 
 const options: SelectionOptions[] = [
   {
@@ -34,24 +34,24 @@ const options: SelectionOptions[] = [
     description: 'Description 2',
     img: Kids,
   },
-];
+]
 
-const Template: Story<SelectionGroupProps> = (args) => {
-  const [selected, setSelected] = useState([] as number[]);
+const Template: Story<SelectionCardGroupProps> = (args) => {
+  const [selected, setSelected] = useState([] as number[])
 
   return (
     <div>
-      <SelectionGroup {...args} selected={selected} setSelected={setSelected} />
+      <SelectionCardGroup {...args} selected={selected} setSelected={setSelected} />
     </div>
-  );
-};
+  )
+}
 
-export const SingleSelect = Template.bind({});
+export const SingleSelect = Template.bind({})
 SingleSelect.args = {
   options,
   multi: true,
   cardCol: false,
-};
+}
 
 SingleSelect.parameters = {
   design: {
@@ -59,4 +59,4 @@ SingleSelect.parameters = {
     url:
       'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=2437%3A8028',
   },
-};
+}

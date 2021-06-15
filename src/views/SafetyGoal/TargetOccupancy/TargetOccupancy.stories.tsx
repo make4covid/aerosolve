@@ -1,15 +1,17 @@
 import { Story } from '@storybook/react'
 import { StepViewProps } from 'data'
-import { TargetOccupancy } from './TargetOccupancy'
+import { TargetOccupancy as TargetOccupancyComponent } from './TargetOccupancy'
 
 export default {
-  title: 'Aerosolve/Atoms/SafetyGoal/TargetOccupancy',
-  component: TargetOccupancy,
+  title: 'Aerosolve/Views/Safety Goal/Target Occupancy',
+  component: TargetOccupancyComponent,
 }
 
-const Template: Story<StepViewProps> = (args) => <TargetOccupancy {...args} />
+export const TargetOccupancy: Story<StepViewProps> = (args) => (
+  <TargetOccupancyComponent {...args} />
+)
 
-export const Activity = Template.bind({})
+// export const Default = Template.bind({})
 
 // Activity.args = {
 //   title: '01/Target Occupancy',

@@ -1,46 +1,43 @@
-import React from 'react';
-import {
-  SelectionCard,
-  SelectionOptions,
-} from 'components/SelectionCard/SelectionCard';
+import React from 'react'
+import { SelectionCard, SelectionOptions } from 'components/SelectionCard/SelectionCard'
 
-import clsx from 'clsx';
+import clsx from 'clsx'
 
-export interface SelectionGroupProps {
+export interface SelectionCardGroupProps {
   /**
    * Allow multiple selection?
    */
-  multi?: boolean;
+  multi?: boolean
   /**
    * Array of selected options
    */
-  selected?: number[];
+  selected?: number[]
   /**
    * Number of columns to use in the grid
    */
-  columns?: number;
+  columns?: number
   /**
    * Action to set selected options
    */
-  setSelected: (selected: number[]) => void;
+  setSelected: (selected: number[]) => void
   /**
    * Orient card as column?
    */
-  cardCol?: boolean;
+  cardCol?: boolean
   /**
    * Data for available options
    */
-  options: SelectionOptions[];
+  options: SelectionOptions[]
   /**
    * Optional click handler
    * Input Click, output element number
    */
-  onClick?: (e:any) => void;
+  onClick?: (e: any) => void
 }
 /**
  * Group of selection cards
  */
-export const SelectionGroup: React.FC<SelectionGroupProps> = ({
+export const SelectionCardGroup: React.FC<SelectionCardGroupProps> = ({
   multi = true,
   selected = [],
   columns = 2,
@@ -49,15 +46,15 @@ export const SelectionGroup: React.FC<SelectionGroupProps> = ({
 }) => {
   const toggle = (option: number) => {
     if (!multi) {
-      props.setSelected([option]);
-      return;
+      props.setSelected([option])
+      return
     }
 
-    const selectedSet = new Set(selected);
-    if (selectedSet.has(option)) selectedSet.delete(option);
-    else selectedSet.add(option);
-    props.setSelected(Array.from(selectedSet));
-  };
+    const selectedSet = new Set(selected)
+    if (selectedSet.has(option)) selectedSet.delete(option)
+    else selectedSet.add(option)
+    props.setSelected(Array.from(selectedSet))
+  }
 
   return (
     <div className={clsx(`grid grid-cols-${columns} gap-6 max-w-5xl`)}>
@@ -66,11 +63,11 @@ export const SelectionGroup: React.FC<SelectionGroupProps> = ({
           {...option}
           selected={selected?.includes(index)}
           onClick={() => {
-            toggle(index);
+            toggle(index)
           }}
           column={cardCol}
         ></SelectionCard>
       ))}
     </div>
-  );
-};
+  )
+}

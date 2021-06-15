@@ -1,39 +1,47 @@
-import React, { CSSProperties, useContext } from 'react';
-import LeftArrow from 'assets/old/Left_Arrow.png';
-import RightArrow from 'assets/old/Right_Arrow.png';
+import React from 'react'
 
+import { ReactComponent as LeftArrow } from 'assets/icons/arrow-circle-left.svg'
+import { ReactComponent as RightArrow } from 'assets/icons/arrow-circle-right.svg'
+import clsx from 'clsx'
 
-export const PageFooter: React.FC<{}> = (props) => {
+export interface PageFooterProps {
+  lastStep: () => void
+  nextStep: () => void
+  resources?: {}[]
+}
 
-    function moveUp() {
-        //To do
-    }
-    function moveDown() {
-        //To do
-    }
-    return (
-        <div className="container relative  w-full h-8 inline-block mt-4">
-            <div className="">
-                <button className="w-8 h-8 z-10 float-left"
-                        onClick={moveUp}
-                >
-                    <img src={LeftArrow} alt={""}/>
-                </button>
+const InformationButton = () => {
+  return (
+    <button className="h-8 mx-3 transition duration-200 ease-in-out bg-yellow-300 rounded-full cursor-pointer hover:shadow-md hover:bg-yellow-400">
+      <div className="flex flex-row px-4 py-1">
+        <p className="flex-1 font-serif italic font-bold">i</p>
+        <p className="flex-1 ml-3 text-gray-800">Information</p>
+      </div>
+    </button>
+  )
+}
 
-                <button className="cursor-pointer w-32 h-8 bg-yellow-500 rounded-lg ml-4">
-                    <div className="flex flex-row -mt-1">
-                        <p className="flex-1 m-2">i</p>
-                        <p className="flex-1 m-2">Information</p>
-                    </div>
-                </button>
-
-                <button className="w-8 h-8 cursor-pointer float-right"
-                        onClick={moveDown}
-                >
-
-                    <img  src={RightArrow} />
-                </button>
-            </div>
-        </div>
-    );
-};
+export const PageFooter: React.FC<PageFooterProps> = (props) => {
+  const arrowClasses = clsx(
+    'w-8 h-8 text-gray-500 transition-colors duration-200 cursor-pointer fill-current hover:text-blue-500'
+  )
+  return (
+    <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row items-center w-max">
+        <LeftArrow
+          className={arrowClasses}
+          onClick={() => {
+            props.lastStep()
+          }}
+        />
+        <InformationButton />
+      </div>
+      <RightArrow
+        className={arrowClasses}
+        onClick={() => {
+          props.nextStep()
+        }}
+      />
+    </div>
+  )
+}

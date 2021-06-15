@@ -2,7 +2,7 @@ import { Story } from '@storybook/react'
 import { PageHeader, PageHeaderProps } from './PageHeader'
 
 export default {
-  title: 'Aerosolve/Components/PageHeader',
+  title: 'Aerosolve/Compositions/Page Header',
   component: PageHeader,
 }
 

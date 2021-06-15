@@ -1,15 +1,13 @@
 import { Story } from '@storybook/react'
 import { StepViewProps } from 'data'
-import { CeilingHeight } from './CeilingHeight'
+import { CeilingHeight as CeilingHeightComponent } from './CeilingHeight'
 
 export default {
-  title: 'Aerosolve/Atoms/SpaceInformation/CeilingHeight',
-  component: Location,
+  title: 'Aerosolve/Views/Space Information/Ceiling Height',
+  component: CeilingHeightComponent,
 }
 
-const Template: Story<StepViewProps> = (args) => <CeilingHeight {...args} />
-
-export const Activity = Template.bind({})
+export const CeilingHeight: Story<StepViewProps> = (args) => <CeilingHeightComponent {...args} />
 
 // Activity.args = {
 //   title: '05/Ceiling Height',

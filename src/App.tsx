@@ -12,7 +12,7 @@ import { PageHeader } from 'components/PageHeader/PageHeader'
 import { Home } from 'views'
 
 import * as data from 'data'
-import {PageFooter} from "./components/PageFooter/PageFooter";
+import { PageFooter } from './components/PageFooter/PageFooter'
 
 const App: React.FC<{}> = (props) => {
   const [state, setState] = useReducer(contextReducer, initialState)
@@ -45,21 +45,21 @@ const App: React.FC<{}> = (props) => {
                 const StepView = step.component
                 return (
                   <Route exact path={step.route}>
-                    <div className="w-4/5 max-w-4xl max-h-screen px-10 py-5 mx-auto min-w-2xl">
+                    <div className="container w-5/6 max-w-5xl max-h-screen px-10 py-5 mx-auto min-w-2xl">
                       <PageHeader
                         title={String(step.index! + 1).padStart(2, '0') + ' / ' + step.title}
                         description={step.header.description}
                         prompt={step.header.prompt}
-                        hours={30} people={30} >
-
-                      </PageHeader>
+                        hours={30}
+                        people={30}
+                      ></PageHeader>
                       <StepView
                         onComplete={() => {
                           completeStep(step.route)
                         }}
                       />
 
-                      <PageFooter/>
+                      <PageFooter lastStep={() => {}} nextStep={() => {}} />
                     </div>
                   </Route>
                 )

@@ -8,17 +8,17 @@ import { SelectionOption, SelectionChoiceProps, SelectionChoiceItem } from './Se
 import { withDesign } from 'storybook-addon-designs'
 
 export default {
-  title: 'Aerosolve/Components/Selection Choice Item',
-  component: SelectionChoiceItem,
-  decorators: [withDesign],
+    title: 'Aerosolve/Components/Selection Choice Item',
+    component: SelectionChoiceItem,
+    decorators: [withDesign],
 } as Meta
 
 const Template: Story<SelectionChoiceProps & SelectionOption> = (args) => (
-  <div className="w-screen h-screen bg-gray-200">
-    <div className="flex m-auto">
-      <SelectionChoiceItem {...args} />
+    <div className="w-screen h-screen flex">
+        <div className="w-48 h-48 cursor-pointer bg-gray-200 m-auto">
+            <SelectionChoiceItem {...args} />
+        </div>
     </div>
-  </div>
 )
 
 export const PlainUnselected = Template.bind({})

@@ -6,23 +6,17 @@ import { withDesign } from 'storybook-addon-designs'
 
 const options: SelectionOption[] = [
   {
-    button_description: 'Bla1',
+    button_description: '',
   },
   {
-    button_description: 'Bla2',
+    button_description: 'Mostly No',
   },
   {
-    button_description: 'Bla3',
+    button_description: 'Average',
   },
   {
-    button_description: 'Bla4',
-  },
-  {
-    button_description: 'Bla5',
-  },
-  {
-    button_description: 'Bla6',
-  },
+    button_description: 'Mostly Yes',
+  }
 ]
 
 export default {
@@ -33,22 +27,37 @@ export default {
 
 const Template: Story<SelectionChoiceOption & SelectionChoiceProps> = (args) => {
   const [selectedArray, setSelectedArray] = useState(
-    Array.from(Array(args.options.length).keys()).map(() => new Array(2).fill(-1)) as number[][]
+      Array.from(Array(args.options.length).keys()).map(() => new Array(2).fill(-1)) as number[][]
   )
   return (
-    <div className="w-screen h-32 bg-gray-200 rounded-2xl">
-      <SelectionChoice
-        {...args}
-        selectedArray={selectedArray}
-        setSelectedArray={setSelectedArray}
-      />
-    </div>
+      <div className="w-3/5 h-3/5 bg-gray-200 rounded-2xl">
+        <SelectionChoice
+            {...args}
+            selectedArray={selectedArray}
+            setSelectedArray={setSelectedArray}
+
+
+        />
+      </div>
   )
 }
 
-export const PlainUnselected = Template.bind({})
-PlainUnselected.args = {
+export const title = Template.bind({})
+title.args = {
+  options,
+  title: 'Occupants are wearing Masks\nthat completely covering their\nnoise and mounth',
+  totalCols:5,
+  leftCol:2,
+  rightCol:3,
+  boxCols:options.length
+}
+
+export const description = Template.bind({})
+description.args = {
   options,
   title: 'Ventilation ',
-  description: 'Outdoor air supply rate/ Outdoor ACH',
+  description: '',
+  totalCols:9,
+  boxCols:6
+
 }

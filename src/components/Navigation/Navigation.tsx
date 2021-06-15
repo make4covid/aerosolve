@@ -55,7 +55,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
 
 const NavigationGroup: React.FC<{ header: string }> = (props) => {
   return (
-    <div className="my-4 sidebarGroup">
+    <div className="my-3 sidebarGroup">
       <h1 className="flex mx-2 my-1 font-sans text-sm font-bold text-center text-gray-500 sidebarGroupHeader">
         {props.header}
       </h1>
@@ -77,7 +77,7 @@ const NavigationStep: React.FC<NavStepProps> = (props) => {
       onClick={props.onClick}
       style={props.style}
       className={clsx(
-        'font-sans font-normal relative flex flex-row items-center justify-between px-4 py-2 bg-white transition duration-200 border-t cursor-pointer',
+        'text-sm relative flex flex-row items-center justify-between px-3 py-1.5 bg-white transition duration-200 border-t cursor-pointer',
         props.active && 'text-white bg-blue-600 cursor-default',
         props.active || 'text-gray-300 hover:bg-blue-100 hover:text-blue-600 cursor-pointer',
         props.complete && 'text-blue-600 hover:bg-blue-100 cursor-pointer'

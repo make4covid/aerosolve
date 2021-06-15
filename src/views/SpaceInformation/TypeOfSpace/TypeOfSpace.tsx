@@ -1,11 +1,6 @@
-import React, { CSSProperties, useEffect, useState } from 'react'
-import { PageHeader, PageHeaderProps } from 'components/PageHeader/PageHeader'
-import { PageFooter } from 'components/PageFooter/PageFooter'
-import { InputLocation } from 'components/InputLocation/InputLocation'
-import { LeftPanel } from '../Location/LeftPanel'
-import { RightPanel } from '../Location/RightPanel'
+import React, { useState } from 'react'
 import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
-import { SelectionCard, SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
+import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
 import Kids from 'assets/images/kids.png'
 import { StepViewProps } from '../../../data'
 import { MainCard } from './MainCard'
@@ -82,7 +77,7 @@ export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
 
   return (
     <div className="w-full h-full my-4">
-      {selected.length == 1 && (
+      {selected.length === 1 && (
         <div className="relative w-full my-4 bg-gray-100 lg:h-60 rounded-xl">
           <MainCard
             title={options[selected[0]].title}
@@ -92,7 +87,7 @@ export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
           />
         </div>
       )}
-      {selected.length == 0 && (
+      {selected.length === 0 && (
         <div className="relative w-full my-4 bg-gray-100 lg:h-60 rounded-xl">
           <MainCard
             title={options[0].title}

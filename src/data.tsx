@@ -77,7 +77,7 @@ const steps: Step[] = [
   {
     route: '/occupant-ages',
     title: 'Occupant Ages',
-    component: Views.OccupantAgeGroup,
+    component: Views.OccupantAgeGroups,
     header: {
       prompt: 'About how tall, on average, is the ceiling in the space?',
       description:

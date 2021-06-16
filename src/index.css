@@ -4,7 +4,15 @@
 
 @layer utilities {
 
+    /*
+    Transparent scrollbar utility
+    */
+    .scrollbar-width-thin{
+        scrollbar-width: thin
+    }
+
     /**/
+
     .w-24-12{
         width:50.4%
     }

@@ -54,7 +54,7 @@ export const SelectionChoice: React.FC<SelectionChoiceOption & SelectionChoicePr
     props.setSelectedArray([...tempt])
   };
   return(
-      <div className={`w-full h-full my-4`}>
+      <div className={`w-full h-full px-2`}>
         <div className={`container w-full h-full grid grid-rows-6`}>
           <div className={`row-span-1`}/>
           <div className={`row-span-4`}>

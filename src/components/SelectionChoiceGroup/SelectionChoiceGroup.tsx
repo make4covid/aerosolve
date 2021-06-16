@@ -22,7 +22,7 @@ export const SelectionChoiceGroup: React.FC<SelectionChoiceGroupOptions> = ({
         <div className={`flex flex-col gap-y-2`}>
           {
             props.options.map((option,index) => (
-                <div className="w-full h-full bg-gray-200 rounded-2xl py-4">
+                <div className="w-full h-full bg-gray-200 rounded-2xl py-4 ">
                   <SelectionChoice
                       {...option}
                       noDescription = {noDescription}

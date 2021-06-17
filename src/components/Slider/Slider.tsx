@@ -1,9 +1,11 @@
-// TODO: Add "click to set value" feature
 // TODO: Add custom "tick mark" option
 // TODO: Add "type in value" option
+// TODO: Add "Focus on Input" on max or min values
+// TODO: (conditionally) allow custom values greater or less than specified
+// FIXME: Debug & fix width issue for large values
 
 import clsx from 'clsx'
-import { useEffect, useRef, useState } from 'react'
+import { MouseEvent, RefObject, useEffect, useRef, useState } from 'react'
 import { ValueIndicator } from 'components/ValueIndicator/ValueIndicator'
 
 export type SliderProps = {
@@ -13,6 +15,7 @@ export type SliderProps = {
   value: number
   unitPrefix?: string
   unit?: string
+  labelValues: boolean
   onChange: (value: number) => void
 }
 
@@ -22,6 +25,7 @@ export const Slider: React.FC<SliderProps> = ({
   interval = 1,
   value = 5,
   unit = 'Hour',
+  labelValues = false,
   onChange,
   unitPrefix,
 }) => {
@@ -57,6 +61,15 @@ export const Slider: React.FC<SliderProps> = ({
     window.removeEventListener('mouseup', handleMouseup)
   }
 
+  const mousePercentPosition = (ref: RefObject<HTMLDivElement>, e: MouseEvent) => {
+    const bounds = ref.current!.getBoundingClientRect()
+    const w = (ref.current as HTMLDivElement).offsetWidth
+    const dragPercent = Math.max(Math.min((e.clientX - bounds.left) / w, 1), 0)
+    return dragPercent
+  }
+
+  const valueFromPosition = (position: number) => (max - min) * position + min
+
   useEffect(() => {
     !dragging && setIndicatorPosition(`${(100 * (value - min)) / (max - min)}%`)
   }, [value, dragging])
@@ -66,30 +79,43 @@ export const Slider: React.FC<SliderProps> = ({
 
   const tickMarks: React.ReactFragment = tickArray.map((v, i) => (
     <div
+      onClick={(e) => {
+        onChange(v)
+        e.stopPropagation()
+      }}
       key={`${i}-${v}`}
       className={clsx(
-        'w-4 h-4 rounded-full',
-        dragValue && dragValue < v && 'bg-white transition-none',
-        dragValue && dragValue >= v && 'bg-blue-400',
-        dragValue || (value < v && 'bg-white transition-none'),
-        dragValue || (value >= v && 'bg-blue-400')
+        'flex flex-col items-center cursor-pointer transition-colors duration-150 mt-7',
+        dragValue && dragValue < v && 'text-white',
+        dragValue && dragValue >= v && 'text-blue-400',
+        dragValue || (value < v && ' text-white'),
+        dragValue || (value >= v && 'text-blue-400')
       )}
-    />
+    >
+      <div
+        className={clsx(
+          'w-4 h-4 rounded-full cursor-pointer transition-colors duration-150 mb-2 ',
+          dragValue && dragValue < v && 'bg-white',
+          dragValue && dragValue >= v && 'bg-blue-400',
+          dragValue || (value < v && 'bg-white'),
+          dragValue || (value >= v && 'bg-blue-400')
+        )}
+      />
+      <div className="text-sm select-none">{v}</div>
+    </div>
   ))
 
   return (
     <div
       ref={containerRef}
       style={{ cursor: dragging ? 'grabbing' : 'auto' }}
-      className="flex flex-col w-full pb-5 border-blue-400 "
+      className="flex flex-col w-full pb-5 mb-2.5 px-2 border-blue-400"
       onMouseMove={(e): void => {
         if (dragging) {
-          const bounds = containerRef.current!.getBoundingClientRect()
-          const w = (containerRef.current as HTMLDivElement).offsetWidth
-          const dragPercent = Math.max(Math.min((e.clientX - bounds.left) / w, 1), 0)
+          const dragPercent = mousePercentPosition(containerRef, e)
           setIndicatorPosition(`${dragPercent * 100}%`)
-          onChange(Math.round((max - min) * dragPercent + min))
-          setDragValue(Math.floor((max - min) * dragPercent + min))
+          onChange(Math.round(valueFromPosition(dragPercent)))
+          setDragValue(Math.floor(valueFromPosition(dragPercent)))
         }
       }}
     >
@@ -99,15 +125,16 @@ export const Slider: React.FC<SliderProps> = ({
           style={{ left: indicatorPosition }}
           className="absolute transition-all duration-200 transform -translate-x-1/2"
         >
-          <ValueIndicator
-            value={value}
-            unitPrefix={unitPrefix}
-            unit={unit}
-            className="static"
-          ></ValueIndicator>
+          <ValueIndicator value={value} unitPrefix={unitPrefix} unit={unit}></ValueIndicator>
         </div>
       </div>
-      <div className="relative filter drop-shadow-md">
+      <div
+        className="relative cursor-pointer filter drop-shadow-md"
+        onClick={(e) => {
+          const position = mousePercentPosition(containerRef, e)
+          onChange(Math.round(valueFromPosition(position)))
+        }}
+      >
         <div className="absolute top-0 w-full h-2 bg-white rounded-full"></div>
         <div
           ref={transitionRefs[1]}

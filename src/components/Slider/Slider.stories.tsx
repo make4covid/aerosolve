@@ -17,20 +17,29 @@ const Template: Story<SliderProps> = (args) => {
   )
 }
 
-export const Basic = Template.bind({})
-Basic.args = {
-  max: 10,
-  min: 1,
-  interval: 1,
-  unitPrefix: 'sq.',
+export const Hours = Template.bind({})
+Hours.args = {
+  min: 0,
+  max: 24,
+  interval: 4,
+  // unitPrefix: 'sq.',
+  unit: 'hour',
+}
+
+export const CeilingHeight = Template.bind({})
+CeilingHeight.args = {
+  min: 7,
+  max: 21,
+  interval: 2,
+  // unitPrefix: 'sq.',
   unit: 'foot',
 }
 
-export const LargeIntervals = Template.bind({})
-LargeIntervals.args = {
-  max: 50,
-  min: 10,
-  interval: 8,
+export const RoomArea = Template.bind({})
+RoomArea.args = {
+  min: 0,
+  max: 10000,
+  interval: 1000,
   unitPrefix: 'sq.',
   unit: 'foot',
 }

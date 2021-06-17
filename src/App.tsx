@@ -1,5 +1,3 @@
-import './App.css'
-
 import Sidebar from 'react-sidebar'
 import { Navigation } from 'components/Navigation/Navigation'
 import React, { useReducer } from 'react'

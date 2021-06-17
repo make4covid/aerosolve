@@ -12,6 +12,12 @@ module.exports = {
         '3xl': '48rem',
         '4xl': '56rem',
       },
+      flexGrow: {
+        2: 2,
+      },
+      transitionDuration: {
+        0: '0ms',
+      },
     },
   },
   variants: {

@@ -7,6 +7,4 @@ export default {
   component: PageFooterComponent,
 }
 
-export const PageFooter: Story<PageFooterProps> = ({}) => (
-  <PageFooterComponent lastStep={() => {}} nextStep={() => {}} />
-)
+export const PageFooter: Story<PageFooterProps> = (args) => <PageFooterComponent {...args} />

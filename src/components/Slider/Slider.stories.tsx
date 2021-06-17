@@ -7,14 +7,11 @@ export default {
   component: SliderComponent,
 }
 
-type SliderStoryProps = SliderProps & { initialValue?: number }
-
-const Template: Story<SliderStoryProps> = (args) => {
-  // const { initialValue, ...args } = templateArgs
+const Template: Story<SliderProps> = (args) => {
   const [value, setValue] = useState(args.min)
 
   return (
-    <div className="w-3/4 p-10 bg-gray-200 rounded-lg">
+    <div className="w-5/6 px-10 py-5 m-auto bg-gray-200 rounded-lg">
       <SliderComponent {...args} value={value} onChange={setValue} />
     </div>
   )
@@ -22,18 +19,18 @@ const Template: Story<SliderStoryProps> = (args) => {
 
 export const Basic = Template.bind({})
 Basic.args = {
-  // initialValue: 5,
   max: 10,
   min: 1,
   interval: 1,
-  units: 'Feet',
-} as SliderStoryProps
+  unitPrefix: 'sq.',
+  unit: 'foot',
+}
 
 export const LargeIntervals = Template.bind({})
 LargeIntervals.args = {
-  // initialValue: 10,
   max: 50,
   min: 10,
   interval: 8,
-  units: 'Feet',
-} as SliderStoryProps
+  unitPrefix: 'sq.',
+  unit: 'foot',
+}

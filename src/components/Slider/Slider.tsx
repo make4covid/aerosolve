@@ -1,6 +1,6 @@
-// TODO: Set up singular units
 // TODO: Add "click to set value" feature
 // TODO: Add custom "tick mark" option
+// TODO: Add "type in value" option
 
 import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
@@ -11,7 +11,8 @@ export type SliderProps = {
   max: number
   interval: number
   value: number
-  units?: string
+  unitPrefix?: string
+  unit?: string
   onChange: (value: number) => void
 }
 
@@ -20,8 +21,9 @@ export const Slider: React.FC<SliderProps> = ({
   max = 10,
   interval = 1,
   value = 5,
-  units = 'hours',
+  unit = 'Hour',
   onChange,
+  unitPrefix,
 }) => {
   const [dragging, setDragging] = useState(false)
   const [dragValue, setDragValue] = useState(null as number | null)
@@ -81,12 +83,14 @@ export const Slider: React.FC<SliderProps> = ({
       style={{ cursor: dragging ? 'grabbing' : 'auto' }}
       className="flex flex-col w-full pb-5 border-blue-400 "
       onMouseMove={(e): void => {
-        const w = (containerRef.current as HTMLDivElement).offsetWidth
-        console.log(e.clientX)
-        const dragPercent = Math.max(Math.min((e.clientX - 56) / w, 1), 0)
-        dragging && setIndicatorPosition(`${dragPercent * 100}%`)
-        dragging && onChange(Math.round((max - min) * dragPercent + min))
-        dragging && setDragValue(Math.floor((max - min) * dragPercent + min))
+        if (dragging) {
+          const bounds = containerRef.current!.getBoundingClientRect()
+          const w = (containerRef.current as HTMLDivElement).offsetWidth
+          const dragPercent = Math.max(Math.min((e.clientX - bounds.left) / w, 1), 0)
+          setIndicatorPosition(`${dragPercent * 100}%`)
+          onChange(Math.round((max - min) * dragPercent + min))
+          setDragValue(Math.floor((max - min) * dragPercent + min))
+        }
       }}
     >
       <div className="relative w-full h-16 mb-2">
@@ -95,7 +99,12 @@ export const Slider: React.FC<SliderProps> = ({
           style={{ left: indicatorPosition }}
           className="absolute transition-all duration-200 transform -translate-x-1/2"
         >
-          <ValueIndicator value={value} units={units} className="static"></ValueIndicator>
+          <ValueIndicator
+            value={value}
+            unitPrefix={unitPrefix}
+            unit={unit}
+            className="static"
+          ></ValueIndicator>
         </div>
       </div>
       <div className="relative filter drop-shadow-md">

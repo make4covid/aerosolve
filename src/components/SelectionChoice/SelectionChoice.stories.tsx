@@ -56,8 +56,9 @@ export const description = Template.bind({})
 description.args = {
   options,
   title: 'Ventilation ',
-  description: '',
-  totalCols:9,
-  boxCols:6
+  totalCols:5,
+  leftCol:2,
+  rightCol:3,
+  boxCols:options.length
 
 }

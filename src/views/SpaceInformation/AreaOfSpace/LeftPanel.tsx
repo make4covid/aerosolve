@@ -1,5 +1,5 @@
 import React from 'react'
-import Cube from 'assets/old/AreaOfSpace_Cube.png'
+import Cube from 'assets/icons/AreaOfSpace_Cube.svg'
 export type LeftPanelProps = {
   header?: string
   size: string

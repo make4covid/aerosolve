@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react'
-import head_white from 'assets/old/head_white.png'
-import body_white from 'assets/old/body_white.png'
-import head_blue from 'assets/old/head_blue.png'
-import body_blue from 'assets/old/body_blue.png'
+import { ReactComponent as Head_White} from 'assets/icons/head_white.svg'
+import {ReactComponent as Head_Blue} from 'assets/icons/head_blue.svg'
+import {ReactComponent as Body_Blue} from 'assets/icons/body_blue.svg'
+import {ReactComponent as Body_White}  from 'assets/icons/body_white.svg'
 
 export type NumberOfOccupantsProps = {
   header?: string
@@ -22,9 +22,9 @@ export const NumberOfOccupants: React.FC<NumberOfOccupantsProps> = ({
           .fill(1)
           .map((value, index) => {
             return (
-              <span className="inline-block lg:p-2">
-                <img className="px-1" src={head_blue} />
-                <img src={body_blue} />
+              <span className="inline-block lg:p-1">
+                <Head_Blue className="w-5 h-3"/>
+                <Body_Blue/>
               </span>
             )
           })}
@@ -33,9 +33,9 @@ export const NumberOfOccupants: React.FC<NumberOfOccupantsProps> = ({
           .fill(0)
           .map((value, index) => {
             return (
-              <span className="inline-block lg:p-2">
-                <img className="px-1" src={head_white} />
-                <img src={body_white} />
+              <span className="inline-block lg:p-1">
+                <Head_White className="w-5 h-3"/>
+                <Body_White/>
               </span>
             )
           })}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StepViewProps } from 'data'
 import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
-import Kids from '../../../assets/old/KidImage.png'
+import Kids from '../../../assets/images/kids.svg'
 import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
 import Mouse from '../../../assets/icons/mouse.png'
 

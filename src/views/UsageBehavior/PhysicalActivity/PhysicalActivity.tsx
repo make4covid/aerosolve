@@ -3,7 +3,7 @@ import { StepViewProps } from 'data'
 import Mouse from '../../../assets/icons/mouse.png'
 import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
-import Kids from '../../../assets/old/KidImage.png'
+import Kids from '../../../assets/images/kids.svg'
 
 let options: SelectionOptions[] = [
   {

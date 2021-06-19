@@ -1,5 +1,5 @@
 import React from 'react'
-import Kids from 'assets/images/kids.png'
+import {ReactComponent as Kids} from 'assets/images/kids.svg'
 
 export interface SelectionOptions {
   title: string
@@ -18,7 +18,7 @@ export const MainCard: React.FC<SelectionOptions> = ({ ...props }) => {
         </div>
       </div>
       <div className="z-10 flex-1 w-full h-full">
-        <img src={Kids} alt={''} />
+        <Kids/>
       </div>
 
       <div className="relative z-20 h-12 my-4 mr-4 bg-blue-500 flex-2 w-44 rounded-2xl right-1">

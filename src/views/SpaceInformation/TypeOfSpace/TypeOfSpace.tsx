@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
-import Kids from 'assets/images/kids.png'
+import Kids from 'assets/images/kids.svg'
 import { StepViewProps } from '../../../data'
 import { MainCard } from './MainCard'
 

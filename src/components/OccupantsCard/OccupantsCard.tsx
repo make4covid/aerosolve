@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react'
-import Plus_Sign from 'assets/old/Plus_Sign.png'
-import Minus_Sign from 'assets/old/Minus_Sign.png'
+import {ReactComponent as  Plus_Sign} from 'assets/icons/Plus_Sign.svg'
+import {ReactComponent as Minus_Sign} from 'assets/icons/Minus_Sign.svg'
 export type OccupantsCardProps = {
   header?: string
   occupant: number
@@ -33,7 +33,7 @@ export const OccupantsCard: React.FC<OccupantsCardProps> = (props) => {
           <div className="flex flex-row justify-evenly">
             <span className="flex-1 text-3xl cursor-pointer" onClick={minus}>
               <button className="lg:px-6 lg:py-3">
-                <img className="w-12 h-8" src={Minus_Sign} />{' '}
+                <Minus_Sign className="w-12 h-8"  />
               </button>
             </span>
 
@@ -42,7 +42,7 @@ export const OccupantsCard: React.FC<OccupantsCardProps> = (props) => {
             </span>
             <span className="flex-1 text-3xl cursor-pointer" onClick={plus}>
               <button className="lg:px-6 lg:py-3">
-                <img className="w-12 h-8" src={Plus_Sign} />
+                <Plus_Sign className="w-12 h-8" />
               </button>
             </span>
           </div>

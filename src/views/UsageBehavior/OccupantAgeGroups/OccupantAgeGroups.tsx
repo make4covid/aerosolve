@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import { SelectionSlider } from 'components/SelectionSlider/SelectionSlider'
 // import { NumberOfOccupants } from '../../../components/NumberOfOccupants/NumberOfOccupants'
-import Kids from 'assets/old/KidImage.png'
+import Kids from 'assets/images/kids.svg'
 import Mouse from 'assets/icons/mouse.png'
 import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'

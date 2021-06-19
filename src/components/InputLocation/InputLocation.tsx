@@ -1,6 +1,6 @@
 import React from 'react'
 // @ts-ignore
-import Location_Pointer from 'assets/old/Location_Pointer.png'
+import {ReactComponent as Location_Pointer} from 'assets/icons/Location_Pointer.svg'
 export type InputLocationProps = {
   header?: string
   location: string
@@ -11,7 +11,7 @@ export const InputLocation: React.FC<InputLocationProps> = (props) => {
       <div className="h-full w-full flex bg-gray-200 rounded-3xl">
           <div className="flex-1">
               <div className="m-3">
-                  <img className="inline-block -mt-2" src={Location_Pointer} />
+                  <Location_Pointer className="inline-block -mt-2" />
                   <p className="inline-block font-medium text-2xl mx-4 ">Location</p>
               </div>
           </div>

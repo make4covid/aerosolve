@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Story, Meta } from '@storybook/react'
 import { SelectionCardGroup, SelectionCardGroupProps } from './SelectionCardGroup'
 
-import Kids from 'assets/images/kids.png'
+import Kids from 'assets/images/kids.svg'
 
 import { withDesign } from 'storybook-addon-designs'
 import { SelectionOptions } from 'components/SelectionCard/SelectionCard'

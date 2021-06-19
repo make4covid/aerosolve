@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
 
-import Kids from 'assets/images/kids.png'
+import Kids from 'assets/images/kids.svg'
 
 import { SelectionCard, SelectionCardProps, SelectionOptions } from './SelectionCard'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { StepViewProps } from 'data'
 import { PlainCard } from '../../../components/PlainCard/PlainCard'
-import Kids from 'assets/images/kids.png'
+import Kids from 'assets/images/kids.svg'
 
 export const CeilingHeight: React.FC<StepViewProps> = (props) => {
   return (

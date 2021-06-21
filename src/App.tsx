@@ -52,8 +52,6 @@ const App: React.FC<{}> = (props) => {
                         title={String(step.index! + 1).padStart(2, '0') + ' / ' + step.title}
                         description={step.header.description}
                         prompt={step.header.prompt}
-                        hours={30}
-                        people={30}
                       ></PageHeader>
                       <StepView
                         onComplete={() => {

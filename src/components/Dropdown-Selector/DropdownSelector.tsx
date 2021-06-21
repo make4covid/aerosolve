@@ -16,6 +16,7 @@ export const DropdownSelector: React.FC<DropdownSelectorProps> = (props) => {
     function handleClickElement(item:string,index:number){
         setElementBG(index)
         setPlaceHolder(item)
+        setArrowDirection(!arrowDirection)
     }
     return (
 

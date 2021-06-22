@@ -1,9 +1,3 @@
-// TODO: Add custom "tick mark" option
-// TODO: Add "type in value" option
-// TODO: Add "Focus on Input" on max or min values
-// TODO: (conditionally) allow custom values greater or less than specified
-// FIXME: Debug & fix width issue for large values
-
 import clsx from 'clsx'
 import { MouseEvent, RefObject, useEffect, useRef, useState } from 'react'
 import { ValueIndicator } from 'components/ValueIndicator/ValueIndicator'

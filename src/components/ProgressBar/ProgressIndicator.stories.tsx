@@ -11,6 +11,7 @@ const Template: Story<{}> = (args) => <ProgressIndicator {...(args as ProgressIn
 export const BelowTarget = Template.bind({})
 export const AtTarget = Template.bind({})
 export const AboveTarget = Template.bind({})
+export const DecimalHours = Template.bind({})
 
 BelowTarget.args = {
   value: 6,
@@ -25,6 +26,11 @@ AtTarget.args = {
 }
 AboveTarget.args = {
   value: 10,
+  outOf: 8,
+  people: 30,
+}
+DecimalHours.args = {
+  value: 16.2,
   outOf: 8,
   people: 30,
 }

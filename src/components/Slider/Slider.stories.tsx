@@ -28,9 +28,9 @@ Hours.args = {
 
 export const CeilingHeight = Template.bind({})
 CeilingHeight.args = {
-  min: 7,
-  max: 21,
-  interval: 2,
+  min: 8,
+  max: 24,
+  interval: 4,
   // unitPrefix: 'sq.',
   unit: 'foot',
 }

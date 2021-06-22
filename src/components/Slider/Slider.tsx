@@ -85,7 +85,7 @@ export const Slider: React.FC<SliderProps> = ({
       }}
       key={`${i}-${v}`}
       className={clsx(
-        'flex flex-col items-center cursor-pointer transition-colors duration-150 mt-7',
+        'flex flex-col items-center cursor-pointer transition-colors duration-150 mt-7 w-4',
         dragValue && dragValue < v && 'text-white',
         dragValue && dragValue >= v && 'text-blue-400',
         dragValue || (value < v && ' text-white'),
@@ -94,14 +94,14 @@ export const Slider: React.FC<SliderProps> = ({
     >
       <div
         className={clsx(
-          'w-4 h-4 rounded-full cursor-pointer transition-colors duration-150 mb-2 ',
+          'w-4 h-4 rounded-full cursor-pointer transition-colors duration-150 mb-2',
           dragValue && dragValue < v && 'bg-white',
           dragValue && dragValue >= v && 'bg-blue-400',
           dragValue || (value < v && 'bg-white'),
           dragValue || (value >= v && 'bg-blue-400')
         )}
       />
-      <div className="text-sm select-none">{v}</div>
+      <div className="overflow-visible text-sm text-center select-none">{v}</div>
     </div>
   ))
 
@@ -143,7 +143,7 @@ export const Slider: React.FC<SliderProps> = ({
         ></div>
         <div
           style={{ width: 'calc(100% + 1rem)' }}
-          className="relative flex flex-row items-center justify-between h-2 -mx-2 overflow-visible rounded-full "
+          className="relative flex flex-row items-center justify-between h-2 -mx-2 overflow-visible rounded-full"
         >
           {tickMarks}
         </div>

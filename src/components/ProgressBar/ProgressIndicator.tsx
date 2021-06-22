@@ -1,10 +1,17 @@
 import clsx from 'clsx'
+import { ReactFragment } from 'react'
 import { useEffect, useState } from 'react'
+import tw, { styled } from 'twin.macro'
+
+const Highlight = styled.span(({ negative = false }: { negative?: boolean }) => [
+  tw`text-blue-500`,
+  negative && tw`text-red-500`,
+])
 
 export type ProgressIndicatorProps = {
   value: number
   outOf: number
-  people?: number
+  people: number
   className?: string
 }
 
@@ -12,50 +19,86 @@ type ProgressBarProps = {
   percentComplete: number
 }
 
+type ValueBoxProps = {
+  value: number
+  label: string
+  color: 'gray' | 'red' | 'blue'
+  className?: string
+}
+
+export const ValueBox: React.FC<ValueBoxProps> = (props) => (
+  <div
+    className={clsx(
+      'border-2 rounded-md flex flex-col align-middle p-1.5 h-full justify-between text-center font-semibold',
+      `border-${props.color}-500 text-${props.color}-500`,
+      props.className
+    )}
+  >
+    <div className="mx-0.5 text-2xl">{props.value}</div>
+    <div className="mx-0.5 text-sm text-center">{props.label}</div>
+  </div>
+)
+
 const ProgressBar: React.FC<ProgressBarProps> = (props) => {
   const percentCompleteInverse = (1 / (props.percentComplete / 100)) * 100
 
   return (
-    <div className={clsx('mx-auto h-3 w-4/5 shadow-inner2 bg-gray-300 rounded-full')}>
+    <div className={clsx('h-3 shadow-inner-xs bg-gray-300 rounded-full')}>
       <div
         style={{
           width: `${props.percentComplete}%`,
-          backgroundImage: `linear-gradient(to right, rgba(255,0,93,1) 0%, rgba(48,0,185,1) ${percentCompleteInverse}%)`,
+          backgroundImage: `linear-gradient(to right, rgba(255,0,93,1) 0%, #8500D7 ${percentCompleteInverse}%)`,
         }}
         className={clsx(
-          'h-full rounded-full  from-pink-600 to-indigo-600 flex flex-row items-center justify-end'
+          'h-full rounded-full  from-pink-600 to-indigo-600 flex flex-row items-center justify-end shadow-inner-xs'
         )}
       >
-        <div style={{ marginRight: '0.15rem' }} className="w-2 h-2 bg-white rounded-full "></div>
+        <div
+          style={{ marginRight: '0.15rem' }}
+          className="w-1.5 h-1.5 bg-white rounded-full "
+        ></div>
       </div>
     </div>
   )
 }
+
 export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ children, ...props }) => {
   const [percentComplete, setPercentComplete] = useState(0)
+  const [safe, setSafe] = useState(true)
   useEffect(() => {
     setPercentComplete(Math.min(props.value / props.outOf, 1) * 100)
+    setSafe(props.value >= props.outOf)
   }, [props.value, props.outOf])
+
+  const unsafeFragment: ReactFragment = (
+    <span>
+      out of <Highlight negative={!safe}>{props.outOf}</Highlight> target
+    </span>
+  )
+
   return (
-    <div
-      style={{ maxWidth: '25ch' }}
-      className={clsx('min-w-max text-center font-semibold text-gray-600', props.className)}
-    >
-      <div className="mb-3">
-        This space is safe for <span className="text-blue-500">{props.people}</span>
-        <br /> people for{' '}
-        <span
-          className={clsx(
-            props.value < props.outOf && 'text-red-500',
-            props.value >= props.outOf && 'text-blue-500'
-          )}
-        >
-          {props.value} {props.value < props.outOf && `of ${props.outOf}`}
-        </span>{' '}
-        {props.value < props.outOf && 'target '}
-        hours.
+    <div className="flex flex-row items-center">
+      <div
+        style={{ maxWidth: '18ch', minWidth: '18ch' }}
+        className={clsx(
+          'text-xs font-semibold text-gray-600 flex flex-col h-16 justify-between mr-2',
+          props.className
+        )}
+      >
+        <div>
+          This space is safe for <Highlight>{props.people} </Highlight>
+          people for <Highlight negative={!safe}>{props.value}</Highlight>{' '}
+          {props.value <= props.outOf && unsafeFragment} hours.
+        </div>
+        <ProgressBar percentComplete={percentComplete} />
       </div>
-      <ProgressBar percentComplete={percentComplete} />
+      <ValueBox
+        value={props.people}
+        label="people"
+        color={safe ? 'blue' : 'gray'}
+        className="ml-2"
+      />
+      <ValueBox value={props.value} label="hours" color={safe ? 'blue' : 'red'} className="ml-2" />
     </div>
   )
 }

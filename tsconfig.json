@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsxImportSource": "@emotion/react",
     "target": "es5",
     "module": "esnext",
     "strict": true,
@@ -17,5 +18,6 @@
     "jsx": "react-jsx",
     "baseUrl": "src"
   },
+  "files": ["twin.d.ts"],
   "include": ["src"]
 }

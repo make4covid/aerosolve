@@ -1,6 +1,5 @@
 import React from 'react'
 import clsx from 'clsx'
-import tw from 'twin.macro'
 
 export interface SelectionChoiceItemProps {
   value: string

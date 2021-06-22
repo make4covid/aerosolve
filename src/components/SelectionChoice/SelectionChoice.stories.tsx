@@ -1,19 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Story, Meta } from '@storybook/react'
 import { SelectionChoice, SelectionChoiceProps } from './SelectionChoice'
 import { withDesign } from 'storybook-addon-designs'
-
-// const options: SelectionOption[] = [
-//   {
-//     button_description: 'Mostly No',
-//   },
-//   {
-//     button_description: 'Average',
-//   },
-//   {
-//     button_description: 'Mostly Yes',
-//   }
-// ]
 
 export default {
   title: 'Aerosolve/Components/Selection Choice ',

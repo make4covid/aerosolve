@@ -18,6 +18,5 @@
     "jsx": "react-jsx",
     "baseUrl": "src"
   },
-  "files": ["twin.d.ts"],
-  "include": ["src"]
+  "include": ["src", "twin.d.ts"]
 }

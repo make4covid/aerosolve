@@ -20,14 +20,26 @@ let options: SelectionChoiceOption[] = [
   {
     options: option,
     title: 'Occupants are wearing Masks\nthat completely covering their\nnose and mouth',
+    totalCols:5,
+    leftCol:2,
+    rightCol:3,
+    boxCols:option.length
   },
   {
     options: option,
     title: 'Occupants are wearing masks with\nmetal nosebands',
+    totalCols:5,
+    leftCol:2,
+    rightCol:3,
+    boxCols:option.length
   },
   {
     options: option,
     title: 'Occupants are wearing\ndouble masks',
+    totalCols:5,
+    leftCol:2,
+    rightCol:3,
+    boxCols:option.length
   },
 ]
 

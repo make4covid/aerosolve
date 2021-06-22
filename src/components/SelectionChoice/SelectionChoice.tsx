@@ -1,78 +1,35 @@
 import React from 'react'
-import clsx from 'clsx'
-import { SelectionChoiceItem, SelectionOption } from './SelectionChoiceItem/SelectionChoiceItem'
+import { SelectionChoiceItem } from './SelectionChoiceItem/SelectionChoiceItem'
 
-export interface SelectionChoiceOption {
-  options: SelectionOption[]
+export interface SelectionChoiceProps {
+  options: string[]
   title: string
   description?: string
-  index?: number
-  noDescription?: boolean
-}
-export interface SelectionChoiceProps {
-  setSelected?: (selected: number[]) => void
-  setSelectedArray: (selectedArray: number[][]) => void
-  selectedArray?: number[][]
-  onClick?: (e: any) => void
+  selected: string
+  onSelect: (selection: string) => void
 }
 
-/**
- * UI Box for selectable button containing
- */
-export const SelectionChoice: React.FC<SelectionChoiceOption & SelectionChoiceProps> = ({
-  selectedArray = [],
-  ...props
-}) => {
-  const toggle = (option: number) => {
-    // @ts-ignore
-    //If collision then turn off, if on the same row then switch
-    //If no collision then turn on.
-    let tempt = selectedArray
-    let collision = false
-    for (let i = 0; i < tempt.length; i++) {
-      if (tempt[i][0] === props.index) {
-        //Double click
-        if (tempt[i][1] === option) {
-          tempt[i][1] = -1
-        } else {
-          tempt[i][1] = option
-        }
-        collision = true
-      }
-    }
-    if (!collision) {
-      props.index && (tempt[props.index] = [props.index, option])
-    }
-    props.setSelectedArray([...tempt])
-  }
+export const SelectionChoice: React.FC<SelectionChoiceProps> = (props) => {
+  const cols = props.options.length + 2
+  console.log(props.selected)
   return (
-    <div className="grid w-full h-full grid-cols-6">
-      <div className="col-span-1 pl-4">
-        <p
-          className={clsx(
-            ' font-bold',
-            props.noDescription && 'text-3xl',
-            !props.noDescription && 'text-xl'
-          )}
-        >
-          {props.title}
-        </p>
-        {!props.noDescription && <p className="">{props.description}</p>}
+    <div
+      style={{ height: 'max-content' }}
+      className={`grid grid-cols-${cols} w-full p-2 bg-gray-200 rounded-xl gap-2 items-center`}
+    >
+      <div className="col-span-2 mx-2">
+        <div className="text-base font-bold text-gray-600">{props.title}</div>
+        <div className="text-xs text-gray-500">{props.description}</div>
       </div>
-      <div className="flex col-span-5">
-        {props.options.map((option, index) => (
-          <div className="inline-grid flex-grow m-2">
-            <SelectionChoiceItem
-              {...option}
-              selected={
-                // @ts-ignore
-                JSON.stringify(selectedArray[props.index]) === JSON.stringify([props.index, index])
-              }
-              onClick={() => toggle(index)}
-            ></SelectionChoiceItem>
-          </div>
-        ))}
-      </div>
+      {props.options.map((option) => (
+        <SelectionChoiceItem
+          selected={option === props.selected}
+          value={option}
+          onClick={() => {
+            props.onSelect(option)
+          }}
+        ></SelectionChoiceItem>
+      ))}
     </div>
   )
 }

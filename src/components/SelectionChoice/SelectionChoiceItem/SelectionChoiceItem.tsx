@@ -1,39 +1,35 @@
 import React from 'react'
 import clsx from 'clsx'
 
-export interface SelectionOption {
-  button_description: string
-}
-export interface SelectionChoiceProps {
+export interface SelectionChoiceItemProps {
+  value: string
   selected?: boolean
   onClick?: (e: any) => void
   className?: string
 }
 
-/**
- * UI Box for selectable button containing
- */
-export const SelectionChoiceItem: React.FC<SelectionChoiceProps & SelectionOption> = ({
+export const SelectionChoiceItem: React.FC<SelectionChoiceItemProps> = ({
   selected = false,
   ...props
 }) => {
   return (
     <button
       className={clsx(
-        'rounded-2xl h-14  p-4 cursor-pointer transition duration-200',
+        'rounded-lg w-full h-full cursor-pointer transition-all duration-300 outline-none focus:outline-none px-1.5 py-1',
         selected && 'bg-blue-500 shadow-inner',
-        !selected && 'bg-white hover:shadow-lg'
+        !selected && 'bg-white hover:shadow-lg',
+        props.className
       )}
-      {...props}
+      onClick={props.onClick}
     >
       <div
         className={clsx(
-          'm-auto justify-center text-xl font-medium',
+          'justify-center text-xs md:text-sm',
           selected && 'text-white',
           !selected && 'text-gray-500'
         )}
       >
-        {props.button_description}
+        {props.value}
       </div>
     </button>
   )

@@ -29,13 +29,13 @@ type ValueBoxProps = {
 export const ValueBox: React.FC<ValueBoxProps> = (props) => (
   <div
     className={clsx(
-      'border-2 rounded-md flex flex-col align-middle p-1.5 h-full justify-between text-center font-semibold w-16',
+      'border-2 rounded-md flex flex-col align-middle p-1.5 h-full justify-between text-center font-semibold',
       `border-${props.color}-500 text-${props.color}-500`,
       props.className
     )}
   >
-    <div className="text-2xl">{props.value}</div>
-    <div className="text-sm text-center">{props.label}</div>
+    <div className="mx-0.5 text-2xl">{props.value}</div>
+    <div className="mx-0.5 text-sm text-center">{props.label}</div>
   </div>
 )
 
@@ -43,14 +43,14 @@ const ProgressBar: React.FC<ProgressBarProps> = (props) => {
   const percentCompleteInverse = (1 / (props.percentComplete / 100)) * 100
 
   return (
-    <div className={clsx('h-2.5 shadow-inner2 bg-gray-300 rounded-full')}>
+    <div className={clsx('h-3 shadow-inner-xs bg-gray-300 rounded-full')}>
       <div
         style={{
           width: `${props.percentComplete}%`,
-          backgroundImage: `linear-gradient(to right, rgba(255,0,93,1) 0%, rgba(48,0,185,1) ${percentCompleteInverse}%)`,
+          backgroundImage: `linear-gradient(to right, rgba(255,0,93,1) 0%, #8500D7 ${percentCompleteInverse}%)`,
         }}
         className={clsx(
-          'h-full rounded-full  from-pink-600 to-indigo-600 flex flex-row items-center justify-end shadow-inner2'
+          'h-full rounded-full  from-pink-600 to-indigo-600 flex flex-row items-center justify-end shadow-inner-xs'
         )}
       >
         <div
@@ -79,7 +79,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ children, 
   return (
     <div className="flex flex-row items-center">
       <div
-        style={{ maxWidth: '18ch' }}
+        style={{ maxWidth: '18ch', minWidth: '18ch' }}
         className={clsx(
           'text-xs font-semibold text-gray-600 flex flex-col h-16 justify-between mr-2',
           props.className

@@ -6,11 +6,21 @@ export default {
   title: 'Aerosolve/Components/Covid Data',
   component: CovidDataComponent,
   decorators: [withDesign],
+  parameters: {
+    design: {
+      type: 'figma',
+      url:
+        'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=3552%3A30',
+    },
+  },
 }
 
-export const CovidData: Story<CovidDataProps> = (args) => <CovidDataComponent {...args} />
+export const Template: Story<CovidDataProps> = (args) => <CovidDataComponent {...args} />
+export const LowRisk = Template.bind({})
+export const MediumRisk = Template.bind({})
+export const HighRisk = Template.bind({})
 
-CovidData.args = {
+const args: CovidDataProps = {
   state: 'Colorado',
   cases: 589128,
   risk: 'Low',
@@ -20,10 +30,6 @@ CovidData.args = {
   vaccinationRate: 45.5,
 }
 
-CovidData.parameters = {
-  design: {
-    type: 'figma',
-    url:
-      'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=3538%3A37',
-  },
-}
+LowRisk.args = { ...args, risk: 'Low' }
+MediumRisk.args = { ...args, risk: 'Medium' }
+HighRisk.args = { ...args, risk: 'High' }

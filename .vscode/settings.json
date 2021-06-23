@@ -6,6 +6,7 @@
     "clsx",
     "compat",
     "craco",
+    "dataline",
     "get",
     "jsxdev",
     "keychain",

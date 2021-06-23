@@ -1,8 +1,13 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      colors: {
+        cyan: colors.cyan,
+      },
       boxShadow: {
         inner: 'inset 0 6px 10px 2px rgba(0, 0, 0, 0.2)',
         'inner-xs': 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',

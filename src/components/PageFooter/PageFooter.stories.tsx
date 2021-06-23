@@ -8,3 +8,10 @@ export default {
 }
 
 export const PageFooter: Story<PageFooterProps> = (args) => <PageFooterComponent {...args} />
+
+PageFooter.args = {
+  nextStepRoute: 'NextRoute',
+  nextStepLabel: 'Next Step',
+  lastStepRoute: 'LastRoute',
+  lastStepLabel: 'Last Step',
+}

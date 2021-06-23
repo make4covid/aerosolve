@@ -1,14 +1,15 @@
 import React from 'react'
 
-import { ReactComponent as LeftArrow } from 'assets/icons/arrow-circle-left.svg'
-import { ReactComponent as RightArrow } from 'assets/icons/arrow-circle-right.svg'
 import clsx from 'clsx'
 import { useHistory } from 'react-router-dom'
+import { NavButton } from 'components/NavButton/NavButton'
 
 export interface PageFooterProps {
-  lastStepRoute?: string
+  nextStepLabel?: string
   nextStepRoute?: string
-  resources?: {}[]
+  lastStepLabel?: string
+  lastStepRoute?: string
+  // resources?: {}[]
   className?: string
 }
 
@@ -25,9 +26,6 @@ const InformationButton = () => {
 
 export const PageFooter: React.FC<PageFooterProps> = (props) => {
   const history = useHistory()
-  const arrowClasses = clsx(
-    'w-8 h-8 text-gray-500 transition-colors duration-200 cursor-pointer fill-current hover:text-blue-500'
-  )
   return (
     <div
       style={{ width: 'inherit' }}
@@ -35,15 +33,21 @@ export const PageFooter: React.FC<PageFooterProps> = (props) => {
     >
       <div className="flex flex-row items-center w-max">
         {props.lastStepRoute && (
-          <LeftArrow
-            className={clsx('mr-3', arrowClasses)}
+          <NavButton
+            direction="last"
+            label={props.lastStepLabel}
             onClick={() => history.push(props.lastStepRoute!)}
+            className="mr-6"
           />
         )}
         <InformationButton />
       </div>
       {props.nextStepRoute && (
-        <RightArrow className={arrowClasses} onClick={() => history.push(props.nextStepRoute!)} />
+        <NavButton
+          direction="next"
+          label={props.nextStepLabel}
+          onClick={() => history.push(props.nextStepRoute!)}
+        ></NavButton>
       )}
     </div>
   )

@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { RiskChip } from 'components/RiskChip/RiskChip'
 import tw, { styled } from 'twin.macro'
 
 const Overline = styled.div`
@@ -29,16 +29,7 @@ export const CovidData: React.FC<CovidDataProps> = (props) => {
           <div className="flex-grow mr-8 text-sm font-semibold text-gray-600">
             Current COVID-19 transmission risk in {props.state}
           </div>
-          <div
-            className={clsx(
-              props.risk === 'Low' && 'border-blue-500 text-blue-500',
-              props.risk === 'Medium' && 'border-yellow-500 text-yellow-500',
-              props.risk === 'High' && 'border-red-500 text-red-500',
-              'px-6 py-0.5 font-semibold  bg-white border-2 rounded-full flex-grow-0 min-w-max'
-            )}
-          >
-            {props.risk} Risk
-          </div>
+          <RiskChip risk={props.risk} />
         </div>
         <div className="pt-3">
           <Overline>Active COVID-19 Cases in {props.state}</Overline>

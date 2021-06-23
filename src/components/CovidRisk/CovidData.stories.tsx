@@ -15,7 +15,7 @@ export default {
   },
 }
 
-export const Template: Story<CovidDataProps> = (args) => <CovidDataComponent {...args} />
+const Template: Story<CovidDataProps> = (args) => <CovidDataComponent {...args} />
 export const LowRisk = Template.bind({})
 export const MediumRisk = Template.bind({})
 export const HighRisk = Template.bind({})

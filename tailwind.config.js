@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         cyan: colors.cyan,
+        'light-blue': colors.lightBlue,
       },
       boxShadow: {
         inner: 'inset 0 6px 10px 2px rgba(0, 0, 0, 0.2)',

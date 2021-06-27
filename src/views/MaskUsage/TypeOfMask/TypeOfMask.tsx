@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { StepViewProps } from 'data'
-import Mouse from 'assets/icons/mouse.png'
 import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
 import Kids from 'assets/old/KidImage.png'
@@ -46,7 +45,7 @@ export const TypeOfMask: React.FC<StepViewProps> = (props) => {
         <div>
           <div className="relative inline-block ">
             <p className="inline-block">Please select all that apply. </p>
-            <img className="inline-block" src={Mouse} alt={''} />
+            {/* <img className="inline-block" src={Mouse} alt={''} /> */}
           </div>
 
           <div className="relative inline-block float-right w-64 bg-white border-2 border-gray-400 h-18 rounded-3xl">

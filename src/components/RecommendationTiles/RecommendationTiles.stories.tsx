@@ -2,10 +2,6 @@ import { Story } from '@storybook/react'
 import { withDesign } from 'storybook-addon-designs'
 import { RecommendationTiles as RecommendationTilesComponent } from './RecommendationTiles'
 
-import HEPA from 'assets/images/hepa.png'
-import Singing from 'assets/images/singing.png'
-import { ReactComponent as Clock } from 'assets/icons/clock.svg'
-
 export default {
   title: 'Aerosolve/Components/RecommendationTiles',
   component: RecommendationTilesComponent,
@@ -18,4 +14,10 @@ export default {
   },
 }
 
-const RecommendationTiles: Story<{}> = (args) => <RecommendationTilesComponent {...args} />
+export const RecommendationTiles: Story<{}> = (args) => {
+  return (
+    <div className="h-full max-w-lg min-w-lg">
+      <RecommendationTilesComponent {...args} />
+    </div>
+  )
+}

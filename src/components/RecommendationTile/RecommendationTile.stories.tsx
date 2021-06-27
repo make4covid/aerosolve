@@ -21,7 +21,13 @@ export default {
   },
 }
 
-const Template: Story<RecommendationTileProps> = (args) => <RecommendationTileComponent {...args} />
+const Template: Story<RecommendationTileProps> = (args) => {
+  return (
+    <div className="w-32 h-36">
+      <RecommendationTileComponent {...args} />
+    </div>
+  )
+}
 
 export const Action = Template.bind({})
 Action.args = {

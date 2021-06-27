@@ -1,11 +1,9 @@
 import React from 'react'
-import { ReactComponent as DownArrow } from 'assets/icons/arrow-circle-down.svg'
-import { ReactComponent as Checkmark } from 'assets/icons/checkmark.svg'
-import { ReactComponent as Pause } from 'assets/icons/pause.svg'
+import { Checkmark, Pause, ArrowDown, Plus } from 'assets/icons'
 
 export type RecommendationTileProps = {
   color: 'blue' | 'red' | 'light-blue'
-  icon: 'check' | 'pause' | 'down'
+  icon: 'check' | 'pause' | 'down' | 'plus'
   description: string
   image:
     | string
@@ -19,7 +17,8 @@ export type RecommendationTileProps = {
 const icons = {
   check: Checkmark,
   pause: Pause,
-  down: DownArrow,
+  down: ArrowDown,
+  plus: Plus,
 }
 
 export const RecommendationTile: React.FC<RecommendationTileProps> = ({
@@ -28,14 +27,16 @@ export const RecommendationTile: React.FC<RecommendationTileProps> = ({
 }) => {
   const Image = props.image
   const Icon = icons[props.icon]
-  // const Icon = Checkmark
+
   return (
-    <div className={`p-2 pt-3 rounded-lg border-2 border-${color}-500 w-32 h-36`}>
+    <div
+      className={`p-2 pt-3 rounded-lg border-2 border-${color}-500 w-full h-full hover:bg-${color}-50 transition-colors duration-150`}
+    >
       <div className="relative w-12 h-12 mb-2">
         {typeof props.image === 'string' ? (
           <img
             src={props.image}
-            className="object-cover w-full h-full overflow-hidden rounded-full shadow-inner"
+            className="object-cover w-full h-full overflow-hidden rounded-full mix-blend-multiply"
           />
         ) : (
           <Image className="w-12 h-12 text-gray-500 fill-current" />

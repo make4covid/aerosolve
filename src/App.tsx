@@ -2,7 +2,7 @@ import Sidebar from 'react-sidebar'
 import { Navigation } from 'components/Navigation/Navigation'
 import React, { useReducer } from 'react'
 import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo'
-import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom'
 
 import { AppContext, contextReducer, initialState, Actions } from './context'
 import { PageHeader } from 'components/PageHeader/PageHeader'
@@ -13,7 +13,6 @@ import * as data from 'data'
 import { PageFooter } from './components/PageFooter/PageFooter'
 
 const App: React.FC<{}> = (props) => {
-  const history = useHistory()
   const [state, setState] = useReducer(contextReducer, initialState)
 
   const completeStep = (route: string) => {
@@ -24,22 +23,22 @@ const App: React.FC<{}> = (props) => {
     <Router>
       <AppContext.Provider value={state}>
         <div className="max-h-screen max-w-screen">
-          <Sidebar
-            sidebarClassName="fixed left-0 max-w-xs p-8 bg-gray-200 w-80"
-            docked
-            shadow={false}
-            open
-            sidebar={
-              <div className="w-full">
-                <AerosolveLogo />
-                <Navigation navGroups={data.navGroups} stepStatus={state.stepStatus} />
-              </div>
-            }
-          >
-            <Switch>
-              <Route exact path="/">
-                <Home></Home>
-              </Route>
+          <Switch>
+            <Route exact path="/">
+              <Home startRoute={data.steps[0].route} />
+            </Route>
+            <Sidebar
+              sidebarClassName="fixed left-0 max-w-xs p-8 bg-gray-200 w-80"
+              docked
+              shadow={false}
+              open
+              sidebar={
+                <div className="w-full">
+                  <AerosolveLogo />
+                  <Navigation navGroups={data.navGroups} stepStatus={state.stepStatus} />
+                </div>
+              }
+            >
               {data.steps.map((step, i) => {
                 const StepView = step.component
                 return (
@@ -71,8 +70,8 @@ const App: React.FC<{}> = (props) => {
                   </Route>
                 )
               })}
-            </Switch>
-          </Sidebar>
+            </Sidebar>
+          </Switch>
         </div>
       </AppContext.Provider>
     </Router>

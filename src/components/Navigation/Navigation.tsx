@@ -1,7 +1,7 @@
 import React, { CSSProperties, useContext } from 'react'
 import { AppContext } from 'context'
 import { useHistory, useLocation } from 'react-router-dom'
-import { ReactComponent as Checkmark } from 'assets/icons/checkmark.svg'
+import { ReactComponent as Checkmark } from 'assets/svg/checkmark.svg'
 import clsx from 'clsx'
 
 export interface NavGroupStep {

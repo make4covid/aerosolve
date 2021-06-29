@@ -2,7 +2,14 @@ import Sidebar from 'react-sidebar'
 import { Navigation } from 'components/Navigation/Navigation'
 import React, { useReducer } from 'react'
 import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo'
-import { BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+  useLocation,
+  Link,
+} from 'react-router-dom'
 
 import { AppContext, contextReducer, initialState, Actions } from './context'
 import { PageHeader } from 'components/PageHeader/PageHeader'
@@ -28,13 +35,16 @@ const App: React.FC<{}> = (props) => {
               <Home startRoute={data.steps[0].route} />
             </Route>
             <Sidebar
-              sidebarClassName="fixed left-0 max-w-xs p-8 bg-gray-200 w-80"
+              sidebarClassName="fixed left-0 max-w-xs px-8 py-2 bg-gray-200 w-72"
+              transitions={false}
               docked
               shadow={false}
               open
               sidebar={
                 <div className="w-full">
-                  <AerosolveLogo />
+                  <Link to="/">
+                    <AerosolveLogo />
+                  </Link>
                   <Navigation navGroups={data.navGroups} stepStatus={state.stepStatus} />
                 </div>
               }

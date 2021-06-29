@@ -38,7 +38,7 @@ function getStateCovidData(state:string, day:Date){
 function getStateCountyData(state:string, county: string, day:Date){
     let yesterday = new Date(day)
     yesterday.setDate(yesterday.getDate() - 1)
-    const url = " http://127.0.0.1:5000/county_stats"
+    const url = `${process.env.AerosolveURL}/county_stats`
     // Recursive solution to get the latest data
     return new Promise(function(resolve,reject){
         helpers.post(url, {state:state,county:county})

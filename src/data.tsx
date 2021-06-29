@@ -31,7 +31,8 @@ const steps: Step[] = [
     title: 'Target Occupancy',
     component: Views.TargetOccupancy,
     header: {
-      prompt: 'How many people should be able to safely occupy the space, and for how long?',
+      prompt:
+        'How many people should be able to safely occupy the space, and for how many consecutive hours?',
     },
   },
   {

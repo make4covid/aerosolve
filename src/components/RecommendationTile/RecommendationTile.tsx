@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkmark, Pause, ArrowDown, Plus } from 'assets/icons'
+import { Checkmark, Pause, ArrowDown, Plus } from 'assets/svg'
 
 export type RecommendationTileProps = {
   color: 'blue' | 'red' | 'light-blue'

@@ -20,6 +20,23 @@ test('Test against Confirmed Covid Case , new case and  Get Deaths Covid Case in
 });
 
 
+test('Test against Confirmed Covid Case , new case and  Get Deaths Covid Case in County', done => {
+    function callback(data:any) {
+        try {
+            expect(data).toBeTruthy()
+            //If empty then switch to the previous data source
+            console.log(data)
+            done();
+        } catch (error) {
+            done(error);
+        }
+    }
+    let today = new Date()
+    CDCDataFetchWrapper.getStateCountyData("California","San Diego",today).then(callback)
+
+});
+
+
 
 test('Test against Vaccination Rate in State ', done => {
     function callback(data:any) {

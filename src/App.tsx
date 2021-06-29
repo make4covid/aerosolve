@@ -25,7 +25,7 @@ const App: React.FC<{}> = (props) => {
       <AppContext.Provider value={state}>
         <div className="max-h-screen max-w-screen">
           <Sidebar
-            sidebarClassName="fixed left-0 max-w-xs p-8 bg-gray-200 w-80" // TODO: Add responsive styling for larger displays
+            sidebarClassName="fixed left-0 max-w-xs p-8 bg-gray-200 w-80"
             docked
             shadow={false}
             open
@@ -52,8 +52,6 @@ const App: React.FC<{}> = (props) => {
                         title={String(step.index! + 1).padStart(2, '0') + ' / ' + step.title}
                         description={step.header.description}
                         prompt={step.header.prompt}
-                        hours={30}
-                        people={30}
                       ></PageHeader>
                       <StepView
                         onComplete={() => {

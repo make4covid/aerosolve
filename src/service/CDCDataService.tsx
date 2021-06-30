@@ -5,49 +5,28 @@ import helpers  from "./helper"
 
 export const CDCDataFetchWrapper = {
 
-    getVaccineData,
-    getCovidData
+    getStateVaccineData,
+    getCountyVaccineData,
+    getStateCovidData,
+    getStateCountyData
 };
 //Main function
-function getCovidData(state:string){
-    let today = new Date()
-    let yesterday = new Date(today)
+function getStateCovidData(state:string, day:Date){
+    let yesterday = new Date(day)
     yesterday.setDate(yesterday.getDate() - 1)
     const url1 = 'https://data.cdc.gov/resource/9mfq-cb36.json?submission_date=' + yesterday.toISOString().split('T')[0] + '&state=' + state    // Get Confirmed Covid Case , new case and  Get Deaths Covid Case
-    // Todo run get in parallel
 
     // Recursive solution to get the latest data
     return new Promise(function(resolve,reject){
                 helpers.get(url1)
                 .then(data=> {
                     if (data.length == 0) {
-                        yesterday.setDate(yesterday.getDate() - 1)
-                        const url1 = 'https://data.cdc.gov/resource/9mfq-cb36.json?submission_date=' + yesterday.toISOString().split('T')[0] + '&state=' + state
-                        helpers.get(url1)
-                            .then(sub_data =>{
-                            if(sub_data.length == 0){
-                                yesterday.setDate(yesterday.getDate() - 1)
-                                const url1 = 'https://data.cdc.gov/resource/9mfq-cb36.json?submission_date=' + yesterday.toISOString().split('T')[0] + '&state=' + state
-                                helpers.get(url1)
-                                    .then(sub_sub_data => {
-                                    if(sub_sub_data.length == 0){
-
-                                    }
-                                    else{
-                                        resolve(aggregateCovidData(sub_sub_data))
-                                    }
-                                })
-                            }
-                            else{
-                                //Done here
-                                resolve(aggregateCovidData(sub_data))
-                                //console.log(typeof (sub_data))
-                            }
-                        })
+                      resolve(getStateCovidData(state,yesterday))
                     }
                     else{
                         //Done here return result
                         //console.log(data)
+                        resolve(data)
                     }
                 }
             ).catch(failureCallback)
@@ -56,37 +35,79 @@ function getCovidData(state:string){
     //While loop run it and get the day
 }
 
+function getStateCountyData(state:string, county: string, day:Date){
+    let yesterday = new Date(day)
+    yesterday.setDate(yesterday.getDate() - 1)
+    const url = `${process.env.AerosolveURL}/county_stats`
+    // Recursive solution to get the latest data
+    return new Promise(function(resolve,reject){
+        helpers.post(url, {state:state,county:county})
+            .then(data=> {
+                    if (data.length == 0) {
+                        resolve(getStateCountyData(state,county,yesterday))
+                    }
+                    else{
+                        //Done here return result
+                        //console.log(data)
+                        resolve(data)
+                    }
+                }
+            ).catch(failureCallback)
+    })
+    // Deduct day until the data is available
+    //While loop run it and get the day
+}
+
+
+
 function failureCallback(error: string) {
     console.error("Something wrong with the data source " + error);
 }
 
 
-function getVaccineData(state:string) {
-    let today = new Date()
-    const url2 = 'https://data.cdc.gov/resource/8xkx-amqh.json?date=' + today.toISOString().split('T')[0] + '&' + 'recip_state=' + state       // # Get Vaccination Rate State
+function getStateVaccineData(state:string,date:Date) {
+    let yesterday = new Date(date)
+    const url2 = 'https://data.cdc.gov/resource/8xkx-amqh.json?date=' + yesterday.toISOString().split('T')[0] + '&' + 'recip_state=' + state       // # Get Vaccination Rate State
 
     return new Promise(function (resolve, reject) {
         helpers.get(url2).then(data => {
                 if (data.length == 0) {
-                    today.setDate(today.getDate() - 1)
-                    const url2 = 'https://data.cdc.gov/resource/8xkx-amqh.json?date=' + today.toISOString().split('T')[0] + '&' + 'recip_state=' + state
-                    helpers.get(url2).then(sub_data => {
-                        if (sub_data.length == 0) {
-
-                        } else {
-                            //Done here
-                            //console.log(sub_data)
-                            resolve(aggregateVaccineData(sub_data))
-                        }
-                    })
+                    yesterday.setDate(yesterday.getDate() - 1)
+                    resolve(getStateVaccineData(state,yesterday))
                 } else {
-                    //Done here return result
                     resolve(aggregateVaccineData(data))
-                    //console.log(data)
                 }
             }
         )
     })
+}
+
+function getCountyVaccineData(state:string,county:string,date:Date){
+    let yesterday = new Date(date)
+    const url2 = 'https://data.cdc.gov/resource/8xkx-amqh.json?date=' + yesterday.toISOString().split('T')[0] + '&' + 'recip_state=' + state + "&recip_county=" + county + " County"
+
+    return new Promise(function (resolve, reject) {
+        helpers.get(url2).then(data => {
+                if (data.length == 0) {
+                    yesterday.setDate(yesterday.getDate() - 1)
+                    resolve(getCountyVaccineData(state,county,yesterday))
+                } else {
+                    resolve(aggregateCountyVaccineData(data))
+                }
+            }
+        )
+    })
+}
+
+function aggregateCountyVaccineData(data:any){
+
+    let totalPopulate = (data[0]["series_complete_yes"] * 100) / data[0]["series_complete_pop_pct"]
+
+    return {
+        "totalPopulate": totalPopulate,
+        "vaccineRateTotal": data[0]["series_complete_yes"],
+        "vaccinateRatePcr": data[0]["series_complete_pop_pct"]
+    }
 }
 
 function aggregateCovidData(data:any){

@@ -1,5 +1,5 @@
 import * as Images from 'assets/images'
-import * as SVG from 'assets/icons'
+import * as SVG from 'assets/svg'
 
 import {
   RecommendationTile,

@@ -1,5 +1,5 @@
-import { ReactComponent as LeftArrow } from 'assets/icons/arrow-circle-left.svg'
-import { ReactComponent as RightArrow } from 'assets/icons/arrow-circle-right.svg'
+import { ReactComponent as LeftArrow } from 'assets/svg/arrow-circle-left.svg'
+import { ReactComponent as RightArrow } from 'assets/svg/arrow-circle-right.svg'
 import clsx from 'clsx'
 import { MouseEventHandler } from 'react'
 
@@ -16,7 +16,7 @@ export const NavButton: React.FC<NavButtonProps> = (props) => {
     <button
       onClick={props.onClick}
       className={clsx(
-        'transition-colors duration-300 outline-none focus:outline-none text-cyan-600 hover:text-cyan-500',
+        'transition-colors duration-200 outline-none focus:outline-none text-white bg-purple-700 hover:text-purple-700 hover:bg-white p-0.5 rounded-full border-2 border-purple-700',
         props.className
       )}
     >
@@ -27,7 +27,9 @@ export const NavButton: React.FC<NavButtonProps> = (props) => {
         )}
       >
         {props.label && (
-          <div className={clsx(props.direction === 'last' ? 'pl-3' : 'pr-3')}>{props.label}</div>
+          <div className={clsx(props.direction === 'last' ? 'pl-3 pr-4' : 'pr-3 pl-4')}>
+            {props.label}
+          </div>
         )}
         <Arrow className="w-8 h-8 fill-current" />
       </div>

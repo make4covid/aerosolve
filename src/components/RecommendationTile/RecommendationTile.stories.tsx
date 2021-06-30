@@ -7,7 +7,7 @@ import {
 
 import HEPA from 'assets/images/hepa.png'
 import Singing from 'assets/images/singing.png'
-import { ReactComponent as Clock } from 'assets/icons/clock.svg'
+import { ReactComponent as Clock } from 'assets/svg/clock.svg'
 
 export default {
   title: 'Aerosolve/Components/RecommendationTile',

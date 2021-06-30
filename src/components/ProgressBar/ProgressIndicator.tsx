@@ -102,3 +102,30 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ children, 
     </div>
   )
 }
+
+export const BlankValueBox: React.FC<{ label: string }> = (props) => {
+  return (
+    <div className="border-2 rounded-md flex flex-col align-middle p-1.5 h-full justify-between text-center font-semibold border-gray-400 text-gray-400 w-16 ml-2">
+      <div className="mx-0.5 text-2xl">-</div>
+      <div className="mx-0.5 text-sm text-center">{props.label}</div>
+    </div>
+  )
+}
+
+export const BlankProgressIndicator: React.FC<{}> = () => {
+  return (
+    <div className="flex flex-row items-center h-16">
+      <div
+        style={{ maxWidth: '18ch', minWidth: '18ch' }}
+        className={clsx(
+          'text-xs font-semibold text-gray-600 flex flex-col h-16 justify-between mr-2'
+        )}
+      >
+        <div>This tracker will help you determine how safe your space is...</div>
+        <ProgressBar percentComplete={50} />
+      </div>
+      <BlankValueBox label="people" />
+      <BlankValueBox label="hours" />
+    </div>
+  )
+}

@@ -1,7 +1,5 @@
-export {}
-
-// import React from 'react'
-// import { StepViewProps } from 'data'
+import React from 'react'
+import { StepViewProps } from 'data'
 // import {SelectionChoiceGroup} from "../../components/SelectionChoiceGroup/SelectionChoiceGroup";
 // import {SelectionOption} from "../../components/SelectionChoice/SelectionChoiceItem/SelectionChoiceItem";
 // import {SelectionChoiceOption} from "../../components/SelectionChoice/SelectionChoice";
@@ -89,10 +87,10 @@ export {}
 //     },
 // ]
 
-// export const VentilationFiltration: React.FC<StepViewProps> = (props) => {
-//   return (
-//     <div className="w-full h-3/5">
-//      <SelectionChoiceGroup options={options} noDescription={false}/>
-//     </div>
-//   )
-// }
+export const VentilationFiltration: React.FC<StepViewProps> = (props) => {
+  return (
+    <div className="w-full h-3/5">
+      {/* <SelectionChoiceGroup options={options} noDescription={false}/> */}
+    </div>
+  )
+}

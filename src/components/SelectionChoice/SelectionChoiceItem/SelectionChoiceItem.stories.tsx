@@ -3,25 +3,25 @@ import { Story, Meta } from '@storybook/react'
 
 import Kids from 'assets/images/kids.png'
 
-import { SelectionOption, SelectionChoiceProps, SelectionChoiceItem } from './SelectionChoiceItem'
+import { SelectionChoiceItemProps, SelectionChoiceItem } from './SelectionChoiceItem'
 
 import { withDesign } from 'storybook-addon-designs'
 
 export default {
-    title: 'Aerosolve/Components/Selection Choice Item',
-    component: SelectionChoiceItem,
-    decorators: [withDesign],
+  title: 'Aerosolve/Components/Selection Choice Item',
+  component: SelectionChoiceItem,
+  decorators: [withDesign],
 } as Meta
 
-const Template: Story<SelectionChoiceProps & SelectionOption> = (args) => (
-    <div className="w-screen h-screen flex">
-        <div className="w-48 h-48 cursor-pointer bg-gray-200 m-auto">
-            <SelectionChoiceItem {...args} />
-        </div>
+const Template: Story<SelectionChoiceItemProps> = (args) => (
+  <div className="flex w-screen h-screen">
+    <div className="w-48 h-48 m-auto bg-gray-200 cursor-pointer">
+      <SelectionChoiceItem {...args} />
     </div>
+  </div>
 )
 
 export const PlainUnselected = Template.bind({})
 export const PlainSelected = Template.bind({})
-PlainUnselected.args = { selected: false, button_description: 'Poor' }
-PlainSelected.args = { selected: true, button_description: 'Average' }
+PlainUnselected.args = { selected: false, value: 'Poor' }
+PlainSelected.args = { selected: true, value: 'Average' }

@@ -1,9 +1,17 @@
 import { StepStatus } from 'components/Navigation/Navigation'
-import { createContext } from 'react'
+import { Context, createContext, Dispatch, useReducer } from 'react'
 export interface AppState {
   progress: { safeHours: number; targetHours: number; targetOccupancy: number }
   stepStatus: StepStatus
 }
+
+type AppContextType = [
+  AppState,
+  Dispatch<{
+    type: Actions
+    payload: any
+  }>
+]
 
 const initialState: AppState = {
   progress: {
@@ -28,18 +36,23 @@ const initialState: AppState = {
 
 export { initialState }
 
-export enum Actions {
-  setStepCompleted,
-}
+export type Actions = 'setStepCompleted' | 'setTargetHours' | 'setTargetOccupancy'
 
 export const contextReducer = (state: AppState, action: { type: Actions; payload: any }) => {
   switch (action.type) {
-    case Actions.setStepCompleted:
+    case 'setStepCompleted':
       state.stepStatus[action.payload.step as string].complete = true
+      return { ...state }
+    case 'setTargetHours':
+      state.progress.targetHours = action.payload.value
+      return { ...state }
+    case 'setTargetOccupancy':
+      state.progress.targetOccupancy = action.payload.value
       return { ...state }
     default:
       throw new Error(`There is no action called '${action.type}'`)
   }
 }
 
-export const AppContext = createContext(initialState)
+export const AppContext = createContext(([initialState] as unknown) as AppContextType)
+export const useContextReducer = () => useReducer(contextReducer, initialState)

@@ -18,6 +18,6 @@ export const Default = Template.bind({})
 
 Default.args = {
   header: 'OccupantCard',
-  occupant: 50,
+  value: 50,
   lineBreak: 10,
 }

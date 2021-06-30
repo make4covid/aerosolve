@@ -35,7 +35,7 @@ export const PageFooter: React.FC<PageFooterProps> = (props) => {
         {props.lastStepRoute && (
           <NavButton
             direction="last"
-            label={props.lastStepLabel}
+            label="Last"
             onClick={() => history.push(props.lastStepRoute!)}
             className="mr-6"
           />
@@ -45,7 +45,7 @@ export const PageFooter: React.FC<PageFooterProps> = (props) => {
       {props.nextStepRoute && (
         <NavButton
           direction="next"
-          label={props.nextStepLabel}
+          label="Next"
           onClick={() => history.push(props.nextStepRoute!)}
         ></NavButton>
       )}

@@ -27,7 +27,11 @@ export const PlainCard: React.FC<CardProps & CardOptions> = ({ ...props }) => {
               <p className="flex-1 m-6 text-2xl font-medium">{props.title}</p>
               <div className="flex-1" />
               <div className="flex-1 p-4">
-                <NumberOfOccupants occupant={occupant} lineBreak={10} />
+                <NumberOfOccupants
+                  value={occupant}
+                  lineBreak={10}
+                  onChange={(value: number) => {}}
+                />
               </div>
             </div>
           </div>

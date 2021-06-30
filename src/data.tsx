@@ -60,9 +60,8 @@ const steps: Step[] = [
     title: 'Area of Space',
     component: Views.AreaOfSpace,
     header: {
-      prompt: "About how large is the space you're evaluation?",
-      description:
-        'Why understanding the room type can help determine the risk in viral transmission',
+      prompt: "What are the approximate dimensions of the space you're evaluating?",
+      description: 'Larger rooms are safer because aerosols are less concentrated.',
     },
   },
   {

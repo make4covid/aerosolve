@@ -1,6 +1,7 @@
-import React, { CSSProperties } from 'react'
-import Plus_Sign from 'assets/old/Plus_Sign.png'
-import Minus_Sign from 'assets/old/Minus_Sign.png'
+import React, {CSSProperties, useState} from 'react'
+import { Plus } from 'assets/icons/index'
+import { Minus } from 'assets/icons/index'
+
 export type OccupantsCardProps = {
   header?: string
   occupant: number
@@ -9,50 +10,59 @@ export type OccupantsCardProps = {
    * Action to set selected options
    */
   setOccupant: (selected: number) => void
+  /**
+   * Action callback from parent
+   */
+  callbackToParent: () => void
+  /**
+   * Integration status
+   */
+  isIntegration: boolean
 }
 
-export const OccupantsCard: React.FC<OccupantsCardProps> = (props) => {
+export const OccupantsCard: React.FC<OccupantsCardProps> = ({
+    isIntegration= false,
+    ...props
+}
+) => {
+
+  const [counter,setCounter] = useState(0)
+  const updateCounter = () => isIntegration ? props.callbackToParent() : null
+
   function plus() {
-    props.setOccupant(props.occupant + 1)
+    setCounter(counter+1)
+    updateCounter()
   }
 
   function minus() {
-    props.setOccupant(props.occupant - 1)
+    if(counter>=1) {setCounter(counter-1) }
+    updateCounter()
+  }
+
+  const Occupant = (value : number) =>{
+    return (
+        <div className="text-4xl text-blue-500 select-none">
+          {value}
+        </div>
+    )
   }
 
   return (
     <div
-      className="bg-white border-4 border-blue-500 lg:w-64 lg:h-36 rounded-xl lg:ml-16"
+      className="w-64 h-36  bg-white border-3 border-blue-500 rounded-xl lg:ml-16"
       {...props}
     >
-      <div className="z-10 flex flex-col">
-        <div className="flex-1">
-          <br />
-        </div>
-        <div className="flex-1">
-          <div className="flex flex-row justify-evenly">
-            <span className="flex-1 text-3xl cursor-pointer" onClick={minus}>
-              <button className="lg:px-6 lg:py-3">
-                <img className="w-12 h-8" src={Minus_Sign} />{' '}
-              </button>
-            </span>
-
-            <span className="flex-1 text-5xl font-bold text-center text-blue-500">
-              {props.occupant}
-            </span>
-            <span className="flex-1 text-3xl cursor-pointer" onClick={plus}>
-              <button className="lg:px-6 lg:py-3">
-                <img className="w-12 h-8" src={Plus_Sign} />
-              </button>
-            </span>
+      <div className="w-full h-4/6 border-b-2 border-gray-300 ">
+          <div className="h-1/3"/>
+          <div className="flex flex-row justify-between justify-center">
+                <Minus className="mx-2 w-8 h-8 transform transition duration-250 ease-in-out hover:my-1 hover:scale-105 cursor-pointer" onClick={minus} />
+                {Occupant(counter)}
+                <Plus className="mx-2 w-8 h-8 transform transition duration-250 ease-in-out hover:my-1 hover:scale-105 cursor-pointer" onClick={plus} />
           </div>
+      </div>
 
-          <div className="flex-1 border-gray-300 border-t-5">
-            <p className="mt-2 text-2xl font-bold text-center text-gray-500 border-t-2">
-              occupants
-            </p>
-          </div>
-        </div>
+      <div className="text-center ">
+          <p className="text-2xl">Occupants</p>
       </div>
     </div>
   )

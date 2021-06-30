@@ -3,12 +3,14 @@ import { OccupantsCard, OccupantsCardProps } from './OccupantsCard'
 import React from 'react'
 
 export default {
-  title: 'Aerosolve/Refactor/OccupantsCard',
+  title: 'Aerosolve/OccupantsCard',
   component: OccupantsCard,
 }
 
-const Template: Story<OccupantsCardProps> = (args) => <OccupantsCard {...args} />
-
+const Template: Story<OccupantsCardProps> = (args) =>
+    <div className="absolute inset-x-0 justify-center">
+      <OccupantsCard {...args} />
+    </div>
 export const OccupantCard = Template.bind({})
 
 OccupantCard.args = {

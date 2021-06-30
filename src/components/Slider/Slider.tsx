@@ -81,21 +81,21 @@ export const Slider: React.FC<SliderProps> = ({
       className={clsx(
         'flex flex-col items-center cursor-pointer transition-colors duration-150 mt-7 w-4',
         dragValue && dragValue < v && 'text-white',
-        dragValue && dragValue >= v && 'text-blue-400',
+        dragValue && dragValue >= v && 'text-blue-500',
         dragValue || (value < v && ' text-white'),
-        dragValue || (value >= v && 'text-blue-400')
+        dragValue || (value >= v && 'text-blue-500')
       )}
     >
       <div
         className={clsx(
           'w-4 h-4 rounded-full cursor-pointer transition-colors duration-150 mb-2',
           dragValue && dragValue < v && 'bg-white',
-          dragValue && dragValue >= v && 'bg-blue-400',
+          dragValue && dragValue >= v && 'bg-blue-500',
           dragValue || (value < v && 'bg-white'),
-          dragValue || (value >= v && 'bg-blue-400')
+          dragValue || (value >= v && 'bg-blue-500')
         )}
       />
-      <div className="overflow-visible text-sm text-center select-none">{v}</div>
+      <div className="overflow-visible text-sm text-center select-none">{v.toLocaleString()}</div>
     </div>
   ))
 
@@ -103,7 +103,7 @@ export const Slider: React.FC<SliderProps> = ({
     <div
       ref={containerRef}
       style={{ cursor: dragging ? 'grabbing' : 'auto' }}
-      className="flex flex-col w-full pb-5 mb-2.5 px-2 border-blue-400"
+      className="flex flex-col w-full pb-5 mb-2.5 px-2 border-blue-500"
       onMouseMove={(e): void => {
         if (dragging) {
           const dragPercent = mousePercentPosition(containerRef, e)
@@ -133,7 +133,7 @@ export const Slider: React.FC<SliderProps> = ({
         <div
           ref={transitionRefs[1]}
           style={{ width: indicatorPosition }}
-          className="absolute top-0 h-2 transition-all duration-200 bg-blue-400 rounded-full"
+          className="absolute top-0 h-2 transition-all duration-200 bg-blue-500 rounded-full"
         ></div>
         <div
           style={{ width: 'calc(100% + 1rem)' }}
@@ -147,7 +147,7 @@ export const Slider: React.FC<SliderProps> = ({
             left: indicatorPosition,
             cursor: dragging ? 'grabbing' : 'grab',
           }}
-          className="absolute w-8 h-8 -mt-1 transition-all duration-200 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 rounded-full shadow-md"
+          className="absolute w-8 h-8 -mt-1 transition-all duration-200 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full shadow-md"
           onMouseDown={() => {
             startDrag()
             window.addEventListener('mouseup', handleMouseup)

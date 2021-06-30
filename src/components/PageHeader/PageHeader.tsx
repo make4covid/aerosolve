@@ -29,7 +29,7 @@ export const PageHeader: React.FC<PageHeaderProps> = (props) => {
         ></ProgressIndicator>
       </div>
       <div>
-        <p className="px-4 my-2 text-lg font-medium text-gray-500">{props.prompt}</p>
+        <p className="px-4 my-2 font-medium text-gray-500">{props.prompt}</p>
       </div>
       <div>
         {props.description && (

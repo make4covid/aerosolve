@@ -2,6 +2,10 @@ import { StepStatus } from 'components/Navigation/Navigation'
 import { Context, createContext, Dispatch, useReducer } from 'react'
 export interface AppState {
   progress: { safeHours: number; targetHours: number; targetOccupancy: number }
+  userInputs: {
+    ceilingHeight: number
+    roomArea: number
+  }
   stepStatus: StepStatus
 }
 
@@ -19,12 +23,17 @@ const initialState: AppState = {
     targetHours: 6,
     targetOccupancy: 20,
   },
+  userInputs: {
+    ceilingHeight: 8,
+    roomArea: 500,
+  },
+
   stepStatus: {
     '/target-occupancy': { complete: false },
     '/location': { complete: false },
     '/type-of-space': { complete: false },
-    '/area-of-space': { complete: false },
-    '/ceiling-height': { complete: false },
+    '/space-dimensions': { complete: false },
+    // '/ceiling-height': { complete: false },
     '/occupant-ages': { complete: false },
     '/vocal-activity': { complete: false },
     '/physical-activity': { complete: false },
@@ -36,7 +45,12 @@ const initialState: AppState = {
 
 export { initialState }
 
-export type Actions = 'setStepCompleted' | 'setTargetHours' | 'setTargetOccupancy'
+export type Actions =
+  | 'setStepCompleted'
+  | 'setTargetHours'
+  | 'setTargetOccupancy'
+  | 'setCeilingHeight'
+  | 'setRoomArea'
 
 export const contextReducer = (state: AppState, action: { type: Actions; payload: any }) => {
   switch (action.type) {
@@ -48,6 +62,12 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       return { ...state }
     case 'setTargetOccupancy':
       state.progress.targetOccupancy = action.payload.value
+      return { ...state }
+    case 'setCeilingHeight':
+      state.userInputs.ceilingHeight = action.payload.value
+      return { ...state }
+    case 'setRoomArea':
+      state.userInputs.roomArea = action.payload.value
       return { ...state }
     default:
       throw new Error(`There is no action called '${action.type}'`)

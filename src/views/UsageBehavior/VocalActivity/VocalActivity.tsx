@@ -8,25 +8,21 @@ let options: SelectionOptions[] = [
   {
     title: 'Whispering',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'Conversation',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'Conference',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'Singing\nSpeaking\nLoud Talking',
     description: '',
-    rating: '',
     img: Kids,
   },
 ]

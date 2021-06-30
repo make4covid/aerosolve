@@ -1,12 +1,12 @@
 import React from 'react'
 import clsx from 'clsx'
+import { RiskChip } from 'components/RiskChip/RiskChip'
 
 export interface SelectionOptions {
   title: string
   description: string
-  rating?: string
+  risk?: 'Low' | 'Medium' | 'High'
   img?: string
-  image?: string //For display image in TypeOfSpace MainPanel
 }
 export interface SelectionCardProps {
   /**
@@ -35,9 +35,9 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
   return (
     <div
       className={clsx(
-        'rounded-lg w-full p-3 cursor-pointer transition duration-200 flex justify-between',
-        selected && 'bg-blue-500 shadow-inner',
-        !selected && 'bg-gray-200 hover:shadow-lg',
+        'rounded-xl w-full p-3 cursor-pointer transition duration-200 flex justify-between hover:shadow-lg ',
+        selected && 'bg-blue-200',
+        !selected && 'bg-gray-100 border-transparent',
         column && 'flex-col',
         !column && 'flex-row'
       )}
@@ -47,33 +47,20 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
         <div className="flex flex-col justify-between">
           <div
             className={clsx(
-              'font-bold text-lg transition duration-200  whitespace-pre-wrap',
-              selected && 'text-white',
-              !selected && 'text-gray-700'
+              'font-bold text-lg transition duration-200  whitespace-pre-wrap text-gray-700 mb-2 leading-5'
             )}
           >
             {props.title}
+            <br />
+            <span className="text-base font-normal">{props.description}</span>
           </div>
-          <div
-            className={clsx(
-              'font-semibold text-sm transition duration-200 ',
-              selected && 'text-white',
-              !selected && 'text-blue-500'
-            )}
-          >
-            {props.rating}
-          </div>
-        </div>
-        <div className="w-6 h-6 mt-5 font-bold text-center text-gray-200 bg-gray-400 rounded-full">
-          ?
+          {props.risk && <RiskChip risk={props.risk} className="bg-gray-100" />}
         </div>
       </div>
       {props.img && (
         <div
           className={clsx(
             'overflow-hidden rounded-lg transition duration-200 shadow-lg',
-            selected && 'opacity-60',
-            !selected && 'opacity-80',
             !column && 'w-1/2',
             column && 'w-full mt-4 max-h-52'
           )}
@@ -81,7 +68,9 @@ export const SelectionCard: React.FC<SelectionCardProps & SelectionOptions> = ({
           <img
             src={props.img}
             alt=""
-            className={clsx('w-full h-full object-cover object-center')}
+            className={clsx(
+              'w-full h-full object-cover object-center mix-blend-multiply opacity-90'
+            )}
           />
         </div>
       )}

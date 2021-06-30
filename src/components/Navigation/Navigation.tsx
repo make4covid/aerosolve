@@ -87,7 +87,7 @@ const NavigationStep: React.FC<NavStepProps> = (props) => {
       )}
     >
       <div>{props.title}</div>
-      {props.complete && <Checkmark className={'fill-current'} height="24" width="24" />}
+      {props.complete && <Checkmark className="w-5 h-5 fill-current" />}
     </div>
   )
 }

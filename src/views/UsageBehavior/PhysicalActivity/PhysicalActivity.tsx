@@ -8,25 +8,21 @@ let options: SelectionOptions[] = [
   {
     title: 'Resting',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'Standing',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'Exercise',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'Heavy Exercise',
     description: '',
-    rating: '',
     img: Kids,
   },
 ]

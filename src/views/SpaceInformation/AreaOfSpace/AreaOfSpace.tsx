@@ -9,7 +9,7 @@ import tw from 'twin.macro'
 import { AppContext } from 'context'
 
 const Block = tw.div`w-full bg-gray-200 rounded-xl px-10 py-6`
-const BlockHeader = tw.div`font-semibold text-gray-600`
+const BlockHeader = tw.div`font-semibold text-gray-600 mb-2`
 
 export const AreaOfSpace: React.FC<StepViewProps> = (props) => {
   const [context, dispatch] = useContext(AppContext)
@@ -44,8 +44,8 @@ export const AreaOfSpace: React.FC<StepViewProps> = (props) => {
 
         <Slider
           interval={4}
-          min={8}
-          max={24}
+          min={6}
+          max={26}
           labelValues={false}
           onChange={setCeilingHeight}
           unit="foot"

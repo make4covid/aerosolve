@@ -19,10 +19,10 @@ export type Step = {
 
 const stepGroups = [
   { groupName: 'Safety Goal', steps: [0] },
-  { groupName: 'Space Information', steps: [1, 2, 3, 4] },
-  { groupName: 'Usage and Behavior', steps: [5, 6, 7] },
-  { groupName: 'Mask Usage', steps: [8, 9] },
-  { groupName: 'Ventilation', steps: [10] },
+  { groupName: 'Space Information', steps: [1, 2, 3] },
+  { groupName: 'Usage and Behavior', steps: [4, 5, 6] },
+  { groupName: 'Mask Usage', steps: [7, 8] },
+  { groupName: 'Ventilation', steps: [9] },
 ]
 
 const steps: Step[] = [
@@ -56,24 +56,24 @@ const steps: Step[] = [
     },
   },
   {
-    route: '/area-of-space',
-    title: 'Area of Space',
+    route: '/space-dimensions',
+    title: 'Space Dimensions',
     component: Views.AreaOfSpace,
     header: {
       prompt: "What are the approximate dimensions of the space you're evaluating?",
       description: 'Larger rooms are safer because aerosols are less concentrated.',
     },
   },
-  {
-    route: '/ceiling-height',
-    title: 'Ceiling Height',
-    component: Views.CeilingHeight,
-    header: {
-      prompt: 'About how tall, on average, is the ceiling in the space?',
-      description:
-        'Ceiling height provides accurate data to the calculation of room volume in air exchange rate',
-    },
-  },
+  // {
+  //   route: '/ceiling-height',
+  //   title: 'Ceiling Height',
+  //   component: Views.CeilingHeight,
+  //   header: {
+  //     prompt: 'About how tall, on average, is the ceiling in the space?',
+  //     description:
+  //       'Ceiling height provides accurate data to the calculation of room volume in air exchange rate',
+  //   },
+  // },
   {
     route: '/occupant-ages',
     title: 'Occupant Ages',

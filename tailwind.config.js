@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        purple: colors.fuchsia,
         cyan: colors.cyan,
         'light-blue': colors.lightBlue,
       },
@@ -14,6 +15,11 @@ module.exports = {
         'inner-xs': 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
       },
       minWidth: {
+        xs: '20rem',
+        sm: '24rem',
+        md: '28rem',
+        lg: '32rem',
+        xl: '36rem',
         '2xl': '42rem',
         '3xl': '48rem',
         '4xl': '56rem',
@@ -26,6 +32,10 @@ module.exports = {
       },
       borderWidth: {
         3: '3px',
+      },
+      maxHeight: {
+        min: 'min-content',
+        max: 'max-content',
       },
     },
   },

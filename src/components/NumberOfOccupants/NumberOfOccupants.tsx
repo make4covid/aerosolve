@@ -1,45 +1,52 @@
 import React, { CSSProperties } from 'react'
-import head_white from 'assets/old/head_white.png'
-import body_white from 'assets/old/body_white.png'
-import head_blue from 'assets/old/head_blue.png'
-import body_blue from 'assets/old/body_blue.png'
+import { Person } from 'assets/svg'
+import clsx from 'clsx'
+import tw from 'twin.macro'
 
 export type NumberOfOccupantsProps = {
   header?: string
-  occupant: number
+  value: number
   style?: CSSProperties
+  className?: string
   lineBreak?: number
+  onChange: (value: number) => void
 }
+
+const GridCell = tw.div`w-full h-full cursor-pointer p-0.5`
 
 export const NumberOfOccupants: React.FC<NumberOfOccupantsProps> = ({
   lineBreak = 5,
   ...props
 }) => {
-  return (
-    <div className="relative w-full h-full bg-gray-300 rounded-xl">
-      <div className="text-lg font-semibold text-gray-700">
-        {Array(props.occupant)
-          .fill(1)
-          .map((value, index) => {
-            return (
-              <span className="inline-block lg:p-2">
-                <img className="px-1" src={head_blue} />
-                <img src={body_blue} />
-              </span>
-            )
-          })}
+  const rows = Math.min(Math.max(Math.floor(Math.sqrt(props.value * 0.75)), 5), 20)
+  const columns = Math.round(rows * 2.3)
 
-        {Array(20)
-          .fill(0)
-          .map((value, index) => {
-            return (
-              <span className="inline-block lg:p-2">
-                <img className="px-1" src={head_white} />
-                <img src={body_white} />
-              </span>
-            )
-          })}
-      </div>
+  return (
+    <div
+      style={{
+        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+        gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
+      }}
+      className={clsx('relative h-full grid', props.className)}
+    >
+      {Array(rows * columns)
+        .fill(0)
+        .map((_, index) => {
+          return (
+            <GridCell
+              onClick={() => {
+                props.onChange(index + 1)
+              }}
+            >
+              <Person
+                className={clsx(
+                  props.value > index ? 'text-blue-500' : 'text-white',
+                  'h-full fill-current m-auto transition-colors duration-700 delay-50'
+                )}
+              ></Person>
+            </GridCell>
+          )
+        })}
     </div>
   )
 }

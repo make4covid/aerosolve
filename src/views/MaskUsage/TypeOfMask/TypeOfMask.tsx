@@ -9,25 +9,21 @@ let options: SelectionOptions[] = [
   {
     title: 'No Masks',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'Cloth Masks',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'Surgical Masks',
     description: '',
-    rating: '',
     img: Kids,
   },
   {
     title: 'N95 Respirators',
     description: '',
-    rating: '',
     img: Kids,
   },
 ]

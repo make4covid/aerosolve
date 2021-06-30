@@ -16,7 +16,7 @@ export const SpaceType: React.FC<SpaceTypeProps> = (props) => {
         className="object-cover w-7/12 min-h-full mix-blend-multiply"
       />
       {props.risk && (
-        <RiskChip risk={props.risk} className="absolute bg-opacity-80 top-3 right-3 " />
+        <RiskChip risk={props.risk} className="absolute bg-white bg-opacity-80 top-3 right-3 " />
       )}
     </div>
   )

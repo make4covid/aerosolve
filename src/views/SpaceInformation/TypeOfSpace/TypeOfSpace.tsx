@@ -1,112 +1,77 @@
 import React, { useState } from 'react'
-import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
-import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
-import Kids from 'assets/images/kids.png'
-import { StepViewProps } from '../../../data'
-import { MainCard } from './MainCard'
+import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
+import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
+import { StepViewProps } from 'data'
+import { SpaceType, SpaceTypeProps } from 'components/SpaceType/SpaceType'
+import * as Models from 'assets/models'
+import tw from 'twin.macro'
+import { RiskChip } from 'components/RiskChip/RiskChip'
 
-export type TypeOfSpaceProps = {
-  header?: string
-  title: string
-  question: string
-  recommendation: string
-  hours: number
-  description: string
-}
-
-let options: SelectionOptions[] = [
+let options: SpaceTypeProps[] = [
   {
-    title: 'Living Room',
-    rating: 'Lowest Risk',
-    description:
-      'A living room is a small space usually occupied by closely related people. The space is also of low foot traffic and occupants are spaced far apart.',
-    image: Kids,
+    label: 'Living Room',
+    risk: 'Low',
+    img: Models.livingroom,
   },
   {
-    title: 'Classroom',
-    rating: 'Lowest Risk',
-    description: 'blabla',
-    image: Kids,
+    label: 'Classroom',
+    risk: 'Low',
+    img: Models.classroom,
   },
   {
-    title: 'Place of Worship',
-    rating: 'Medium Risk',
-    description: 'blabla',
-    image: Kids,
+    label: 'Place of Worship',
+    risk: 'Medium',
+    img: Models.placeofworship,
   },
   {
-    title: 'Restaurant',
-    rating: 'Medium Risk',
-    description: 'blabla',
-    image: Kids,
+    label: 'Restaurant',
+    risk: 'Medium',
+    img: Models.restaraunt,
   },
   {
-    title: 'Office',
-    rating: 'Medium Risk',
-    description: 'blabla',
-    image: Kids,
+    label: 'Office',
+    risk: 'Medium',
+    img: Models.abstract,
   },
   {
-    title: 'Bus/Train',
-    rating: 'Higher Risk',
-    description: 'blabla',
-    image: Kids,
+    label: 'Bus / Train',
+    risk: 'High',
+    img: Models.abstract,
   },
   {
-    title: 'Commercial Airline',
-    rating: 'Higher Risk',
-    description: 'blabla',
-    image: Kids,
+    label: 'Commercial Airline',
+    risk: 'High',
+    img: Models.airplane,
   },
   {
-    title: 'Museum/ Gallery',
-    rating: 'Higher Risk',
-    description: 'blabla',
-    image: Kids,
+    label: 'Museum / Gallery',
+    risk: 'High',
+    img: Models.museum,
   },
   {
-    title: 'Gym/ Fitness Center',
-    rating: 'Higher Risk',
-    description: 'blabla',
-    image: Kids,
+    label: 'Gym / Fitness Center',
+    risk: 'High',
+    img: Models.abstract,
   },
 ]
 
+const OptionGrid = tw.div`grid grid-rows-3 grid-cols-3`
+const Option = tw.div`p-3 rounded-lg`
+
 export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
-  const [selected, setSelected] = useState([] as number[])
+  const [selected, setSelected] = useState(undefined as SpaceTypeProps | undefined)
 
   return (
     <div className="w-full h-full my-4">
-      {selected.length === 1 && (
-        <div className="relative w-full my-4 bg-gray-100 lg:h-60 rounded-xl">
-          <MainCard
-            title={options[selected[0]].title}
-            description={options[selected[0]].description}
-            image={options[selected[0]].image}
-            rating={options[selected[0]].rating}
-          />
-        </div>
-      )}
-      {selected.length === 0 && (
-        <div className="relative w-full my-4 bg-gray-100 lg:h-60 rounded-xl">
-          <MainCard
-            title={options[0].title}
-            description={options[0].description}
-            image={options[0].image}
-            rating={options[0].rating}
-          />
-        </div>
-      )}
-      <div className="relative w-full bg-white h-1/2 rounded-xl">
-        <SelectionCardGroup
-          options={options}
-          multi={false}
-          cardCol={false}
-          columns={3}
-          selected={selected}
-          setSelected={setSelected}
-        />
-      </div>
+      {selected && <SpaceType {...selected} />}
+      {selected || <SpaceType img={Models.abstract} label="Generic Room" />}
+
+      {options.map((option) => (
+        <Option>
+          {option.label}
+          <RiskChip risk={option.risk!}></RiskChip>
+        </Option>
+      ))}
     </div>
   )
 }

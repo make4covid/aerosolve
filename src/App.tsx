@@ -28,7 +28,7 @@ const App: React.FC<{}> = () => {
               <Home startRoute={data.steps[0].route} />
             </Route>
             <Sidebar
-              sidebarClassName="fixed left-0 max-w-xs px-8 py-2 bg-gray-200 w-72"
+              sidebarClassName="fixed left-0 max-w-xs px-8 py-2 bg-gray-200 w-72 shadow-lg"
               transitions={false}
               docked
               shadow={false}

@@ -7,5 +7,6 @@ import { ReactComponent as Clock } from './clock.svg'
 import { ReactComponent as Person } from './person.svg'
 import { ReactComponent as People } from './people.svg'
 import { ReactComponent as Plus } from './plus-circle.svg'
+import { ReactComponent as Minus } from './minus-circle.svg'
 
-export { ArrowDown, ArrowLeft, ArrowRight, Checkmark, Pause, Clock, Person, People, Plus }
+export { ArrowDown, ArrowLeft, ArrowRight, Checkmark, Pause, Clock, Person, People, Plus, Minus }

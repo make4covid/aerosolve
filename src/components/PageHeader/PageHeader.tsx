@@ -1,6 +1,7 @@
 import { ProgressIndicator } from 'components/ProgressBar/ProgressIndicator'
 import { AppContext } from 'context'
 import React, { useContext } from 'react'
+import { useEffect } from 'react'
 
 export type PageHeaderProps = {
   title: string
@@ -9,7 +10,7 @@ export type PageHeaderProps = {
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = (props) => {
-  const { progress } = useContext(AppContext)
+  const [{ progress }] = useContext(AppContext)
 
   return (
     <div

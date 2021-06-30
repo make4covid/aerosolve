@@ -1,17 +1,10 @@
 import Sidebar from 'react-sidebar'
 import { Navigation } from 'components/Navigation/Navigation'
-import React, { useReducer } from 'react'
+import React from 'react'
 import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useHistory,
-  useLocation,
-  Link,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
-import { AppContext, contextReducer, initialState, Actions } from './context'
+import { AppContext, useContextReducer } from './context'
 import { PageHeader } from 'components/PageHeader/PageHeader'
 
 import { Home } from 'views'
@@ -19,16 +12,16 @@ import { Home } from 'views'
 import * as data from 'data'
 import { PageFooter } from './components/PageFooter/PageFooter'
 
-const App: React.FC<{}> = (props) => {
-  const [state, setState] = useReducer(contextReducer, initialState)
+const App: React.FC<{}> = () => {
+  const [context, dispatch] = useContextReducer()
 
   const completeStep = (route: string) => {
-    setState({ type: Actions.setStepCompleted, payload: { step: route } })
+    dispatch({ type: 'setStepCompleted', payload: { step: route } })
   }
 
   return (
     <Router>
-      <AppContext.Provider value={state}>
+      <AppContext.Provider value={[context, dispatch]}>
         <div className="max-h-screen max-w-screen">
           <Switch>
             <Route exact path="/">
@@ -45,7 +38,7 @@ const App: React.FC<{}> = (props) => {
                   <Link to="/">
                     <AerosolveLogo />
                   </Link>
-                  <Navigation navGroups={data.navGroups} stepStatus={state.stepStatus} />
+                  <Navigation navGroups={data.navGroups} />
                 </div>
               }
             >

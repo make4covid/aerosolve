@@ -1,96 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StepViewProps } from 'data'
-// import {SelectionChoiceGroup} from "../../components/SelectionChoiceGroup/SelectionChoiceGroup";
-// import {SelectionOption} from "../../components/SelectionChoice/SelectionChoiceItem/SelectionChoiceItem";
-// import {SelectionChoiceOption} from "../../components/SelectionChoice/SelectionChoice";
-
-// let options1 : SelectionOption[] =[
-//     {
-//         button_description:"Poor"
-//     },
-//     {
-//         button_description:"Average"
-//     },
-//     {
-//         button_description:"Good"
-//     }
-// ]
-
-// let options2 : SelectionOption[] =[
-//     {
-//         button_description:"None"
-//     },
-//     {
-//         button_description:"Window A/C"
-//     },
-//     {
-//         button_description:"Residential\nHVAC"
-//     },
-//     {
-//         button_description:"Industrial\nHVAC"
-//     },
-//     {
-//         button_description:"HEPA"
-//     }
-// ]
-
-// let options3 : SelectionOption[] =[
-//     {
-//         button_description:"Very Dry"
-//     },
-//     {
-//         button_description:"Dry"
-//     },
-//     {
-//         button_description:"Average"
-//     },
-//     {
-//         button_description:"Humid"
-//     }
-// ]
-// let options : SelectionChoiceOption[] =[
-//     {
-//         options: options1,
-//         title: 'Ventilation',
-//         description: 'Outdoor air supply rate/\nOutdoor ACH',
-//         totalCols:5,
-//         leftCol:1,
-//         rightCol:4,
-//         boxCols:options1.length
-//     },
-//     {
-//         options: options2,
-//         title: 'Filtration System',
-//         description: 'The efficiency of filtration system',
-//         totalCols:5,
-//         leftCol:1,
-//         rightCol:4,
-//         boxCols:options2.length
-//     },
-//     {
-//         options: options1,
-//         title: 'Recirculation Rate',
-//         description: 'Indoor air exhaust rate/\nIndoor ACH',
-//         totalCols:5,
-//         leftCol:1,
-//         rightCol:4,
-//         boxCols:options1.length
-//     },
-//     {
-//         options: options3,
-//         title: 'Average Humidity',
-//         description: 'The average outdoor relative air humidity R/H %',
-//         totalCols:5,
-//         leftCol:1,
-//         rightCol:4,
-//         boxCols:options3.length
-//     },
-// ]
+import { SelectionChoice } from 'components/SelectionChoice/SelectionChoice'
+import { useReducer } from 'react'
 
 export const VentilationFiltration: React.FC<StepViewProps> = (props) => {
+  // Set up a reducer for this section, debounce the result, and store it in app context
+
+  const [ventSelection, setVentSelection] = useState(0)
+  const [filtSelection, setFiltSelection] = useState(0)
+  const [recircSelection, setRecircSelection] = useState(0)
+  const [humidSelection, setHumidSelection] = useState(0)
+
   return (
-    <div className="w-full h-3/5">
-      {/* <SelectionChoiceGroup options={options} noDescription={false}/> */}
+    <div className="grid w-full grid-cols-1 grid-rows-4 gap-4 mt-4">
+      <VentilationOptions selected={ventSelection} setSelected={setVentSelection} />
+      <FiltrationOptions selected={filtSelection} setSelected={setFiltSelection} />
+      <RecirculationOptions selected={recircSelection} setSelected={setRecircSelection} />
+      <HumidityOptions selected={humidSelection} setSelected={setHumidSelection} />
     </div>
   )
+}
+
+type AirflowOptionsProps = {
+  selected: number
+  setSelected: (select: number) => void
+}
+
+const VentilationOptions: React.FC<AirflowOptionsProps> = ({ selected, setSelected }) => {
+  const ventOptions = {
+    options: ['None', 'Poor', 'Average', 'Good', 'Excellent'],
+    title: 'Ventilation',
+    description: 'Outdoor air supply rate',
+  }
+
+  return <SelectionChoice {...ventOptions} onSelect={setSelected} selected={selected} />
+}
+
+const FiltrationOptions: React.FC<AirflowOptionsProps> = ({ selected, setSelected }) => {
+  const filtOptions = {
+    options: ['None', 'Window AC', 'Residential HVAC', 'Industrial HVAC', 'HEPA'],
+    title: 'Filtration System',
+    description: 'Type of filtration provided',
+  }
+
+  return <SelectionChoice {...filtOptions} onSelect={setSelected} selected={selected} />
+}
+
+const RecirculationOptions: React.FC<AirflowOptionsProps> = ({ selected, setSelected }) => {
+  const recircOptions = {
+    options: ['None', 'Low', 'Average', 'High', 'Very High'],
+    title: 'Recirculation',
+    description: 'Indoor air recirculation (ACH)',
+  }
+
+  return <SelectionChoice {...recircOptions} onSelect={setSelected} selected={selected} />
+}
+
+const HumidityOptions: React.FC<AirflowOptionsProps> = ({ selected, setSelected }) => {
+  const recircOptions = {
+    options: ['Very Dry', 'Dry', 'Average', 'Humid', 'Very Humid'],
+    title: 'Average Humidity',
+    description: 'Indoor humidity in the space',
+  }
+
+  return <SelectionChoice {...recircOptions} onSelect={setSelected} selected={selected} />
 }

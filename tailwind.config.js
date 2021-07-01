@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         purple: colors.fuchsia,
         cyan: colors.cyan,
-        'light-blue': colors.lightBlue,
+        'light-blue': colors.sky,
       },
       boxShadow: {
         inner: 'inset 0 6px 10px 2px rgba(0, 0, 0, 0.2)',

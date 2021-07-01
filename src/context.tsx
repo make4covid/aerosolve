@@ -5,6 +5,10 @@ export interface AppState {
   userInputs: {
     ceilingHeight: number
     roomArea: number
+    ageGroups: number[]
+    vocalActivity: number[]
+    physicalActivity: number[]
+    maskTypes: number[]
   }
   stepStatus: StepStatus
 }
@@ -26,6 +30,10 @@ const initialState: AppState = {
   userInputs: {
     ceilingHeight: 8,
     roomArea: 500,
+    ageGroups: [],
+    vocalActivity: [],
+    physicalActivity: [],
+    maskTypes: [],
   },
 
   stepStatus: {
@@ -51,6 +59,10 @@ export type Actions =
   | 'setTargetOccupancy'
   | 'setCeilingHeight'
   | 'setRoomArea'
+  | 'setAgeGroups'
+  | 'setVocalActivity'
+  | 'setPhysicalActivity'
+  | 'setMaskTypes'
 
 export const contextReducer = (state: AppState, action: { type: Actions; payload: any }) => {
   switch (action.type) {
@@ -69,6 +81,20 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
     case 'setRoomArea':
       state.userInputs.roomArea = action.payload.value
       return { ...state }
+    case 'setAgeGroups':
+      state.userInputs.ageGroups = action.payload.value
+      console.log(action.payload)
+      return { ...state }
+    case 'setVocalActivity':
+      state.userInputs.vocalActivity = action.payload.value
+      return { ...state }
+    case 'setPhysicalActivity':
+      state.userInputs.physicalActivity = action.payload.value
+      return { ...state }
+    case 'setMaskTypes':
+      state.userInputs.maskTypes = action.payload.value
+      return { ...state }
+
     default:
       throw new Error(`There is no action called '${action.type}'`)
   }

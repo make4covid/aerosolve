@@ -60,13 +60,13 @@ const tiles: RecommendationTileProps[] = [
     color: 'light-blue',
   },
   {
-    image: Images.singing,
+    image: Images.vocalSinging,
     description: 'Discourage heavy vocal activity such as singing',
     icon: 'pause',
     color: 'red',
   },
   {
-    image: Images.physical,
+    image: Images.physicalHeavy,
     description: 'Discourage intense physical activity such as exercise',
     icon: 'pause',
     color: 'red',

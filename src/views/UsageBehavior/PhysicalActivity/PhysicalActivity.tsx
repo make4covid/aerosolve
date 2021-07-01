@@ -1,47 +1,66 @@
-import React, { useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { StepViewProps } from 'data'
 import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
-import Kids from '../../../assets/old/KidImage.png'
+import { physicalHeavy, physicalSitting, physicalStanding, physicalLight } from 'assets/images'
+import { SelectAllLabel } from 'components/SelectAllLabel/SelectAllLabel'
+import { AppContext } from 'context'
+import debounce from 'lodash.debounce'
 
 let options: SelectionOptions[] = [
   {
-    title: 'Resting',
-    description: '',
-    img: Kids,
+    title: 'Resting / Sitting',
+    description: 'Common in offices, classrooms, and libraries.',
+    img: physicalSitting,
+    risk: 'Low',
   },
   {
-    title: 'Standing',
-    description: '',
-    img: Kids,
+    title: 'Standing / Walking',
+    description: 'Common in galleries, museums, and grocery stores.',
+    img: physicalStanding,
+    risk: 'Low',
   },
   {
-    title: 'Exercise',
-    description: '',
-    img: Kids,
+    title: 'Light / Moderate Exercise',
+    description: 'Common in yoga studios, warehouses, and restaurants.',
+    img: physicalLight,
+    risk: 'Medium',
   },
   {
     title: 'Heavy Exercise',
-    description: '',
-    img: Kids,
+    description: 'Common in fitness centers, gymnasiums.',
+    img: physicalHeavy,
+    risk: 'High',
   },
 ]
 
 export const PhysicalActivity: React.FC<StepViewProps> = (props) => {
-  const [selected, setSelected] = useState([] as number[])
+  const [{ userInputs }, dispatch] = useContext(AppContext)
+  const [selected, setSelected] = useState(userInputs.physicalActivity)
+
+  const debouncedUpdate = useCallback(
+    debounce(
+      (selected) => dispatch({ type: 'setPhysicalActivity', payload: { value: selected } }),
+      1000
+    ),
+    []
+  )
+
+  const update = (selected: number[]) => {
+    debouncedUpdate(selected)
+    setSelected(selected)
+    props.onComplete()
+  }
   return (
-    <div className="w-full max-h-screen">
-      <div className="py-4">
-        <p className="inline-block text-xl text-bold">Please select all that apply. </p>
-        {/* <img className="inline-block -py-2" src={Mouse} alt={''} /> */}
-      </div>
+    <div className="flex flex-col w-full min-h-full mt-2">
+      <SelectAllLabel />
       <SelectionCardGroup
         options={options}
         multi={true}
         cardCol={false}
         columns={2}
         selected={selected}
-        setSelected={setSelected}
+        setSelected={update}
       />
     </div>
   )

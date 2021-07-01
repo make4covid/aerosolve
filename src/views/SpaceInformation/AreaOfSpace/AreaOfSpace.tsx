@@ -25,7 +25,7 @@ export const AreaOfSpace: React.FC<StepViewProps> = (props) => {
     dispatch({ type: 'setCeilingHeight', payload: { value } })
 
   return (
-    <div className="flex flex-col justify-center w-full min-h-full gap-6 ">
+    <div className="flex flex-col w-full min-h-full gap-6 mt-6 ">
       <Block>
         <BlockHeader>
           Approximate area of the space (ft<sup>2</sup>)

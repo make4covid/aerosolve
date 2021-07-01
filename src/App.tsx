@@ -16,7 +16,8 @@ const App: React.FC<{}> = () => {
   const [context, dispatch] = useContextReducer()
 
   const completeStep = (route: string) => {
-    dispatch({ type: 'setStepCompleted', payload: { step: route } })
+    context.stepStatus[route].complete ||
+      dispatch({ type: 'setStepCompleted', payload: { step: route } })
   }
 
   return (
@@ -63,9 +64,9 @@ const App: React.FC<{}> = () => {
                         />
                       </div>
                     </div>
-                    <div className="absolute bottom-0 w-full mb-1 bg-white h-14">
+                    <div className="absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200 h-14">
                       <PageFooter
-                        className="w-full max-w-5xl px-12 pt-2.5 pb-2 mx-auto border-gray-200 min-w-2xl border-t"
+                        className="w-full max-w-5xl px-12 pt-2.5 pb-2 mx-auto  min-w-2xl "
                         lastStepRoute={i > 0 ? data.steps[i - 1].route : undefined}
                         nextStepRoute={
                           i < data.steps.length - 1 ? data.steps[i + 1].route : undefined

@@ -40,9 +40,8 @@ const steps: Step[] = [
     title: 'Location',
     component: Views.Location,
     header: {
-      prompt: 'Where is the occupied space located',
-      description:
-        'Different age groups of people have different risk levels in the events of an aerosol infection',
+      prompt: "Where is the space you're evaluating",
+      description: 'The risk is lower in areas with high rates of vaccination and immunity',
     },
   },
   {
@@ -52,7 +51,7 @@ const steps: Step[] = [
     header: {
       prompt: 'What type of space does your space most resemble?',
       description:
-        'Why understanding the room type can help determine the risk in viral transmission',
+        "This sets the default answers to the rest of the questions. Don't worry, you'll be able to change them later.",
     },
   },
   {
@@ -79,16 +78,19 @@ const steps: Step[] = [
     title: 'Occupant Ages',
     component: Views.OccupantAgeGroups,
     header: {
-      prompt: 'About how tall, on average, is the ceiling in the space?',
+      prompt: 'Which age groups do the people who typically use the space fall within?',
       description:
-        'Different age groups of people have different risk levels in the event of an aerosol infection',
+        'Different age groups of people have different risk levels in the event of an aerosol infection.',
     },
   },
   {
     route: '/vocal-activity',
     title: 'Vocal Activity',
     component: Views.VocalActivity,
-    header: { prompt: 'What types of vocal activities are typical in the space?' },
+    header: {
+      prompt: 'What types of vocal activities are typical in the space?',
+      description: 'Loud, resonant voices generate and project more aerosols into the air.',
+    },
   },
   {
     route: '/physical-activity',
@@ -97,7 +99,7 @@ const steps: Step[] = [
     header: {
       prompt: 'What types of physical activities are typical in the space?',
       description:
-        'Physical activity increases breathing rates, which means more aerosols are released into the air',
+        'Physical activity increases breathing rates, which means more aerosols are released into the air.',
     },
   },
   {
@@ -107,7 +109,7 @@ const steps: Step[] = [
     header: {
       prompt: 'What type of masks are worn by most occupants within the space?',
       description:
-        'Masks are the most important factor in keeping your space safe and preventing virus transmission between occupants',
+        'Masks are one the most effective ways of preventing virus transmission between occupants.',
     },
   },
   {
@@ -125,8 +127,8 @@ const steps: Step[] = [
     title: 'Ventilation + Filtration',
     component: Views.VentilationFiltration,
     header: {
-      prompt: 'What age groups',
-      description: 'People of different ages face different risks',
+      prompt: 'Describe the air ventilation and filtration qualities in the space.',
+      description: 'Good ventilation and filtration reduce the aerosol concentration in the space.',
     },
   },
 ]

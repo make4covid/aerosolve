@@ -10,7 +10,7 @@ export default {
 } as Meta
 
 const Template: Story<SelectionChoiceProps> = (args) => {
-  const [selected, setSelected] = useState(args.options[0])
+  const [selected, setSelected] = useState(0)
   console.log(selected)
   return (
     <div className="w-11/12 mx-auto">

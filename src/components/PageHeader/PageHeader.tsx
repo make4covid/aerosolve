@@ -14,7 +14,7 @@ export const PageHeader: React.FC<PageHeaderProps> = (props) => {
 
   return (
     <div
-      style={{ gridTemplateColumns: '3fr 2fr', gridTemplateRows: 'max-content max-content' }}
+      style={{ gridTemplateColumns: '4fr 3fr', gridTemplateRows: 'max-content max-content' }}
       className="grid w-full grid-rows-2 divide-x-2 divide-y-2 divide-gray-400 gap-y-4"
     >
       <div className="divide-blue-400">
@@ -33,7 +33,7 @@ export const PageHeader: React.FC<PageHeaderProps> = (props) => {
       </div>
       <div>
         {props.description && (
-          <p className="mx-4 my-3 text-sm text-gray-600">{props.description}</p>
+          <p className="mx-4 my-3 text-sm font-light text-gray-600">{props.description}</p>
         )}
       </div>
     </div>

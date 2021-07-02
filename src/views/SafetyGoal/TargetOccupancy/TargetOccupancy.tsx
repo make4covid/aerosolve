@@ -32,8 +32,8 @@ export const TargetOccupancy: React.FC<StepViewProps> = (props) => {
   }, [])
 
   return (
-    <div className="grid w-full h-full grid-cols-1 grid-rows-5 gap-6">
-      <Section className="flex flex-row items-center justify-around row-span-3">
+    <div className="flex flex-col w-full gap-6 mt-4">
+      <Section className="flex flex-row items-center justify-around row-span-3 h-72">
         <NumberOfOccupants value={people} onChange={setPeople} className="w-1/2" />
         <div className="flex flex-col items-center m-auto bg-white border-2 border-blue-500 max-w-min rounded-xl">
           <div className="flex flex-row items-center h-20 p-1 mx-2 text-3xl font-semibold text-blue-600">

@@ -33,6 +33,8 @@ export interface SelectionCardGroupProps {
    * Input Click, output element number
    */
   onClick?: (e: any) => void
+
+  imgFit?: string
 }
 /**
  * Group of selection cards
@@ -66,6 +68,7 @@ export const SelectionCardGroup: React.FC<SelectionCardGroupProps> = ({
             toggle(index)
           }}
           column={cardCol}
+          imgFit={props.imgFit}
         ></SelectionCard>
       ))}
     </div>

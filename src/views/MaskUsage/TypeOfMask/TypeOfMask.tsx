@@ -1,98 +1,66 @@
-import React, { useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { StepViewProps } from 'data'
 import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
-import Kids from 'assets/old/KidImage.png'
+import { maskCloth, maskDisposable, maskN95, maskNone } from 'assets/images'
 import clsx from 'clsx'
+import { SelectAllLabel } from 'components/SelectAllLabel/SelectAllLabel'
+import { AppContext } from 'context'
+import debounce from 'lodash.debounce'
 
 let options: SelectionOptions[] = [
   {
     title: 'No Masks',
-    description: '',
-    img: Kids,
+    description: 'Some (unvaccinated) occupants are not properly wearing masks.',
+    img: maskNone,
+    risk: 'High',
   },
   {
     title: 'Cloth Masks',
-    description: '',
-    img: Kids,
+    description: 'Some people are properly wearing a cotton mask.',
+    img: maskCloth,
+    risk: 'Medium',
   },
   {
-    title: 'Surgical Masks',
-    description: '',
-    img: Kids,
+    title: 'Disposable / Surgical Masks',
+    description: 'Some people are properly wearing a disposable or surgical mask.',
+    img: maskDisposable,
+    risk: 'Low',
   },
   {
     title: 'N95 Respirators',
-    description: '',
-    img: Kids,
+    description: 'Some people are properly wearing N95 respirators.',
+    img: maskN95,
+    risk: 'Low',
   },
 ]
 
 export const TypeOfMask: React.FC<StepViewProps> = (props) => {
-  const [mode, setMode] = useState(false) //False means Basic , True means Advanced
-  const [selected, setSelected] = useState([] as number[])
-  function handleSwitchMode(e: any) {
-    e.preventDefault()
-    setMode(!mode)
+  const [{ userInputs }, dispatch] = useContext(AppContext)
+  const [selected, setSelected] = useState(userInputs.maskTypes)
+
+  const debouncedUpdate = useCallback(
+    debounce((selected) => dispatch({ type: 'setMaskTypes', payload: { value: selected } }), 1000),
+    []
+  )
+
+  const update = (selected: number[]) => {
+    debouncedUpdate(selected)
+    setSelected(selected)
+    props.onComplete()
   }
+
   return (
-    <div className="w-full max-h-screen">
-      <div className="my-8">
-        <div>
-          <div className="relative inline-block ">
-            <p className="inline-block">Please select all that apply. </p>
-            {/* <img className="inline-block" src={Mouse} alt={''} /> */}
-          </div>
-
-          <div className="relative inline-block float-right w-64 bg-white border-2 border-gray-400 h-18 rounded-3xl">
-            <button
-              onClick={handleSwitchMode}
-              className={clsx(
-                'inline-block w-28 h-10 m-1 relative rounded-3xl float-left  text-white font-bold  rounded cursor-pointer',
-                !mode && 'bg-blue-500',
-                mode && 'bg-white text-gray-200'
-              )}
-            >
-              Basic
-            </button>
-
-            <button
-              onClick={handleSwitchMode}
-              className={clsx(
-                'inline-block w-28 h-10 m-1 relative rounded-3xl float-right text-white font-bold  rounded cursor-pointer',
-                !mode && 'bg-white text-gray-200',
-                mode && 'bg-blue-500 '
-              )}
-            >
-              Advanced
-            </button>
-          </div>
-        </div>
-
-        <div>
-          {!mode && (
-            <div>
-              <div className="">{/*<GroupAge items={DefaultOccupantAgeGroup} />*/}</div>
-            </div>
-          )}
-        </div>
-
-        <div>
-          {mode && (
-            <div>
-              <div className=""></div>
-            </div>
-          )}
-        </div>
-      </div>
-
+    <div className="flex flex-col justify-center w-full min-h-full -mt-4">
+      <SelectAllLabel />
       <SelectionCardGroup
         options={options}
         multi={true}
         cardCol={false}
         columns={2}
         selected={selected}
-        setSelected={setSelected}
+        setSelected={update}
+        imgFit="contain"
       />
     </div>
   )

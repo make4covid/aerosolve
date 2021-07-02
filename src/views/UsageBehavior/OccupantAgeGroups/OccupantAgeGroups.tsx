@@ -3,8 +3,12 @@ import * as Images from 'assets/images'
 import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
 import { StepViewProps } from 'data'
-import clsx from 'clsx'
 import { CursorClick } from 'assets/svg'
+import { useContext } from 'react'
+import debounce from 'lodash.debounce'
+import { AppContext } from 'context'
+import { useCallback } from 'react'
+import { SelectAllLabel } from 'components/SelectAllLabel/SelectAllLabel'
 
 let options: SelectionOptions[] = [
   {
@@ -28,19 +32,23 @@ let options: SelectionOptions[] = [
 ]
 
 export const OccupantAgeGroups: React.FC<StepViewProps> = (props) => {
-  const [selected, setSelected] = useState([] as number[])
+  const [{ userInputs }, dispatch] = useContext(AppContext)
+  const [selected, setSelected] = useState(userInputs.ageGroups)
+
+  const debouncedUpdate = useCallback(
+    debounce((selected) => dispatch({ type: 'setAgeGroups', payload: { value: selected } }), 1000),
+    []
+  )
 
   const update = (selected: number[]) => {
+    debouncedUpdate(selected)
     setSelected(selected)
     props.onComplete()
   }
 
   return (
-    <div className="flex flex-col justify-center w-full h-full -mt-6">
-      <div className="relative inline-block mb-4 text-gray-600">
-        <p className="inline-block text-sm">Please select all that apply.</p>
-        <CursorClick className="inline-block w-4 h-4 ml-2 fill-current" />
-      </div>
+    <div className="flex flex-col w-full h-full mt-2">
+      <SelectAllLabel />
 
       <SelectionCardGroup
         options={options}

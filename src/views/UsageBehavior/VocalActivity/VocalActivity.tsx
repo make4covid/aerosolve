@@ -1,47 +1,67 @@
-import React, { useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { StepViewProps } from 'data'
-import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
-import Kids from '../../../assets/old/KidImage.png'
-import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
+import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
+import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
+import { vocalLoud, vocalNormal, vocalSinging, vocalWhisper } from 'assets/images'
+import { SelectAllLabel } from 'components/SelectAllLabel/SelectAllLabel'
+import { AppContext } from 'context'
+import debounce from 'lodash.debounce'
 
 let options: SelectionOptions[] = [
   {
     title: 'Whispering',
-    description: '',
-    img: Kids,
+    description: 'Some people are usually speaking very quietly or whispering',
+    img: vocalWhisper,
+    risk: 'Low',
   },
   {
-    title: 'Conversation',
-    description: '',
-    img: Kids,
+    title: 'Normal Conversation',
+    description: 'Some people are usually engaged in normal indoor conversation.',
+    img: vocalNormal,
+    risk: 'Low',
   },
   {
-    title: 'Conference',
-    description: '',
-    img: Kids,
+    title: 'Loud Conversation',
+    description: 'Some people are usually engaged in loud or energetic conversation.',
+    img: vocalLoud,
+    risk: 'Medium',
   },
   {
-    title: 'Singing\nSpeaking\nLoud Talking',
-    description: '',
-    img: Kids,
+    title: 'Singing',
+    description: 'At least one person is usually singing.',
+    img: vocalSinging,
+    risk: 'High',
   },
 ]
 
 export const VocalActivity: React.FC<StepViewProps> = (props) => {
-  const [selected, setSelected] = useState([] as number[])
+  const [{ userInputs }, dispatch] = useContext(AppContext)
+  const [selected, setSelected] = useState(userInputs.vocalActivity)
+
+  const debouncedUpdate = useCallback(
+    debounce(
+      (selected) => dispatch({ type: 'setVocalActivity', payload: { value: selected } }),
+      1000
+    ),
+    []
+  )
+
+  const update = (selected: number[]) => {
+    debouncedUpdate(selected)
+    setSelected(selected)
+    props.onComplete()
+  }
+
   return (
-    <div className="w-full max-h-screen">
-      <div className="py-4">
-        <p className="inline-block text-xl text-bold">Please select all that apply. </p>
-        {/* <img className="inline-block -py-2" src={Mouse} alt={''} /> */}
-      </div>
+    <div className="flex flex-col w-full min-h-full mt-2">
+      <SelectAllLabel />
       <SelectionCardGroup
         options={options}
         multi={true}
         cardCol={false}
         columns={2}
         selected={selected}
-        setSelected={setSelected}
+        setSelected={update}
       />
     </div>
   )

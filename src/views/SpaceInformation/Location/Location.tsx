@@ -1,14 +1,48 @@
-import React from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { InputLocation } from 'components/InputLocation/InputLocation'
-import { StepViewProps } from '../../../data'
-import { CovidData1_1 } from '../../../components/CovidRisk/CovidData1_1'
+import { StepViewProps } from 'data'
+import { CovidData1_1 } from 'components/CovidRisk/CovidData1_1'
+
+import { getCountyVaccineData, getStateCountyData } from 'service/CDCDataService'
+
 import tw from 'twin.macro'
+import { useEffect } from 'react'
+import { AppContext } from 'context'
+import debounce from 'lodash.debounce'
+import { stateCodes } from 'data/state-county'
 const Section = tw.div`px-6 py-4 rounded-xl bg-gray-200`
 
-export const Location: React.FC<StepViewProps> = (props) => {
+export const Location: React.FC<StepViewProps> = () => {
+  const [{ userInputs }, dispatch] = useContext(AppContext)
+  const [county, setCounty] = useState(userInputs.location.county)
+  const [state, setState] = useState(userInputs.location.state)
+
+  const debouncedSaveLocation = useCallback(
+    debounce(async ({ state, county }) => {
+      dispatch({ type: 'setLocation', payload: { state, county } })
+      // getStateCountyData(state, county, new Date())
+      getCountyVaccineData(stateCodes[state], county)
+        .then((data) => {
+          console.log(data)
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+    }, 1000),
+    []
+  )
+
+  const inputProps = { county, setCounty, state, setState }
+
+  useEffect(() => {
+    if (county != 'County' && state != 'State') {
+      debouncedSaveLocation({ state, county })
+    }
+  }, [county])
+
   return (
     <div className="flex flex-col w-full min-h-full gap-6">
-      <InputLocation className="z-30" />
+      <InputLocation className="z-30" {...inputProps} />
       <Section className="flex flex-row items-center justify-around">
         <CovidData1_1
           country={'USA'}

@@ -1,9 +1,8 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import { Button } from 'components/Button/Button'
-import { ChevronDown } from 'assets/svg'
+import { ChevronUpDown } from 'assets/svg'
 import { useRef } from 'react'
-import { data } from 'jquery'
 
 export interface DropdownSelectorProps {
   options: string[]
@@ -33,10 +32,7 @@ export const DropdownSelector: React.FC<DropdownSelectorProps> = ({
         focus && 'border-blue-500'
       )}
     >
-      <ChevronDown
-        style={{ gridArea: 'select' }}
-        className="mr-1.5 -ml-8 justify-self-end w-5 h-5 text-gray-600 fill-current"
-      />
+      <ChevronUpDown className="mr-1.5 -ml-8 justify-self-end w-5 h-5 text-gray-600 fill-current" />
       <select
         autoFocus
         disabled={options.length === 0}

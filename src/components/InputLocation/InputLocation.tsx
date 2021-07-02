@@ -8,16 +8,25 @@ import clsx from 'clsx'
 export type InputLocationProps = {
   header?: string
   className?: string
+  county: string
+  setCounty: (value: string) => void
+  state: string
+  setState: (value: string) => void
 }
 
-export const InputLocation: React.FC<InputLocationProps> = (props) => {
+export const InputLocation: React.FC<InputLocationProps> = ({
+  county,
+  setCounty,
+  state,
+  setState,
+  ...props
+}) => {
   const [countyList, setCountyList] = useState([] as string[])
-  const [county, setCounty] = useState('County' as string)
-  const [state, setState] = useState('State' as string)
 
   useEffect(() => {
     setCountyList(counties[state])
-    counties[state]?.length === 1 ? setCounty(counties[state][0]) : setCounty('County')
+    counties[state]?.length === 1 && setCounty(counties[state][0])
+    counties[state]?.length > 1 && !counties[state].includes(county) && setCounty('County')
   }, [state])
 
   return (

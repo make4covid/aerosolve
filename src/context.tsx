@@ -9,6 +9,7 @@ export interface AppState {
     vocalActivity: number[]
     physicalActivity: number[]
     maskTypes: number[]
+    location: { state: string; county: string }
   }
   stepStatus: StepStatus
 }
@@ -34,6 +35,7 @@ const initialState: AppState = {
     vocalActivity: [],
     physicalActivity: [],
     maskTypes: [],
+    location: { state: 'State', county: 'County' },
   },
 
   stepStatus: {
@@ -63,6 +65,7 @@ export type Actions =
   | 'setVocalActivity'
   | 'setPhysicalActivity'
   | 'setMaskTypes'
+  | 'setLocation'
 
 export const contextReducer = (state: AppState, action: { type: Actions; payload: any }) => {
   switch (action.type) {
@@ -94,7 +97,10 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
     case 'setMaskTypes':
       state.userInputs.maskTypes = action.payload.value
       return { ...state }
-
+    case 'setLocation':
+      console.log(action.payload)
+      state.userInputs.location = action.payload
+      return { ...state }
     default:
       throw new Error(`There is no action called '${action.type}'`)
   }

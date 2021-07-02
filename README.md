@@ -101,3 +101,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ## Resources
 
 [React Typescript Cheatsheet](https://github.com/typescript-cheatsheets/react#reacttypescript-cheatsheets)
+
+Covid Vaccination Data API docs
+https://dev.socrata.com/foundry/data.cdc.gov/8xkx-amqh

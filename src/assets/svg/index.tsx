@@ -12,7 +12,7 @@ import { ReactComponent as Unlock } from './unlock.svg'
 import { ReactComponent as Lock } from './lock.svg'
 import { ReactComponent as CursorClick } from './cursor-click.svg'
 import { ReactComponent as Location } from './location.svg'
-
+import { ReactComponent as ChevronDown } from './chevron-down.svg'
 
 export {
   ArrowDown,
@@ -28,5 +28,6 @@ export {
   Lock,
   Minus,
   CursorClick,
-  Location
+  Location,
+  ChevronDown,
 }

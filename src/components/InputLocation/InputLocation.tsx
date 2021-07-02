@@ -1,31 +1,57 @@
-import React from 'react'
-// @ts-ignore
-import Location_Pointer from 'assets/old/Location_Pointer.png'
+import React, {useEffect, useState} from 'react'
+
+import {DropdownSelector} from "components/Dropdown-Selector/DropdownSelector";
+import {stateName,countyName} from "../../data/state-county";
+import {Location} from "assets/svg/index"
+import clsx from "clsx";
+
 export type InputLocationProps = {
   header?: string
-  location: string
+  className?: string
 }
 
 export const InputLocation: React.FC<InputLocationProps> = (props) => {
-  return (
-      <div className="h-full w-full flex bg-gray-200 rounded-3xl">
-          <div className="flex-1">
-              <div className="m-3">
-                  <img className="inline-block -mt-2" src={Location_Pointer} />
-                  <p className="inline-block font-medium text-2xl mx-4 ">Location</p>
-              </div>
-          </div>
 
-          <input
-              className="flex-1 bg-white h-12 w-20 my-2 border-2 border-blue-500 rounded-2xl gap-2"
-              placeholder="State"
-          />
 
-          <input
-              className="flex-1 bg-white h-12 w-28 my-2 border-2 border-blue-500 rounded-2xl mr-4"
-              placeholder="County"
-          />
+    const [county,setCounty] = useState("County" as string)
+    const [countyList,setCountyList] = useState([] as string[])
+    const [state,setState]   = useState("State" as string)
 
+
+  const updateState = (state:string) => {
+        setState(state)
+
+    }
+    const updateCounty = (county:string) => {
+        setCounty(county)
+    }
+
+    useEffect(()=>{
+        setCountyList(countyName[state])
+    },[state])
+
+    return (
+      <div className={clsx("w-full h-5/6 bg-gray-100 rounded-xl shadow-lg",
+                      props.className
+                        )}>
+        <div className="h-1/6"/>
+        <div className="flex flex-row space-x-4">
+            <Location className="w-8 h-8 mt-1 ml-3"/>
+
+            <div className="m-2">Location</div>
+            <div className="w-2/5"/>
+            <DropdownSelector isIntegration={true}
+                              data={stateName}
+                              placeholder={"State"}
+                              callbackToParent={updateState}
+            />
+            <DropdownSelector isIntegration={true}
+                              data={countyList}
+                              placeholder={"County"}
+                              callbackToParent={updateCounty}
+            />
+
+        </div>
       </div>
   )
 }

@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React, {useEffect, useState} from 'react'
-import {ReactComponent as Unlock} from "assets/icons/unlock.svg"
-import {ReactComponent as Lock} from "assets/icons/lock.svg"
+import {ReactComponent as Unlock} from "assets/svg/unlock.svg"
+import {ReactComponent as Lock} from "assets/svg/lock.svg"
 
 export type SelectionPercentageProps = {
     title: string

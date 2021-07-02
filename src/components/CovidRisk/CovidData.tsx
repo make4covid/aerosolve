@@ -51,6 +51,7 @@ export const CovidData: React.FC<CovidDataProps> = (props) => {
             <div>{props.vaccinationRate}%</div>
           </Dataline>
         </div>
+        
       </div>
     </div>
   )

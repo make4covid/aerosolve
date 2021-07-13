@@ -33,7 +33,7 @@ let options: SpaceTypeProps[] = [
   {
     label: 'Office',
     risk: 'Medium',
-    img: Models.abstract,
+    img: Models.office,
   },
   {
     label: 'Bus / Train',
@@ -53,7 +53,7 @@ let options: SpaceTypeProps[] = [
   {
     label: 'Gym / Fitness Center',
     risk: 'High',
-    img: Models.abstract,
+    img: Models.gym,
   },
 ]
 
@@ -68,10 +68,8 @@ const Option = styled.div((props: { selected: boolean }) => [
 export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
   const [selected, setSelected] = useState(undefined as number | undefined)
 
-  const riskColors = { Low: 'blue', Medium: 'purple', High: 'red' }
-
   return (
-    <div className="flex flex-col justify-center w-full h-full">
+    <div className="flex flex-col w-full min-h-full">
       {selected != undefined && <SpaceType {...options[selected]} />}
       {selected === undefined && <SpaceType img={Models.abstract} label="Generic Room" />}
       <OptionGrid>

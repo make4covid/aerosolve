@@ -24,9 +24,8 @@ export const InputLocation: React.FC<InputLocationProps> = ({
   const [countyList, setCountyList] = useState([] as string[])
 
   useEffect(() => {
-    setCountyList(counties[state])
-    counties[state]?.length === 1 && setCounty(counties[state][0])
-    counties[state]?.length > 1 && !counties[state].includes(county) && setCounty('County')
+    counties[state]?.length === 1 ? setCountyList([]) : setCountyList(counties[state])
+    counties[state]?.length > 1 && setCounty('County')
   }, [state])
 
   return (

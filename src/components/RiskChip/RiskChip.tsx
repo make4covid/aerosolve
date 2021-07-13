@@ -1,9 +1,10 @@
 import clsx from 'clsx'
 
 export type RiskChipProps = {
-  risk: 'Low' | 'Medium' | 'High'
+  risk?: 'Low' | 'Medium' | 'High'
   label?: string
   className?: string
+  size?: 'lg'
 }
 
 export const RiskChip: React.FC<RiskChipProps> = (props) => {
@@ -11,6 +12,7 @@ export const RiskChip: React.FC<RiskChipProps> = (props) => {
   return (
     <div
       className={clsx(
+        !props.risk && 'border-gray-500 text-gray-500',
         props.risk === 'Low' && 'border-blue-500 text-blue-500',
         props.risk === 'Medium' && 'border-purple-500 text-purple-500',
         props.risk === 'High' && 'border-red-500 text-red-500',

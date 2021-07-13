@@ -1,73 +1,201 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { InputLocation } from 'components/InputLocation/InputLocation'
 import { StepViewProps } from 'data'
-import { CovidData1_1 } from 'components/CovidRisk/CovidData1_1'
 
-import { getCountyVaccineData, getStateCountyData } from 'service/CDCDataService'
+import {
+  getCountryVaccineData,
+  getCountyVaccineData,
+  getStateVaccineData,
+} from 'service/CDCDataService'
 
 import tw from 'twin.macro'
 import { useEffect } from 'react'
-import { AppContext } from 'context'
-import debounce from 'lodash.debounce'
+import { AppContext, VaccinationData } from 'context'
 import { stateCodes } from 'data/state-county'
-const Section = tw.div`px-6 py-4 rounded-xl bg-gray-200`
+import { CovidCard } from 'components/CovidCard/CovidCard'
+import { RiskChip } from 'components/RiskChip/RiskChip'
 
-export const Location: React.FC<StepViewProps> = () => {
-  const [{ userInputs }, dispatch] = useContext(AppContext)
+const Section = tw.div`p-4 rounded-xl bg-gray-100`
+const Card = tw.div` bg-gray-200 rounded-lg overflow-hidden h-full`
+const Placeholder = tw.div`h-full flex flex-col text-2xl text-gray-400 items-center justify-center`
+
+export const Location: React.FC<StepViewProps> = (props) => {
+  const [{ userInputs, vaccinations }, dispatch] = useContext(AppContext)
   const [county, setCounty] = useState(userInputs.location.county)
   const [state, setState] = useState(userInputs.location.state)
 
-  const debouncedSaveLocation = useCallback(
-    debounce(async ({ state, county }) => {
-      dispatch({ type: 'setLocation', payload: { state, county } })
-      // getStateCountyData(state, county, new Date())
-      getCountyVaccineData(stateCodes[state], county)
-        .then((data) => {
-          console.log(data)
-        })
-        .catch((e) => {
-          console.error(e)
-        })
-    }, 1000),
-    []
-  )
-
   const inputProps = { county, setCounty, state, setState }
 
+  const [risk, setRisk] = useState('Medium' as 'Low' | 'Medium' | 'High')
+
   useEffect(() => {
-    if (county != 'County' && state != 'State') {
-      debouncedSaveLocation({ state, county })
-    }
+    dispatch({ type: 'setVaccinationData', payload: { county: undefined } })
+    dispatch({ type: 'setLocation', payload: { state, county } })
   }, [county])
+
+  useEffect(() => {
+    dispatch({ type: 'setVaccinationData', payload: { state: undefined } })
+    dispatch({ type: 'setLocation', payload: { state, county: 'County' } })
+  }, [state])
+
+  useEffect(() => {
+    const vaccinated =
+      vaccinations.county?.percent ||
+      vaccinations.state?.percent ||
+      vaccinations.country?.percent ||
+      40
+
+    const risk = vaccinated < 40 ? 'High' : vaccinated < 55 ? 'Medium' : 'Low'
+
+    setRisk(risk)
+  }, [vaccinations])
+
+  useEffect(() => props.onComplete(), [])
 
   return (
     <div className="flex flex-col w-full min-h-full gap-6">
       <InputLocation className="z-30" {...inputProps} />
-      <Section className="flex flex-row items-center justify-around">
-        <CovidData1_1
-          country={'USA'}
-          country_risk={'Low'}
-          country_cases={0}
-          country_newCases={0}
-          country_deaths={0}
-          country_newDeaths={0}
-          country_vaccinationRate={0}
-          state={'Colorado'}
-          state_risk={'Low'}
-          state_cases={0}
-          state_newCases={0}
-          state_deaths={0}
-          state_newDeaths={0}
-          state_vaccinationRate={0}
-          county={'Denver'}
-          county_risk={'High'}
-          county_cases={0}
-          county_newCases={0}
-          county_deaths={0}
-          county_newDeaths={0}
-          county_vaccinationRate={0}
-        />
+      <Section>
+        <div className="flex flex-row items-center gap-5 pb-3 text-xl font-semibold text-gray-600 border-b-2 border-gray-300">
+          <div>Current COVID-19 risk in your area:</div>
+          <RiskChip risk={risk} className="text-lg" />
+        </div>
+        <div className="my-3 font-semibold text-gray-500">% of population fully vaccinated in:</div>
+        <div className="grid items-stretch grid-cols-3 gap-3">
+          <Card>
+            <CountryCard />
+          </Card>
+          <Card>
+            {state != 'State' ? (
+              <StateCard state={state} />
+            ) : (
+              <Placeholder>Select a State</Placeholder>
+            )}
+          </Card>
+          <Card>
+            {county != 'County' ? (
+              <CountyCard state={state} county={county} />
+            ) : (
+              <Placeholder>Select a County</Placeholder>
+            )}
+          </Card>
+        </div>
       </Section>
+    </div>
+  )
+}
+
+const CountryCard: React.FC<{}> = () => {
+  const [{ vaccinations }, dispatch] = useContext(AppContext)
+
+  useEffect(() => {
+    vaccinations.country ||
+      getCountryVaccineData()
+        .then((data) => {
+          const total = data['people_fully_vaccinated']
+          const pop = 328200000
+          const percent = Math.round((total / pop) * 1000) / 10
+          const country: VaccinationData = { total, percent, risk: 'Baseline' }
+          return dispatch({ type: 'setVaccinationData', payload: { country } })
+        })
+        .catch((e) => console.error(`Country Fetch Error: ${e}`))
+  }, [])
+
+  return (
+    <div>
+      {vaccinations.country ? (
+        <CovidCard
+          label="United States"
+          percentage={vaccinations.country.percent}
+          total={vaccinations.country.total}
+          risk="Baseline"
+        />
+      ) : (
+        <div>No country data</div>
+      )}
+    </div>
+  )
+}
+
+const relativeRisk = (baseline: number, comparison: number) => {
+  if (Math.abs(baseline - comparison) < 1) return 'Average'
+  return baseline > comparison ? 'Below Average' : 'Above Average'
+}
+
+const StateCard: React.FC<{ state: string }> = (props) => {
+  const [{ vaccinations }, dispatch] = useContext(AppContext)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    setError('')
+    getStateVaccineData(stateCodes[props.state])
+      .then((data) => {
+        const total = data['vaccine_rate_total']
+        const percent = Math.round(data['vaccinate_rate_pcr'] * 10) / 10
+        const risk = relativeRisk(vaccinations.country!.percent, percent)
+        const state: VaccinationData = { total, percent, risk }
+        dispatch({ type: 'setVaccinationData', payload: { state } })
+      })
+      .catch((e) => setError(e.name))
+  }, [props.state])
+
+  return vaccinations.state ? (
+    <CovidCard
+      label={props.state}
+      percentage={vaccinations.state.percent}
+      total={vaccinations.state.total}
+      risk={vaccinations.state.risk}
+    />
+  ) : error ? (
+    <FetchError label={`${props.state}`} />
+  ) : (
+    <FetchLoading />
+  )
+}
+
+const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
+  const [{ vaccinations }, dispatch] = useContext(AppContext)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    setError('')
+    getCountyVaccineData(stateCodes[props.state], props.county)
+      .then((data) => {
+        const total = data['vaccine_rate_total']
+        const percent = Math.round(data['vaccinate_rate_pcr'] * 10) / 10
+        const risk = relativeRisk(vaccinations.country!.percent, percent)
+        const county: VaccinationData = { total, percent, risk }
+        return dispatch({ type: 'setVaccinationData', payload: { county } })
+      })
+      .catch((e: Error) => setError(e.name))
+  }, [props.county])
+
+  return vaccinations.county ? (
+    <CovidCard
+      label={props.county}
+      percentage={vaccinations.county.percent}
+      total={vaccinations.county.total}
+      risk={vaccinations.county.risk}
+    />
+  ) : error ? (
+    <FetchError label={`${props.county}`} />
+  ) : (
+    <FetchLoading />
+  )
+}
+
+export const FetchError: React.FC<{ label: string }> = (props) => {
+  return (
+    <div className="flex flex-col items-center justify-center h-full mx-10 font-semibold text-center text-red-600 opacity-60">
+      Vaccination data is unavailable for {props.label}.
+    </div>
+  )
+}
+export const FetchLoading: React.FC<{}> = () => {
+  return (
+    <div className="flex flex-col w-full h-full gap-2 p-5 animate-pulse">
+      <div className="w-1/2 h-5 bg-gray-300 rounded-lg"></div>
+      <div className="flex-grow w-full bg-gray-300 rounded-lg h-1/2"></div>
     </div>
   )
 }

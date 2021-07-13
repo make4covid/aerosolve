@@ -1,5 +1,4 @@
 import { RiskChip } from 'components/RiskChip/RiskChip'
-import tw, { styled } from 'twin.macro'
 import React from 'react'
 import { CovidCard } from '../CovidCard/CovidCard'
 
@@ -54,22 +53,25 @@ export const CovidData1_1: React.FC<CovidDataProps> = (props, risk = 'Low') => {
             label={props.country}
             percentage={0}
             cases={0}
+            total={0}
             newCases={0}
-            risk={props.country_risk}
+            risk={'Baseline'}
           />
           <CovidCard
             label={props.state}
             percentage={0}
             cases={0}
+            total={0}
             newCases={0}
-            risk={props.state_risk}
+            risk={'Average'}
           />
           <CovidCard
             label={props.county}
             percentage={0}
             cases={0}
+            total={0}
             newCases={0}
-            risk={props.county_risk}
+            risk={'Average'}
           />
         </div>
       </div>

@@ -5,5 +5,17 @@ import livingroom from './livingroom.png'
 import museum from './museum.png'
 import placeofworship from './placeofworship.png'
 import restaraunt from './restaraunt.png'
+import gym from './gym.png'
+import office from './office.png'
 
-export { abstract, airplane, classroom, livingroom, museum, placeofworship, restaraunt }
+export {
+  abstract,
+  airplane,
+  classroom,
+  livingroom,
+  museum,
+  placeofworship,
+  restaraunt,
+  gym,
+  office,
+}

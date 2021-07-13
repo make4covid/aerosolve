@@ -69,44 +69,19 @@ function failureCallback(error: string) {
   console.error('Something wrong with the data source: ' + error)
 }
 
-export function getStateVaccineData(state: string, date: Date) {
-  let yesterday = new Date(date)
-  const url2 =
-    'https://data.cdc.gov/resource/8xkx-amqh.json?date=' +
-    yesterday.toISOString().split('T')[0] +
-    '&' +
-    'recip_state=' +
-    state // # Get Vaccination Rate State
+export function getCountryVaccineData() {
+  const url = new URL('country_vaccine_stats', `${process.env.REACT_APP_SERVER_URL}`)
+  return helpers.post(url.href, { country: 'US' })
+}
 
-  return new Promise(function (resolve, reject) {
-    helpers.get(url2).then((data) => {
-      if (data.length == 0) {
-        yesterday.setDate(yesterday.getDate() - 1)
-        resolve(getStateVaccineData(state, yesterday))
-      } else {
-        resolve(aggregateVaccineData(data))
-      }
-    })
-  })
+export function getStateVaccineData(state: string) {
+  const url = new URL('state_vaccine_stats', `${process.env.REACT_APP_SERVER_URL}`)
+  return helpers.post(url.href, { state })
 }
 
 export async function getCountyVaccineData(state: string, county: string) {
-  const today = new Date()
-  const previousDate = new Date()
-  previousDate.setDate(today.getDate() - 10)
-
-  const url = new URL('https://data.cdc.gov/resource/8xkx-amqh.json')
-  url.searchParams.set(
-    '$where',
-    `date between '${previousDate.toISOString().split('T')[0]}' and '${
-      today.toISOString().split('T')[0]
-    }'`
-  )
-  url.searchParams.set('recip_state', state)
-  url.searchParams.set('recip_county', county + ' County')
-
-  const data = await helpers.get(url.href)
-  return aggregateCountyVaccineData(data)
+  const url = new URL('county_vaccine_stats', `${process.env.REACT_APP_SERVER_URL}`)
+  return helpers.post(url.href, { state, county })
 }
 
 function aggregateCountyVaccineData(data: any) {

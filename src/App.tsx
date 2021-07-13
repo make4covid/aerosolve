@@ -1,6 +1,6 @@
 import Sidebar from 'react-sidebar'
 import { Navigation } from 'components/Navigation/Navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
@@ -19,6 +19,10 @@ const App: React.FC<{}> = () => {
     context.stepStatus[route].complete ||
       dispatch({ type: 'setStepCompleted', payload: { step: route } })
   }
+
+  useEffect(() => {
+    console.log('Input Changed')
+  }, Object.values(context.userInputs))
 
   return (
     <Router>

@@ -50,8 +50,7 @@ const steps: Step[] = [
     component: Views.TypeOfSpace,
     header: {
       prompt: 'What type of space does your space most resemble?',
-      description:
-        "This sets the default answers to the rest of the questions. Don't worry, you'll be able to change them later.",
+      description: 'This will fill in some default answers for the rest of the questions.',
     },
   },
   {

@@ -1,31 +1,58 @@
-import React from 'react'
-// @ts-ignore
-import Location_Pointer from 'assets/old/Location_Pointer.png'
+import React, { useEffect, useState } from 'react'
+
+import { DropdownSelector } from 'components/Dropdown-Selector/DropdownSelector'
+import { stateName as states, countyName as counties } from 'data/state-county'
+import { Location } from 'assets/svg'
+import clsx from 'clsx'
+
 export type InputLocationProps = {
   header?: string
-  location: string
+  className?: string
+  county: string
+  setCounty: (value: string) => void
+  state: string
+  setState: (value: string) => void
 }
 
-export const InputLocation: React.FC<InputLocationProps> = (props) => {
+export const InputLocation: React.FC<InputLocationProps> = ({
+  county,
+  setCounty,
+  state,
+  setState,
+  ...props
+}) => {
+  const [countyList, setCountyList] = useState([] as string[])
+
+  useEffect(() => {
+    counties[state]?.length === 1 ? setCountyList([]) : setCountyList(counties[state])
+    counties[state]?.length > 1 && setCounty('County')
+  }, [state])
+
   return (
-      <div className="h-full w-full flex bg-gray-200 rounded-3xl">
-          <div className="flex-1">
-              <div className="m-3">
-                  <img className="inline-block -mt-2" src={Location_Pointer} />
-                  <p className="inline-block font-medium text-2xl mx-4 ">Location</p>
-              </div>
-          </div>
-
-          <input
-              className="flex-1 bg-white h-12 w-20 my-2 border-2 border-blue-500 rounded-2xl gap-2"
-              placeholder="State"
+    <div className={clsx('w-full bg-gray-100 rounded-xl shadow-lg p-2', props.className)}>
+      <div className="flex flex-row items-center justify-between w-full gap-4">
+        <div className="flex flex-row items-center mx-1.5 flex-grow-0">
+          <Location className="w-6 h-6 mr-4" />
+          <div className="font-semibold text-gray-700">Location</div>
+        </div>
+        <div className="flex flex-row w-2/3 gap-2 min-w-sm">
+          <DropdownSelector
+            isIntegration={true}
+            options={states}
+            placeholder={'State'}
+            onSelect={setState}
+            value={state}
+            autofocus
           />
-
-          <input
-              className="flex-1 bg-white h-12 w-28 my-2 border-2 border-blue-500 rounded-2xl mr-4"
-              placeholder="County"
+          <DropdownSelector
+            isIntegration={true}
+            options={countyList}
+            placeholder={'County'}
+            onSelect={setCounty}
+            value={county}
           />
-
+        </div>
       </div>
+    </div>
   )
 }

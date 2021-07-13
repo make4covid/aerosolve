@@ -1,31 +1,40 @@
 import { Story } from '@storybook/react'
-import React from "react";
-import {DropdownSelector,DropdownSelectorProps} from "./DropdownSelector";
-
+import React from 'react'
+import { stateName } from 'data/state-county'
+import { withDesign } from 'storybook-addon-designs'
+import {
+  DropdownSelector as DropdownSelectorComponent,
+  DropdownSelectorProps,
+} from './DropdownSelector'
 
 export default {
-    title: 'Aerosolve/Components/Dropdown-Selector',
-    component: DropdownSelector,
+  title: 'Aerosolve/Components/Dropdown Selector',
+  component: DropdownSelectorComponent,
+  decorators: [withDesign],
+  design: {
+    type: 'figma',
+    url:
+      'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=4162%3A10306',
+  },
 }
 
-const Template: Story<DropdownSelectorProps> = (args) =>
-    <div className="max-h-screen max-w-screen flex">
-        <div className="m-auto w-48 h-56">
-            <DropdownSelector {...args}/>
-        </div>
-
+const Template: Story<DropdownSelectorProps> = (args) => (
+  <div className="flex max-h-screen max-w-screen">
+    <div className="w-48 h-56 m-auto">
+      <DropdownSelectorComponent {...args} />
     </div>
-export const Default = Template.bind({})
+  </div>
+)
 
-Default.args = {
-    data:["Colorado","Texas","NewYork","Wyoming","Arkansas","Connecticut","Delaware","Florida","Idaho","Illinois","Alabama","Arizona","California"],
-    placeholder: "State"
+export const Enabled = Template.bind({})
+export const Disabled = Template.bind({})
+
+Enabled.args = {
+  options: stateName,
+  placeholder: 'State',
 }
 
-Default.parameters = {
-    design: {
-        type: 'figma',
-        url:
-            'https://www.figma.com/file/i8vEpJcNHhu675LIDjAajL/Click-through-prototype?node-id=1584%3A5819',
-    },
+Disabled.args = {
+  options: [],
+  placeholder: 'County',
 }

@@ -1,5 +1,12 @@
 import { StepStatus } from 'components/Navigation/Navigation'
+import { calcAgeFactor, calcMaskFit, calcPercentImmune } from 'model/calculations'
 import { Context, createContext, Dispatch, useReducer } from 'react'
+
+export type VaccinationData = {
+  percent: number
+  total: number
+  risk: 'Baseline' | 'Average' | 'Above Average' | 'Below Average'
+}
 export interface AppState {
   progress: { safeHours: number; targetHours: number; targetOccupancy: number }
   userInputs: {
@@ -9,6 +16,30 @@ export interface AppState {
     vocalActivity: number[]
     physicalActivity: number[]
     maskTypes: number[]
+    location: { state: string; county: string }
+  }
+  model: {
+    nOfPeople: number
+    sr_age_factor: number
+    sr_strain_factor: number
+    pim: number
+    floor_area: number
+    exp_time: number
+    mean_ceiling_height: number
+    air_exchange_rate: number
+    recirc_rate?: number
+    exhaled_air_inf?: number
+    def_aerosol_radius: number
+    merv: number
+    breathing_flow_rate: number
+    mask_eff: number
+    mask_fit: number
+    relative_humidity: number
+  }
+  vaccinations: {
+    country?: VaccinationData
+    state?: VaccinationData
+    county?: VaccinationData
   }
   stepStatus: StepStatus
 }
@@ -34,8 +65,31 @@ const initialState: AppState = {
     vocalActivity: [],
     physicalActivity: [],
     maskTypes: [],
+    location: { state: 'State', county: 'County' },
   },
-
+  model: {
+    nOfPeople: 20,
+    exp_time: 20,
+    sr_age_factor: 0.68,
+    sr_strain_factor: 1,
+    pim: 0.0,
+    floor_area: 1000,
+    mean_ceiling_height: 12,
+    air_exchange_rate: 3,
+    recirc_rate: 1,
+    exhaled_air_inf: 2.04,
+    def_aerosol_radius: 2,
+    merv: 6,
+    breathing_flow_rate: 0.29,
+    mask_eff: 0.9,
+    mask_fit: 0.95,
+    relative_humidity: 0.6,
+  },
+  vaccinations: {
+    // country: { percent: 0, total: 0, risk: 'Baseline' },
+    // state: { percent: 0, total: 0, risk: 'Average' },
+    // county: { percent: 0, total: 0, risk: 'Average' },
+  },
   stepStatus: {
     '/target-occupancy': { complete: false },
     '/location': { complete: false },
@@ -63,6 +117,8 @@ export type Actions =
   | 'setVocalActivity'
   | 'setPhysicalActivity'
   | 'setMaskTypes'
+  | 'setLocation'
+  | 'setVaccinationData'
 
 export const contextReducer = (state: AppState, action: { type: Actions; payload: any }) => {
   switch (action.type) {
@@ -71,19 +127,23 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       return { ...state }
     case 'setTargetHours':
       state.progress.targetHours = action.payload.value
+      state.model.exp_time = action.payload.value
       return { ...state }
     case 'setTargetOccupancy':
       state.progress.targetOccupancy = action.payload.value
+      state.model.nOfPeople = action.payload.value
       return { ...state }
     case 'setCeilingHeight':
       state.userInputs.ceilingHeight = action.payload.value
+      state.model.mean_ceiling_height = action.payload.value
       return { ...state }
     case 'setRoomArea':
       state.userInputs.roomArea = action.payload.value
+      state.model.floor_area = action.payload.value
       return { ...state }
     case 'setAgeGroups':
       state.userInputs.ageGroups = action.payload.value
-      console.log(action.payload)
+      state.model.sr_age_factor = calcAgeFactor(action.payload.value)
       return { ...state }
     case 'setVocalActivity':
       state.userInputs.vocalActivity = action.payload.value
@@ -93,8 +153,15 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       return { ...state }
     case 'setMaskTypes':
       state.userInputs.maskTypes = action.payload.value
+      state.model.mask_eff = calcMaskFit(action.payload.value)
       return { ...state }
-
+    case 'setLocation':
+      state.userInputs.location = action.payload
+      return { ...state }
+    case 'setVaccinationData':
+      state.vaccinations = { ...state.vaccinations, ...action.payload }
+      state.model.pim = calcPercentImmune(state.vaccinations)
+      return { ...state }
     default:
       throw new Error(`There is no action called '${action.type}'`)
   }

@@ -80,9 +80,9 @@ export const Slider: React.FC<SliderProps> = ({
       key={`${i}-${v}`}
       className={clsx(
         'flex flex-col items-center cursor-pointer transition-colors duration-150 mt-7 w-4',
-        dragValue && dragValue < v && 'text-white',
+        dragValue && dragValue < v && 'text-gray-500',
         dragValue && dragValue >= v && 'text-blue-500',
-        dragValue || (value < v && ' text-white'),
+        dragValue || (value < v && ' text-gray-500'),
         dragValue || (value >= v && 'text-blue-500')
       )}
     >
@@ -95,7 +95,9 @@ export const Slider: React.FC<SliderProps> = ({
           dragValue || (value >= v && 'bg-blue-500')
         )}
       />
-      <div className="overflow-visible text-sm text-center select-none">{v.toLocaleString()}</div>
+      <div className="overflow-visible text-sm text-center select-none filter drop-shadow-none">
+        {v.toLocaleString()}
+      </div>
     </div>
   ))
 

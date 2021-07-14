@@ -1,13 +1,10 @@
 import helpers from './helper'
 
-export const IndoorFetchWrapper = {
-  getIndoorModel,
-}
-
-function getIndoorModel(data: object) {
-  let url = `${process.env.AerosolveURL}/aerosolve_model`
+export function getIndoorModel(data: object) {
+  const url = new URL('aerosolve_model', `${process.env.REACT_APP_SERVER_URL}`)
+  console.log(data)
   return new Promise(function (resolve, reject) {
-    helpers.post(url, data).then((data) => {
+    helpers.post(url.href, data).then((data) => {
       resolve(data)
     })
   })

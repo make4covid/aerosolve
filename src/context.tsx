@@ -119,6 +119,7 @@ export type Actions =
   | 'setMaskTypes'
   | 'setLocation'
   | 'setVaccinationData'
+  | 'setSafeRecommendations'
 
 export const contextReducer = (state: AppState, action: { type: Actions; payload: any }) => {
   switch (action.type) {
@@ -161,6 +162,9 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
     case 'setVaccinationData':
       state.vaccinations = { ...state.vaccinations, ...action.payload }
       state.model.pim = calcPercentImmune(state.vaccinations)
+      return { ...state }
+    case 'setSafeRecommendations':
+      state.progress.safeHours = action.payload.safeHours
       return { ...state }
     default:
       throw new Error(`There is no action called '${action.type}'`)

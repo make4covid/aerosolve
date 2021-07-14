@@ -29,7 +29,7 @@ type ValueBoxProps = {
 export const ValueBox: React.FC<ValueBoxProps> = (props) => (
   <div
     className={clsx(
-      'border-2 rounded-md flex flex-col align-middle p-1.5 h-full justify-between text-center font-semibold',
+      'border-2 rounded-md flex flex-col align-middle p-1.5 h-full justify-between text-center font-semibold transition-colors duration-150',
       `border-${props.color}-500 text-${props.color}-500`,
       props.className
     )}
@@ -50,7 +50,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props) => {
           backgroundImage: `linear-gradient(to right, rgba(255,0,93,1) 0%, #8500D7 ${percentCompleteInverse}%)`,
         }}
         className={clsx(
-          'h-full rounded-full  from-pink-600 to-indigo-600 flex flex-row items-center justify-end shadow-inner-xs'
+          'h-full rounded-full from-pink-600 to-indigo-600 flex flex-row items-center justify-end shadow-inner-xs transition-all duration-500'
         )}
       >
         <div

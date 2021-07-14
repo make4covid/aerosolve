@@ -71,18 +71,12 @@ const App: React.FC<{}> = () => {
                           />
                         </div>
                       </div>
-                      <div className="absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200 h-14">
-                        <PageFooter
-                          className="w-full max-w-5xl px-12 pt-2.5 pb-2 mx-auto  min-w-2xl "
-                          lastStepRoute={i > 0 ? data.steps[i - 1].route : undefined}
-                          nextStepRoute={
-                            i < data.steps.length - 1 ? data.steps[i + 1].route : undefined
-                          }
-                        />
-                      </div>
                     </Route>
                   )
                 })}
+              </div>
+              <div className="absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200 h-14">
+                <PageFooter className="w-full max-w-5xl pt-2.5 pb-2 mx-auto  min-w-2xl px-12" />
               </div>
             </Sidebar>
           </Switch>

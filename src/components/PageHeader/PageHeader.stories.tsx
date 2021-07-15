@@ -1,12 +1,12 @@
 import { Story } from '@storybook/react'
-import { PageHeader, PageHeaderProps } from './PageHeader'
+import { PageHeader } from './PageHeader'
 
 export default {
   title: 'Aerosolve/Compositions/Page Header',
   component: PageHeader,
 }
 
-const Template: Story<PageHeaderProps> = (args) => <PageHeader {...args} />
+const Template: Story<{}> = (args) => <PageHeader {...args} />
 
 export const Header = Template.bind({})
 

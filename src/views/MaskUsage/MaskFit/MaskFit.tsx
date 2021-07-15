@@ -1,52 +1,61 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StepViewProps } from 'data'
-// import { SelectionChoiceGroup } from '../../../components/SelectionChoiceGroup/SelectionChoiceGroup'
-// import { SelectionChoiceOption } from '../../../components/SelectionChoice/SelectionChoice'
-// import { SelectionOption } from '../../../components/SelectionChoice/SelectionChoiceItem/SelectionChoiceItem'
+import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
+import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
+import { AppContext } from 'context'
+import { CursorClick } from 'assets/svg'
 
-// let option: SelectionOption[] = [
-//   {
-//     button_description: 'Mostly No',
-//   },
-//   {
-//     button_description: 'Average',
-//   },
-//   {
-//     button_description: 'Mostly Yes',
-//   },
-// ]
-
-// let options: SelectionChoiceOption[] = [
-//   {
-//     options: option,
-//     title: 'Occupants are wearing Masks\nthat completely covering their\nnose and mouth',
-//     totalCols: 5,
-//     leftCol: 2,
-//     rightCol: 3,
-//     boxCols: option.length,
-//   },
-//   {
-//     options: option,
-//     title: 'Occupants are wearing masks with\nmetal nosebands',
-//     totalCols: 5,
-//     leftCol: 2,
-//     rightCol: 3,
-//     boxCols: option.length,
-//   },
-//   {
-//     options: option,
-//     title: 'Occupants are wearing\ndouble masks',
-//     totalCols: 5,
-//     leftCol: 2,
-//     rightCol: 3,
-//     boxCols: option.length,
-//   },
-// ]
+let options: SelectionOptions[] = [
+  {
+    title: 'Poor Mask Compliance',
+    description: 'Very few people in the space properly wear a well-fitted mask.',
+    risk: 'High',
+  },
+  {
+    title: 'Moderate Mask Compliance',
+    description: 'Some people in the space properly wear well-fitted masks.',
+    risk: 'Medium',
+  },
+  {
+    title: 'Good Mask Compliance',
+    description: 'Most people in the space properly wear well-fitted masks.',
+    risk: 'Medium',
+  },
+  {
+    title: 'Excellent Mask Compliance',
+    description: 'Nearly everyone in the space properly wears a well-fitted mask.',
+    risk: 'Low',
+  },
+]
 
 export const MaskFit: React.FC<StepViewProps> = (props) => {
+  const [{ userInputs }, dispatch] = useContext(AppContext)
+  const [selected, setSelected] = useState(userInputs.maskFit)
+
+  const update = (value: number[]) => {
+    setSelected(value)
+    dispatch({ type: 'setMaskFit', payload: { value } })
+  }
+
+  useEffect(() => props.onComplete(), [])
+
   return (
-    <div className="w-full h-3/5">
-      {/* <SelectionChoiceGroup options={options} noDescription={true} /> */}
+    <div className="w-full mt-10">
+      <div className="relative inline-block mb-4 text-gray-600">
+        <p className="inline-block text-sm">
+          Please select the option that best describes your space.
+        </p>
+        <CursorClick className="inline-block w-4 h-4 ml-2 fill-current" />
+      </div>
+      <SelectionCardGroup
+        options={options}
+        multi={false}
+        cardCol={true}
+        columns={2}
+        selected={selected}
+        setSelected={update}
+        imgFit="contain"
+      />
     </div>
   )
 }

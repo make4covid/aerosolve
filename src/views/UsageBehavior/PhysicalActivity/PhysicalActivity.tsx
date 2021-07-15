@@ -28,7 +28,7 @@ let options: SelectionOptions[] = [
   },
   {
     title: 'Heavy Exercise',
-    description: 'Common in fitness centers, gymnasiums.',
+    description: 'Common in fitness centers and gymnasiums.',
     img: physicalHeavy,
     risk: 'High',
   },
@@ -47,7 +47,8 @@ export const PhysicalActivity: React.FC<StepViewProps> = (props) => {
   )
 
   const update = (selected: number[]) => {
-    debouncedUpdate(selected)
+    // debouncedUpdate(selected)
+    dispatch({ type: 'setPhysicalActivity', payload: { value: selected } })
     setSelected(selected)
     props.onComplete()
   }

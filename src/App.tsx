@@ -11,6 +11,9 @@ import { Home } from 'views'
 
 import * as data from 'data'
 import { PageFooter } from './components/PageFooter/PageFooter'
+import { getIndoorModel } from 'service/IndoorService'
+import { useCallback } from 'react'
+import debounce from 'lodash.debounce'
 
 const App: React.FC<{}> = () => {
   const [context, dispatch] = useContextReducer()
@@ -20,9 +23,21 @@ const App: React.FC<{}> = () => {
       dispatch({ type: 'setStepCompleted', payload: { step: route } })
   }
 
+  const debounceFetchModel = useCallback(
+    debounce((model) => {
+      getIndoorModel(model).then((r: any) => {
+        dispatch({
+          type: 'setSafeRecommendations',
+          payload: { safeHours: r['max_hour'] },
+        })
+      })
+    }, 400),
+    []
+  )
+
   useEffect(() => {
-    console.log('Input Changed')
-  }, Object.values(context.userInputs))
+    debounceFetchModel(context.model)
+  }, Object.values(context.model))
 
   return (
     <Router>
@@ -47,39 +62,31 @@ const App: React.FC<{}> = () => {
                 </div>
               }
             >
-              {data.steps.map((step, i) => {
-                const StepView = step.component
-                return (
-                  <Route exact path={step.route}>
-                    <div
-                      style={{ height: 'calc(100vh - 2.5rem)' }}
-                      className="container w-full max-w-5xl px-12 py-5 mx-auto overflow-scroll min-w-2xl"
-                    >
-                      <PageHeader
-                        title={String(step.index! + 1).padStart(2, '0') + ' / ' + step.title}
-                        description={step.header.description}
-                        prompt={step.header.prompt}
-                      ></PageHeader>
-                      <div style={{ height: 'calc(100vh - 14.9rem)' }} className="pt-6 pb-3">
-                        <StepView
-                          onComplete={() => {
-                            completeStep(step.route)
-                          }}
-                        />
+              <div
+                style={{ height: 'calc(100vh - 2.5rem)' }}
+                className="container w-full max-w-5xl py-5 mx-auto overflow-scroll min-w-2xl"
+              >
+                <PageHeader />
+                {data.steps.map((step, i) => {
+                  const StepView = step.component
+                  return (
+                    <Route exact path={step.route}>
+                      <div className="px-12">
+                        <div style={{ height: 'calc(100vh - 14.9rem)' }} className="pt-6 pb-3">
+                          <StepView
+                            onComplete={() => {
+                              completeStep(step.route)
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200 h-14">
-                      <PageFooter
-                        className="w-full max-w-5xl px-12 pt-2.5 pb-2 mx-auto  min-w-2xl "
-                        lastStepRoute={i > 0 ? data.steps[i - 1].route : undefined}
-                        nextStepRoute={
-                          i < data.steps.length - 1 ? data.steps[i + 1].route : undefined
-                        }
-                      />
-                    </div>
-                  </Route>
-                )
-              })}
+                    </Route>
+                  )
+                })}
+              </div>
+              <div className="absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200 h-14">
+                <PageFooter className="w-full max-w-5xl pt-2.5 pb-2 mx-auto  min-w-2xl px-12" />
+              </div>
             </Sidebar>
           </Switch>
         </div>

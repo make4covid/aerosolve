@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import clsx from 'clsx'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { NavButton } from 'components/NavButton/NavButton'
+import { Step, steps } from 'data'
 
 export interface PageFooterProps {
   nextStepLabel?: string
@@ -26,27 +27,38 @@ const InformationButton = () => {
 
 export const PageFooter: React.FC<PageFooterProps> = (props) => {
   const history = useHistory()
+  const location = useLocation()
+
+  const thisStepIndex = (): number => {
+    return steps.findIndex((step) => {
+      return step.route === location.pathname
+    })
+  }
+
+  const [stepIndex, setStepIndex] = useState(thisStepIndex)
+  useEffect(() => setStepIndex(thisStepIndex()), [location])
+
   return (
     <div
       style={{ width: 'inherit' }}
       className={clsx(props.className, 'flex flex-row items-center justify-between')}
     >
       <div className="flex flex-row items-center w-max">
-        {props.lastStepRoute && (
+        {stepIndex > 0 && (
           <NavButton
             direction="last"
-            label="Last"
-            onClick={() => history.push(props.lastStepRoute!)}
+            label={steps[stepIndex - 1].title}
+            onClick={() => history.push(steps[stepIndex - 1].route)}
             className="mr-6"
           />
         )}
         <InformationButton />
       </div>
-      {props.nextStepRoute && (
+      {stepIndex < steps.length - 1 && (
         <NavButton
           direction="next"
-          label="Next"
-          onClick={() => history.push(props.nextStepRoute!)}
+          label={steps[stepIndex + 1].title}
+          onClick={() => history.push(steps[stepIndex + 1].route)}
         ></NavButton>
       )}
     </div>

@@ -41,8 +41,9 @@ export const OccupantAgeGroups: React.FC<StepViewProps> = (props) => {
   )
 
   const update = (selected: number[]) => {
-    debouncedUpdate(selected)
+    // debouncedUpdate(selected)
     setSelected(selected)
+    dispatch({ type: 'setAgeGroups', payload: { value: selected } })
     props.onComplete()
   }
 

@@ -47,8 +47,9 @@ export const VocalActivity: React.FC<StepViewProps> = (props) => {
   )
 
   const update = (selected: number[]) => {
-    debouncedUpdate(selected)
+    // debouncedUpdate(selected)
     setSelected(selected)
+    dispatch({ type: 'setVocalActivity', payload: { value: selected } })
     props.onComplete()
   }
 

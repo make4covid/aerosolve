@@ -1,6 +1,7 @@
 import hepa from './hepa.png'
 import maskDouble from './mask-double.png'
 import maskCloth from './mask-cloth.png'
+import maskCloth2 from './mask-cloth-2.png'
 import maskNone from './mask-none.png'
 import maskDisposable from './mask-disposable.png'
 import maskN95 from './mask-n95.png'
@@ -22,6 +23,7 @@ export {
   hepa,
   maskDouble,
   maskCloth,
+  maskCloth2,
   maskDisposable,
   maskN95,
   maskFit,

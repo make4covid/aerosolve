@@ -106,9 +106,9 @@ const steps: Step[] = [
     title: 'Types of Masks',
     component: Views.TypeOfMask,
     header: {
-      prompt: 'What type of masks are worn by most occupants within the space?',
+      prompt: 'What type of masks are worn by unvaccinated occupants within the space?',
       description:
-        'Masks are one the most effective ways of preventing virus transmission between occupants.',
+        'Properly worn masks are one the most effective ways of preventing virus transmission.',
     },
   },
   {
@@ -116,9 +116,10 @@ const steps: Step[] = [
     title: 'Mask Fit',
     component: Views.MaskFit,
     header: {
-      prompt: 'Quick survey of mask compliance among the occupants',
+      prompt:
+        'How well doo unvaccinated occupants comply with mask requirements and recommendations?',
       description:
-        'Wearing masks correctly is important to reduce the aerosol transmission of airborne viruses. Many people do not wear masks that fit properly, or wear masks incorrectly',
+        'Properly worn masks are one the most effective ways of preventing virus transmission.',
     },
   },
   {

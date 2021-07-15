@@ -29,12 +29,12 @@ export const Location: React.FC<StepViewProps> = (props) => {
   const [risk, setRisk] = useState('Medium' as 'Low' | 'Medium' | 'High')
 
   useEffect(() => {
-    dispatch({ type: 'setVaccinationData', payload: { county: undefined } })
+    // dispatch({ type: 'setVaccinationData', payload: { county: undefined } })
     dispatch({ type: 'setLocation', payload: { state, county } })
   }, [county])
 
   useEffect(() => {
-    dispatch({ type: 'setVaccinationData', payload: { state: undefined } })
+    // dispatch({ type: 'setVaccinationData', payload: { state: undefined } })
     dispatch({ type: 'setLocation', payload: { state, county: 'County' } })
   }, [state])
 
@@ -125,9 +125,11 @@ const relativeRisk = (baseline: number, comparison: number) => {
 const StateCard: React.FC<{ state: string }> = (props) => {
   const [{ vaccinations }, dispatch] = useContext(AppContext)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setError('')
+    setLoading(true)
     getStateVaccineData(stateCodes[props.state])
       .then((data) => {
         const total = data['vaccine_rate_total']
@@ -135,11 +137,14 @@ const StateCard: React.FC<{ state: string }> = (props) => {
         const risk = relativeRisk(vaccinations.country!.percent, percent)
         const state: VaccinationData = { total, percent, risk }
         dispatch({ type: 'setVaccinationData', payload: { state } })
+        setLoading(false)
       })
       .catch((e) => setError(e.name))
   }, [props.state])
 
-  return vaccinations.state ? (
+  return loading ? (
+    <FetchLoading />
+  ) : vaccinations.state ? (
     <CovidCard
       label={props.state}
       percentage={vaccinations.state.percent}
@@ -149,28 +154,33 @@ const StateCard: React.FC<{ state: string }> = (props) => {
   ) : error ? (
     <FetchError label={`${props.state}`} />
   ) : (
-    <FetchLoading />
+    <div></div>
   )
 }
 
 const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
   const [{ vaccinations }, dispatch] = useContext(AppContext)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setError('')
+    setLoading(true)
     getCountyVaccineData(stateCodes[props.state], props.county)
       .then((data) => {
         const total = data['vaccine_rate_total']
         const percent = Math.round(data['vaccinate_rate_pcr'] * 10) / 10
         const risk = relativeRisk(vaccinations.country!.percent, percent)
         const county: VaccinationData = { total, percent, risk }
-        return dispatch({ type: 'setVaccinationData', payload: { county } })
+        dispatch({ type: 'setVaccinationData', payload: { county } })
+        setLoading(false)
       })
       .catch((e: Error) => setError(e.name))
   }, [props.county])
 
-  return vaccinations.county ? (
+  return loading ? (
+    <FetchLoading />
+  ) : vaccinations.county ? (
     <CovidCard
       label={props.county}
       percentage={vaccinations.county.percent}
@@ -180,7 +190,7 @@ const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
   ) : error ? (
     <FetchError label={`${props.county}`} />
   ) : (
-    <FetchLoading />
+    <div></div>
   )
 }
 

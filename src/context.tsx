@@ -1,5 +1,12 @@
 import { StepStatus } from 'components/Navigation/Navigation'
-import { calcAgeFactor, calcMaskFit, calcPercentImmune } from 'model/calculations'
+import {
+  calcAgeFactor,
+  calcBreathingRate,
+  calcMaskEff,
+  calcMaskFit,
+  calcPercentImmune,
+  calcRespiratoryActivity,
+} from 'model/calculations'
 import { Context, createContext, Dispatch, useReducer } from 'react'
 
 export type VaccinationData = {
@@ -16,6 +23,7 @@ export interface AppState {
     vocalActivity: number[]
     physicalActivity: number[]
     maskTypes: number[]
+    maskFit: number[]
     location: { state: string; county: string }
   }
   model: {
@@ -28,7 +36,7 @@ export interface AppState {
     mean_ceiling_height: number
     air_exchange_rate: number
     recirc_rate?: number
-    exhaled_air_inf?: number
+    exhaled_air_inf: number
     def_aerosol_radius: number
     merv: number
     breathing_flow_rate: number
@@ -55,16 +63,17 @@ type AppContextType = [
 const initialState: AppState = {
   progress: {
     safeHours: 2,
-    targetHours: 6,
-    targetOccupancy: 20,
+    targetHours: 10,
+    targetOccupancy: 15,
   },
   userInputs: {
-    ceilingHeight: 8,
-    roomArea: 500,
-    ageGroups: [],
-    vocalActivity: [],
-    physicalActivity: [],
-    maskTypes: [],
+    ceilingHeight: 12,
+    roomArea: 1000,
+    ageGroups: [1],
+    vocalActivity: [1],
+    physicalActivity: [1],
+    maskTypes: [0],
+    maskFit: [1],
     location: { state: 'State', county: 'County' },
   },
   model: {
@@ -72,21 +81,21 @@ const initialState: AppState = {
     exp_time: 20,
     sr_age_factor: 0.68,
     sr_strain_factor: 1,
-    pim: 0.0,
+    pim: 0.487,
     floor_area: 1000,
     mean_ceiling_height: 12,
-    air_exchange_rate: 3,
+    air_exchange_rate: 9,
     recirc_rate: 1,
     exhaled_air_inf: 2.04,
     def_aerosol_radius: 2,
     merv: 6,
     breathing_flow_rate: 0.29,
-    mask_eff: 0.9,
-    mask_fit: 0.95,
+    mask_eff: 0.5,
+    mask_fit: 0.35,
     relative_humidity: 0.6,
   },
   vaccinations: {
-    // country: { percent: 0, total: 0, risk: 'Baseline' },
+    country: { percent: 48.8, total: 160126516, risk: 'Baseline' },
     // state: { percent: 0, total: 0, risk: 'Average' },
     // county: { percent: 0, total: 0, risk: 'Average' },
   },
@@ -117,6 +126,7 @@ export type Actions =
   | 'setVocalActivity'
   | 'setPhysicalActivity'
   | 'setMaskTypes'
+  | 'setMaskFit'
   | 'setLocation'
   | 'setVaccinationData'
   | 'setSafeRecommendations'
@@ -148,13 +158,25 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       return { ...state }
     case 'setVocalActivity':
       state.userInputs.vocalActivity = action.payload.value
+      state.model.exhaled_air_inf = calcRespiratoryActivity(
+        state.userInputs.physicalActivity,
+        state.userInputs.vocalActivity
+      )
       return { ...state }
     case 'setPhysicalActivity':
       state.userInputs.physicalActivity = action.payload.value
+      state.model.breathing_flow_rate = calcBreathingRate(
+        state.userInputs.physicalActivity,
+        state.userInputs.vocalActivity
+      )
       return { ...state }
     case 'setMaskTypes':
       state.userInputs.maskTypes = action.payload.value
-      state.model.mask_eff = calcMaskFit(action.payload.value)
+      state.model.mask_eff = calcMaskEff(action.payload.value)
+      return { ...state }
+    case 'setMaskFit':
+      state.userInputs.maskFit = action.payload.value
+      state.model.mask_fit = calcMaskFit(action.payload.value)
       return { ...state }
     case 'setLocation':
       state.userInputs.location = action.payload

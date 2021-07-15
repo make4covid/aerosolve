@@ -12,6 +12,8 @@ import { Home } from 'views'
 import * as data from 'data'
 import { PageFooter } from './components/PageFooter/PageFooter'
 import { getIndoorModel } from 'service/IndoorService'
+import { useCallback } from 'react'
+import debounce from 'lodash.debounce'
 
 const App: React.FC<{}> = () => {
   const [context, dispatch] = useContextReducer()
@@ -21,13 +23,20 @@ const App: React.FC<{}> = () => {
       dispatch({ type: 'setStepCompleted', payload: { step: route } })
   }
 
-  useEffect(() => {
-    getIndoorModel(context.model).then((r: any) => {
-      dispatch({
-        type: 'setSafeRecommendations',
-        payload: { safeHours: Math.floor(r['max_hour']) },
+  const debounceFetchModel = useCallback(
+    debounce((model) => {
+      getIndoorModel(model).then((r: any) => {
+        dispatch({
+          type: 'setSafeRecommendations',
+          payload: { safeHours: r['max_hour'] },
+        })
       })
-    })
+    }, 400),
+    []
+  )
+
+  useEffect(() => {
+    debounceFetchModel(context.model)
   }, Object.values(context.model))
 
   return (

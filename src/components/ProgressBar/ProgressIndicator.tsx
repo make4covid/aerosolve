@@ -47,6 +47,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props) => {
       <div
         style={{
           width: `${props.percentComplete}%`,
+          minWidth: '0.73rem',
           backgroundImage: `linear-gradient(to right, rgba(255,0,93,1) 0%, #8500D7 ${percentCompleteInverse}%)`,
         }}
         className={clsx(
@@ -70,6 +71,15 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ children, 
     setSafe(props.value >= props.outOf)
   }, [props.value, props.outOf])
 
+  //
+
+  const displayValue =
+    props.value < 72
+      ? // ? [Math.round(props.value * 60), 'minutes']
+        // : props.value < 72
+        [Math.round(props.value * 10) / 10, 'hours']
+      : [Math.round((props.value / 24) * 10) / 10, 'days']
+
   const unsafeFragment: ReactFragment = (
     <span>
       out of <Highlight negative={!safe}>{props.outOf}</Highlight> target
@@ -87,8 +97,8 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ children, 
       >
         <div>
           This space is safe for <Highlight>{props.people} </Highlight>
-          people for <Highlight negative={!safe}>{props.value}</Highlight>{' '}
-          {props.value <= props.outOf && unsafeFragment} hours.
+          people for <Highlight negative={!safe}>{displayValue[0]}</Highlight>{' '}
+          {props.value <= props.outOf && unsafeFragment} {displayValue[1]}.
         </div>
         <ProgressBar percentComplete={percentComplete} />
       </div>
@@ -98,7 +108,12 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ children, 
         color={safe ? 'blue' : 'gray'}
         className="ml-2"
       />
-      <ValueBox value={props.value} label="hours" color={safe ? 'blue' : 'red'} className="ml-2" />
+      <ValueBox
+        value={displayValue[0] as number}
+        label={displayValue[1] as string}
+        color={safe ? 'blue' : 'red'}
+        className="ml-2"
+      />
     </div>
   )
 }

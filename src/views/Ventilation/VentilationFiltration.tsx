@@ -2,14 +2,21 @@ import React, { useState } from 'react'
 import { StepViewProps } from 'data'
 import { SelectionChoice } from 'components/SelectionChoice/SelectionChoice'
 import { useReducer } from 'react'
+import { useEffect } from 'react'
+import { useContext } from 'react'
+import { AppContext } from 'context'
 
 export const VentilationFiltration: React.FC<StepViewProps> = (props) => {
-  // Set up a reducer for this section, debounce the result, and store it in app context
+  const [{ userInputs }, dispatch] = useContext(AppContext)
 
   const [ventSelection, setVentSelection] = useState(0)
   const [filtSelection, setFiltSelection] = useState(0)
   const [recircSelection, setRecircSelection] = useState(0)
   const [humidSelection, setHumidSelection] = useState(0)
+
+  useEffect(() => dispatch({ type: 'setVentilation', payload: { value: ventSelection } }), [
+    ventSelection,
+  ])
 
   return (
     <div className="grid w-full grid-cols-1 grid-rows-4 gap-4 mt-4">

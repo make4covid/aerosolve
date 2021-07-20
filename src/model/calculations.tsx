@@ -69,6 +69,11 @@ export const calcRespiratoryActivity = (physicalActivity: number[], vocalActivit
   return vocalAvg ? vocalAvg : physicalAvg ? physicalAvg : defaultValue
 }
 
+export const calcVentilation = (ventilationSelection: number) => {
+  const values = [0, 2.5, 5, 7.5, 10]
+  return values[ventilationSelection]
+}
+
 export const calcPercentImmune = (vaccinations: {
   country?: VaccinationData
   state?: VaccinationData

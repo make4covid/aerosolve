@@ -26,6 +26,7 @@ const App: React.FC<{}> = () => {
   const debounceFetchModel = useCallback(
     debounce((model) => {
       getIndoorModel(model).then((r: any) => {
+        console.log(r)
         dispatch({
           type: 'setSafeRecommendations',
           payload: { safeHours: r['max_hour'] },

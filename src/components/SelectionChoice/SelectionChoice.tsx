@@ -11,7 +11,6 @@ export interface SelectionChoiceProps {
 
 export const SelectionChoice: React.FC<SelectionChoiceProps> = (props) => {
   const cols = props.options.length + 2
-  console.log(props.selected)
   return (
     <div
       style={{ height: 'max-content' }}

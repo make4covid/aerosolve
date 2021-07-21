@@ -20,7 +20,7 @@ export const SelectionChoice: React.FC<SelectionChoiceProps> = (props) => {
         <div className="text-base font-bold text-gray-600">{props.title}</div>
         <div className="text-xs text-gray-500">{props.description}</div>
       </div>
-      <div className={`col-span-5 grid grid-cols-${cols} h-full gap-2`}>
+      <div className={`col-span-5 grid grid-cols-5 h-full gap-2`}>
         {props.options.map((option, index) => (
           <SelectionChoiceItem
             selected={index === props.selected}

@@ -2,10 +2,14 @@ import { StepStatus } from 'components/Navigation/Navigation'
 import {
   calcAgeFactor,
   calcBreathingRate,
+  calcFiltration,
+  calcHumidity,
   calcMaskEff,
   calcMaskFit,
   calcPercentImmune,
+  calcRecirculation,
   calcRespiratoryActivity,
+  calcVentilation,
 } from 'model/calculations'
 import { Context, createContext, Dispatch, useReducer } from 'react'
 
@@ -17,6 +21,7 @@ export type VaccinationData = {
 export interface AppState {
   progress: { safeHours: number; targetHours: number; targetOccupancy: number }
   userInputs: {
+    location: { state: string; county: string }
     ceilingHeight: number
     roomArea: number
     ageGroups: number[]
@@ -24,7 +29,10 @@ export interface AppState {
     physicalActivity: number[]
     maskTypes: number[]
     maskFit: number[]
-    location: { state: string; county: string }
+    ventilation: number
+    filtration: number
+    recirculation: number
+    humidity: number
   }
   model: {
     nOfPeople: number
@@ -74,6 +82,10 @@ const initialState: AppState = {
     physicalActivity: [1],
     maskTypes: [0],
     maskFit: [1],
+    ventilation: 2,
+    filtration: 2,
+    recirculation: 2,
+    humidity: 2,
     location: { state: 'State', county: 'County' },
   },
   model: {
@@ -84,7 +96,7 @@ const initialState: AppState = {
     pim: 0.487,
     floor_area: 1000,
     mean_ceiling_height: 12,
-    air_exchange_rate: 9,
+    air_exchange_rate: 2,
     recirc_rate: 1,
     exhaled_air_inf: 2.04,
     def_aerosol_radius: 2,
@@ -128,6 +140,10 @@ export type Actions =
   | 'setMaskTypes'
   | 'setMaskFit'
   | 'setLocation'
+  | 'setVentilation'
+  | 'setFiltration'
+  | 'setRecirculation'
+  | 'setHumidity'
   | 'setVaccinationData'
   | 'setSafeRecommendations'
 
@@ -177,6 +193,22 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
     case 'setMaskFit':
       state.userInputs.maskFit = action.payload.value
       state.model.mask_fit = calcMaskFit(action.payload.value)
+      return { ...state }
+    case 'setVentilation':
+      state.userInputs.ventilation = action.payload.value
+      state.model.air_exchange_rate = calcVentilation(action.payload.value)
+      return { ...state }
+    case 'setFiltration':
+      state.userInputs.filtration = action.payload.value
+      state.model.merv = calcFiltration(action.payload.value)
+      return { ...state }
+    case 'setRecirculation':
+      state.userInputs.recirculation = action.payload.value
+      state.model.recirc_rate = calcRecirculation(action.payload.value)
+      return { ...state }
+    case 'setHumidity':
+      state.userInputs.humidity = action.payload.value
+      state.model.relative_humidity = calcHumidity(action.payload.value)
       return { ...state }
     case 'setLocation':
       state.userInputs.location = action.payload

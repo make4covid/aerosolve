@@ -73,6 +73,18 @@ export const calcVentilation = (ventilationSelection: number) => {
   const values = [0, 2.5, 5, 7.5, 10]
   return values[ventilationSelection]
 }
+export const calcFiltration = (filtrationSelection: number) => {
+  const values = [1, 6, 10, 14, 16]
+  return values[filtrationSelection]
+}
+export const calcRecirculation = (recircSelection: number) => {
+  const values = [0, 1.5, 3, 4.5, 6]
+  return values[recircSelection]
+}
+export const calcHumidity = (humiditySelection: number) => {
+  const values = [0, 0.3, 0.6, 0.8, 0.95]
+  return values[humiditySelection]
+}
 
 export const calcPercentImmune = (vaccinations: {
   country?: VaccinationData

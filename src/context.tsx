@@ -2,9 +2,12 @@ import { StepStatus } from 'components/Navigation/Navigation'
 import {
   calcAgeFactor,
   calcBreathingRate,
+  calcFiltration,
+  calcHumidity,
   calcMaskEff,
   calcMaskFit,
   calcPercentImmune,
+  calcRecirculation,
   calcRespiratoryActivity,
   calcVentilation,
 } from 'model/calculations'
@@ -27,6 +30,9 @@ export interface AppState {
     maskTypes: number[]
     maskFit: number[]
     ventilation: number
+    filtration: number
+    recirculation: number
+    humidity: number
   }
   model: {
     nOfPeople: number
@@ -76,7 +82,10 @@ const initialState: AppState = {
     physicalActivity: [1],
     maskTypes: [0],
     maskFit: [1],
-    ventilation: 0,
+    ventilation: 2,
+    filtration: 2,
+    recirculation: 2,
+    humidity: 2,
     location: { state: 'State', county: 'County' },
   },
   model: {
@@ -132,6 +141,9 @@ export type Actions =
   | 'setMaskFit'
   | 'setLocation'
   | 'setVentilation'
+  | 'setFiltration'
+  | 'setRecirculation'
+  | 'setHumidity'
   | 'setVaccinationData'
   | 'setSafeRecommendations'
 
@@ -184,8 +196,19 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       return { ...state }
     case 'setVentilation':
       state.userInputs.ventilation = action.payload.value
-      console.log(action.payload.value)
       state.model.air_exchange_rate = calcVentilation(action.payload.value)
+      return { ...state }
+    case 'setFiltration':
+      state.userInputs.filtration = action.payload.value
+      state.model.merv = calcFiltration(action.payload.value)
+      return { ...state }
+    case 'setRecirculation':
+      state.userInputs.recirculation = action.payload.value
+      state.model.recirc_rate = calcRecirculation(action.payload.value)
+      return { ...state }
+    case 'setHumidity':
+      state.userInputs.humidity = action.payload.value
+      state.model.relative_humidity = calcHumidity(action.payload.value)
       return { ...state }
     case 'setLocation':
       state.userInputs.location = action.payload

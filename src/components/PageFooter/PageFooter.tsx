@@ -16,7 +16,7 @@ export interface PageFooterProps {
 
 const InformationButton = () => {
   return (
-    <button className="h-8 transition duration-200 ease-in-out bg-yellow-300 rounded-full cursor-pointer hover:shadow-md hover:bg-yellow-400">
+    <button className="hover:shadow-md hover:bg-yellow-400 h-8 transition duration-200 ease-in-out bg-yellow-300 rounded-full cursor-pointer">
       <div className="flex flex-row px-4 py-1">
         <p className="flex-1 font-serif italic font-bold">i</p>
         <p className="flex-1 ml-3 text-gray-800">Information</p>
@@ -43,7 +43,7 @@ export const PageFooter: React.FC<PageFooterProps> = (props) => {
       style={{ width: 'inherit' }}
       className={clsx(props.className, 'flex flex-row items-center justify-between')}
     >
-      <div className="flex flex-row items-center w-max">
+      <div className="w-max flex flex-row items-center">
         {stepIndex > 0 && (
           <NavButton
             direction="last"
@@ -52,7 +52,7 @@ export const PageFooter: React.FC<PageFooterProps> = (props) => {
             className="mr-6"
           />
         )}
-        <InformationButton />
+        {/* <InformationButton /> */}
       </div>
       {stepIndex < steps.length - 1 && (
         <NavButton

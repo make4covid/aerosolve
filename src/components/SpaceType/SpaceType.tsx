@@ -5,6 +5,12 @@ export type SpaceTypeProps = {
   label: string
   img: string
   risk?: 'High' | 'Medium' | 'Low'
+  floorArea?: number,
+  ceilingHeight?: number,
+  ventilation?: number,
+  filtration?: number,
+  recircRate?: number,
+  rh?: number
 }
 
 export const SpaceType: React.FC<SpaceTypeProps> = (props) => {

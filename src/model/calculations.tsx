@@ -78,7 +78,7 @@ export const calcFiltration = (filtrationSelection: number) => {
   return values[filtrationSelection]
 }
 export const calcRecirculation = (recircSelection: number) => {
-  const values = [0, 1.5, 3, 4.5, 6]
+  const values = [0, 1, 3, 6, 10]
   return values[recircSelection]
 }
 export const calcHumidity = (humiditySelection: number) => {

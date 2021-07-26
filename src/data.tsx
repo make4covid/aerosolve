@@ -117,7 +117,7 @@ const steps: Step[] = [
     component: Views.MaskFit,
     header: {
       prompt:
-        'How well doo unvaccinated occupants comply with mask requirements and recommendations?',
+        'How well do unvaccinated occupants comply with mask requirements and recommendations?',
       description:
         'Properly worn masks are one the most effective ways of preventing virus transmission.',
     },

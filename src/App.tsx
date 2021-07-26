@@ -85,7 +85,7 @@ const App: React.FC<{}> = () => {
                 })}
               </div>
               <div className="h-14 absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200">
-                <PageFooter className="w-full max-w-5xl pt-2.5 pb-2 mx-auto  min-w-2xl px-12" />
+                <PageFooter className="pt-2.5 min-w-2xl w-full max-w-5xl px-12 pb-2 mx-auto" />
               </div>
             </Sidebar>
           </Switch>

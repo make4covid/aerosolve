@@ -66,7 +66,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
         >
           {stepsComplete
             ? 'View recommendations for making your space safer'
-            : 'Complete the steps above to view Recommendations'}
+            : 'Complete the steps above to see recommendations'}
         </button>
       </Link>
     </div>

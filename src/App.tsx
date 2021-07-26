@@ -26,7 +26,6 @@ const App: React.FC<{}> = () => {
   const debounceFetchModel = useCallback(
     debounce((model) => {
       getIndoorModel(model).then((r: any) => {
-        console.log(r)
         dispatch({
           type: 'setSafeRecommendations',
           payload: { safeHours: r['max_hour'] },
@@ -43,7 +42,7 @@ const App: React.FC<{}> = () => {
   return (
     <Router>
       <AppContext.Provider value={[context, dispatch]}>
-        <div className="max-h-screen max-w-screen">
+        <div className="max-w-screen max-h-screen">
           <Switch>
             <Route exact path="/">
               <Home startRoute={data.steps[0].route} />
@@ -65,7 +64,7 @@ const App: React.FC<{}> = () => {
             >
               <div
                 style={{ height: 'calc(100vh - 2.5rem)' }}
-                className="container w-full max-w-5xl py-5 mx-auto overflow-scroll min-w-2xl"
+                className="min-w-2xl container w-full max-w-5xl py-5 mx-auto overflow-scroll"
               >
                 <PageHeader />
                 {data.steps.map((step, i) => {
@@ -85,7 +84,7 @@ const App: React.FC<{}> = () => {
                   )
                 })}
               </div>
-              <div className="absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200 h-14">
+              <div className="h-14 absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200">
                 <PageFooter className="w-full max-w-5xl pt-2.5 pb-2 mx-auto  min-w-2xl px-12" />
               </div>
             </Sidebar>

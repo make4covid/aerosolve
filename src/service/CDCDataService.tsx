@@ -29,7 +29,6 @@ export function getStateCovidData(state: string, day: Date) {
           resolve(getStateCovidData(state, yesterday))
         } else {
           //Done here return result
-          //console.log(data)
           resolve(data)
         }
       })
@@ -45,7 +44,6 @@ export function getStateCountyData(state: string, county: string, day: Date) {
   // const url = `${process.env.AerosolveURL}/county_stats`
   const url = `http://localhost:5000/county_stats`
 
-  console.log(url)
   // Recursive solution to get the latest data
   return new Promise(function (resolve, reject) {
     helpers
@@ -55,7 +53,6 @@ export function getStateCountyData(state: string, county: string, day: Date) {
           resolve(getStateCountyData(state, county, yesterday))
         } else {
           //Done here return result
-          //console.log(data)
           resolve(data)
         }
       })

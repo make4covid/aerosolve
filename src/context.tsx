@@ -58,6 +58,7 @@ export interface AppState {
     county?: VaccinationData
   }
   stepStatus: StepStatus
+  stepsComplete: boolean
 }
 
 type AppContextType = [
@@ -124,6 +125,7 @@ const initialState: AppState = {
     '/mask-fit': { complete: false },
     '/ventilation-filtration': { complete: false },
   },
+  stepsComplete: false,
 }
 
 export { initialState }
@@ -151,6 +153,7 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
   switch (action.type) {
     case 'setStepCompleted':
       state.stepStatus[action.payload.step as string].complete = true
+      state.stepsComplete = !Object.values(state.stepStatus).some((step) => !step.complete)
       return { ...state }
     case 'setTargetHours':
       state.progress.targetHours = action.payload.value

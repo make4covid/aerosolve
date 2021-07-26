@@ -11,7 +11,6 @@ export default {
 
 const Template: Story<SelectionChoiceProps> = (args) => {
   const [selected, setSelected] = useState(0)
-  console.log(selected)
   return (
     <div className="w-11/12 mx-auto">
       <SelectionChoice {...args} selected={selected} onSelect={setSelected} />

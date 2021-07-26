@@ -1,8 +1,11 @@
-import React, { CSSProperties, useContext } from 'react'
+import React, { CSSProperties, useContext, useMemo, useState } from 'react'
 import { AppContext } from 'context'
-import { useHistory, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { ReactComponent as Checkmark } from 'assets/svg/checkmark.svg'
 import clsx from 'clsx'
+import { Button } from 'components/Button/Button'
+import { useEffect } from 'react'
+import { steps } from 'data'
 
 export interface NavGroupStep {
   title: string
@@ -27,7 +30,9 @@ export interface NavigationProps {
 export const Navigation: React.FC<NavigationProps> = (props) => {
   const location = useLocation()
   const history = useHistory()
-  const [{ stepStatus }] = useContext(AppContext)
+  const [{ stepStatus, stepsComplete }] = useContext(AppContext)
+
+  // const [enableRecLink, setEnableRecLink] = useState(false)
 
   return (
     <div className="w-full">
@@ -49,6 +54,21 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
           })}
         </NavigationGroup>
       ))}
+      <Link to="/recommendations">
+        <button
+          disabled={!stepsComplete}
+          className={clsx(
+            'rounded-lg w-full px-4 py-4 mt-4 text-sm cursor-pointer',
+            stepsComplete &&
+              'bg-white text-blue-600 border border-blue-600 hover:bg-blue-50 transition-colors duration-150',
+            !stepsComplete && ' bg-gray-300'
+          )}
+        >
+          {stepsComplete
+            ? 'View recommendations for making your space safer'
+            : 'Complete the steps above to view Recommendations'}
+        </button>
+      </Link>
     </div>
   )
 }
@@ -56,7 +76,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
 const NavigationGroup: React.FC<{ header: string }> = (props) => {
   return (
     <div className="my-3.5 sidebarGroup">
-      <h1 className="flex mx-2 my-1 font-sans text-sm font-bold text-center text-gray-500 sidebarGroupHeader">
+      <h1 className="sidebarGroupHeader flex mx-2 my-1 font-sans text-sm font-bold text-center text-gray-500">
         {props.header}
       </h1>
       <div className="w-full overflow-hidden rounded-md">{props.children}</div>

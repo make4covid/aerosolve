@@ -96,7 +96,7 @@ const initialState: AppState = {
     ageGroups: [1],
     vocalActivity: [1],
     physicalActivity: [1],
-    maskTypes: [0],
+    maskTypes: [1],
     maskFit: [1],
     ventilation: 2,
     filtration: 2,
@@ -243,7 +243,6 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       state.model.relative_humidity = calcHumidity(action.payload.value)
       return { ...state }
     case 'setLocation':
-      console.log(action.payload)
       state.userInputs.location = { ...state.userInputs.location, ...action.payload }
       return { ...state }
     case 'setVaccinationData':

@@ -170,7 +170,6 @@ const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
 
   useEffect(() => {
     setError('')
-    console.log('Reset error')
     setLoading(true)
     getCountyVaccineData(stateCodes[props.state], props.county)
       .then((data) => {
@@ -182,7 +181,6 @@ const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
         setLoading(false)
       })
       .catch((e: Error) => {
-        console.log(e)
         setLoading(false)
         setError(e.name)
       })

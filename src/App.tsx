@@ -26,16 +26,16 @@ const App: React.FC<{}> = () => {
   }
 
   const debounceFetchModel = useCallback(
-    (model) => {
-      debounce(() => {
-        getIndoorModel(model).then((r: any) => {
-          dispatch({
-            type: 'setSafeRecommendations',
-            payload: { safeHours: r['max_hour'], safeOccupancy: r['max_people'] },
-          })
+    // (model) => {
+    debounce((model) => {
+      getIndoorModel(model).then((r: any) => {
+        dispatch({
+          type: 'setSafeRecommendations',
+          payload: { safeHours: r['max_hour'], safeOccupancy: r['max_people'] },
         })
-      }, 400)
-    },
+      })
+    }, 400),
+    // },
     [dispatch]
   )
 
@@ -67,6 +67,8 @@ const App: React.FC<{}> = () => {
                 </div>
               }
             >
+              {/* quick fix to make sure these cyan colors get bundled */}
+              <div className="text-cyan-500 border-cyan-500 hidden" />
               <div className="flex flex-col justify-between w-full h-screen max-h-screen">
                 <div className="min-w-2xl container flex-grow-0 flex-shrink-0 w-11/12 max-w-6xl mx-auto mt-4">
                   <HeaderWrapper />

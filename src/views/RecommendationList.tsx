@@ -39,6 +39,7 @@ export const RecommendationList: React.FC<{}> = () => {
       />
       {recommendations.map((rec: Recommendation, i) => (
         <div
+          key={rec.header}
           className={`border-${rec.color}-500 z-10 flex flex-row items-center p-3 bg-white border-2 rounded-lg`}
         >
           <div className="relative flex-grow-0 flex-shrink-0 w-24 h-24">
@@ -180,8 +181,7 @@ const recs: Recommendations = {
     rank: 0,
   },
   duration: {
-    key: 'duration',
-    header: '',
+    header: 'duration',
     description: '',
     Description: DurationDescription,
     Header: DurationHeader,
@@ -191,7 +191,7 @@ const recs: Recommendations = {
     rank: 0,
   },
   occupancy: {
-    header: '',
+    header: 'occupancy',
     description: '',
     Description: OccupancyDescription,
     Header: OccupancyHeader,

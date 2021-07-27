@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import clsx from 'clsx'
-import { useHistory, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { NavButton } from 'components/NavButton/NavButton'
 import { Step, steps } from 'data'
 
@@ -39,10 +39,7 @@ export const PageFooter: React.FC<PageFooterProps> = (props) => {
   useEffect(() => setStepIndex(thisStepIndex()), [location])
 
   return (
-    <div
-      style={{ width: 'inherit' }}
-      className={clsx(props.className, 'flex flex-row items-center justify-between')}
-    >
+    <div className={clsx(props.className, 'flex flex-row items-center justify-between')}>
       <div className="w-max flex flex-row items-center">
         {stepIndex > 0 && (
           <NavButton
@@ -52,14 +49,28 @@ export const PageFooter: React.FC<PageFooterProps> = (props) => {
             className="mr-6"
           />
         )}
+        {stepIndex === -1 && (
+          <Link to={steps[steps.length - 1].route}>
+            <NavButton
+              direction="last"
+              label={steps[steps.length - 1].title}
+              onClick={() => {}}
+            ></NavButton>
+          </Link>
+        )}
         {/* <InformationButton /> */}
       </div>
-      {stepIndex < steps.length - 1 && (
+      {stepIndex < steps.length - 1 && stepIndex >= 0 && (
         <NavButton
           direction="next"
           label={steps[stepIndex + 1].title}
           onClick={() => history.push(steps[stepIndex + 1].route)}
         ></NavButton>
+      )}
+      {stepIndex === steps.length - 1 && (
+        <Link to="/recommendations">
+          <NavButton direction="next" label="See Recommendations" onClick={() => {}}></NavButton>
+        </Link>
       )}
     </div>
   )

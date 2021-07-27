@@ -6,8 +6,8 @@ import tw from 'twin.macro'
 import { AppContext } from 'context'
 import { useEffect } from 'react'
 
-const Block = tw.div`w-full bg-gray-200 rounded-xl px-10 py-6`
-const BlockHeader = tw.div`font-semibold text-gray-600 mb-2`
+const Block = tw.div`rounded-xl w-full px-10 py-6 bg-gray-200`
+const BlockHeader = tw.div`mb-2 font-semibold text-gray-600`
 
 export const AreaOfSpace: React.FC<StepViewProps> = (props) => {
   const [context, dispatch] = useContext(AppContext)
@@ -25,7 +25,7 @@ export const AreaOfSpace: React.FC<StepViewProps> = (props) => {
     dispatch({ type: 'setCeilingHeight', payload: { value } })
 
   return (
-    <div className="flex flex-col w-full min-h-full gap-6 mt-6 ">
+    <div className=" flex flex-col w-full min-h-full gap-6">
       <Block>
         <BlockHeader>
           Approximate area of the space (ft<sup>2</sup>)

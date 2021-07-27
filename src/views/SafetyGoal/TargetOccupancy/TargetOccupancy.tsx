@@ -9,7 +9,7 @@ import { Plus, Minus } from 'assets/svg'
 import { useContext } from 'react'
 import { useEffect } from 'react'
 
-const Section = tw.div`px-6 py-4 rounded-xl bg-gray-200`
+const Section = tw.div`rounded-xl px-6 py-4 bg-gray-200`
 
 export const TargetOccupancy: React.FC<StepViewProps> = (props) => {
   const [
@@ -27,15 +27,13 @@ export const TargetOccupancy: React.FC<StepViewProps> = (props) => {
     dispatch({ type: 'setTargetHours', payload: { value } })
   }
 
-  useEffect(() => {
-    props.onComplete()
-  }, [])
+  useEffect(() => props.onComplete(), [])
 
   return (
-    <div className="flex flex-col w-full gap-6 mt-4">
-      <Section className="flex flex-row items-center justify-around row-span-3 h-72">
+    <div className="flex flex-col w-full gap-6">
+      <Section className="h-72 flex flex-row items-center justify-around row-span-3">
         <NumberOfOccupants value={people} onChange={setPeople} className="w-1/2" />
-        <div className="flex flex-col items-center m-auto bg-white border-2 border-blue-500 max-w-min rounded-xl">
+        <div className="max-w-min rounded-xl flex flex-col items-center m-auto bg-white border-2 border-blue-500">
           <div className="flex flex-row items-center h-20 p-1 mx-2 text-3xl font-semibold text-blue-600">
             <Minus
               className="w-8 h-8 cursor-pointer fill-current"
@@ -79,7 +77,7 @@ export const TargetOccupancy: React.FC<StepViewProps> = (props) => {
               }}
             />
           </div>
-          <div className="w-full pt-1 pb-1.5 text-sm font-medium text-center text-gray-500 border-t select-none">
+          <div className="pb-1.5 w-full pt-1 text-sm font-medium text-center text-gray-500 border-t select-none">
             occupants
           </div>
         </div>

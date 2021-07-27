@@ -5,7 +5,7 @@ import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import { AppContext, useContextReducer } from './context'
-import { PageHeader } from 'components/PageHeader/PageHeader'
+import { HeaderWrapper, PageHeader } from 'components/PageHeader/PageHeader'
 
 import { Home } from 'views'
 
@@ -14,6 +14,7 @@ import { PageFooter } from './components/PageFooter/PageFooter'
 import { getIndoorModel } from 'service/IndoorService'
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
+import { RecommendationList } from 'views/RecommendationList'
 
 const App: React.FC<{}> = () => {
   const [context, dispatch] = useContextReducer()
@@ -26,9 +27,10 @@ const App: React.FC<{}> = () => {
   const debounceFetchModel = useCallback(
     debounce((model) => {
       getIndoorModel(model).then((r: any) => {
+        console.log(r)
         dispatch({
           type: 'setSafeRecommendations',
-          payload: { safeHours: r['max_hour'] },
+          payload: { safeHours: r['max_hour'], safeOccupancy: r['max_people'] },
         })
       })
     }, 400),
@@ -62,30 +64,34 @@ const App: React.FC<{}> = () => {
                 </div>
               }
             >
-              <div
-                style={{ height: 'calc(100vh - 2.5rem)' }}
-                className="min-w-2xl container w-full max-w-5xl py-5 mx-auto overflow-scroll"
-              >
-                <PageHeader />
-                {data.steps.map((step, i) => {
-                  const StepView = step.component
-                  return (
-                    <Route exact path={step.route}>
-                      <div className="px-12">
-                        <div style={{ height: 'calc(100vh - 14.9rem)' }} className="pt-6 pb-3">
+              <div className="flex flex-col justify-between w-full h-screen max-h-screen">
+                <div className="min-w-2xl container flex-grow-0 flex-shrink-0 w-11/12 max-w-6xl mx-auto mt-4">
+                  <HeaderWrapper />
+                </div>
+                <div className="min-w-2xl container flex flex-col flex-grow flex-shrink w-11/12 h-full max-w-6xl mx-auto mt-4 overflow-scroll">
+                  {data.steps.map((step, i) => {
+                    const StepView = step.component
+                    return (
+                      <Route exact path={step.route}>
+                        <div className="h-full px-12 pt-2 pb-2">
                           <StepView
                             onComplete={() => {
                               completeStep(step.route)
                             }}
                           />
                         </div>
-                      </div>
-                    </Route>
-                  )
-                })}
-              </div>
-              <div className="h-14 absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200">
-                <PageFooter className="pt-2.5 min-w-2xl w-full max-w-5xl px-12 pb-2 mx-auto" />
+                      </Route>
+                    )
+                  })}
+                  <Route exact path="/recommendations">
+                    <div className="px-12 pb-4 mt-4">
+                      <RecommendationList />
+                    </div>
+                  </Route>
+                </div>
+                <div className="z-10 w-full bg-white border-t border-gray-200">
+                  <PageFooter className="pt-2.5 min-w-2xl mb-2.5 w-11/12 max-w-6xl px-12 mx-auto" />
+                </div>
               </div>
             </Sidebar>
           </Switch>

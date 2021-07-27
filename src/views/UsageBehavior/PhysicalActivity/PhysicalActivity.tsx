@@ -40,14 +40,6 @@ export const PhysicalActivity: React.FC<StepViewProps> = (props) => {
 
   useEffect(() => props.onComplete(), [])
 
-  const debouncedUpdate = useCallback(
-    debounce(
-      (selected) => dispatch({ type: 'setPhysicalActivity', payload: { value: selected } }),
-      1000
-    ),
-    []
-  )
-
   const update = (selected: number[]) => {
     // debouncedUpdate(selected)
     dispatch({ type: 'setPhysicalActivity', payload: { value: selected } })
@@ -55,7 +47,7 @@ export const PhysicalActivity: React.FC<StepViewProps> = (props) => {
     props.onComplete()
   }
   return (
-    <div className="flex flex-col w-full min-h-full mt-2">
+    <div className="flex flex-col w-full min-h-full">
       <SelectAllLabel />
       <SelectionCardGroup
         options={options}

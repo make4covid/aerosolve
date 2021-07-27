@@ -56,7 +56,7 @@ export const VocalActivity: React.FC<StepViewProps> = (props) => {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-full mt-2">
+    <div className="flex flex-col w-full min-h-full">
       <SelectAllLabel />
       <SelectionCardGroup
         options={options}

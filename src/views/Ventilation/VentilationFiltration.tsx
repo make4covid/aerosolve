@@ -33,7 +33,7 @@ export const VentilationFiltration: React.FC<StepViewProps> = (props) => {
   ])
 
   return (
-    <div className="grid w-full grid-cols-1 grid-rows-4 gap-4 mt-4">
+    <div className=" grid w-full grid-cols-1 grid-rows-4 gap-4">
       <VentilationOptions selected={ventSelection} setSelected={setVentSelection} />
       <FiltrationOptions selected={filtSelection} setSelected={setFiltSelection} />
       <RecirculationOptions selected={recircSelection} setSelected={setRecircSelection} />

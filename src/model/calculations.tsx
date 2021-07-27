@@ -20,57 +20,58 @@ export const calcMaskEff = (maskTypes: number[]) => {
 
 export const calcMaskFit = (maskFit: number[]) => {
   // maskTypes is stored as a one item array
-  const values = [0.1, 0.4, 0.65, 0.95]
+  const values = [0.1, 0.4, 0.7, 0.95]
   return values[maskFit[0]]
 }
 
 export const calcBreathingRate = (physicalActivity: number[], vocalActivity: number[]) => {
-  // singing = 0.59
+  const exerciseWeights = [0.29, 0.32, 0.81, 1.94]
+  const vocalWeights = [0, 0, 0, 0.59]
 
-  const defaultValue = 0.29
-  const weights = [0.29, 0.32, 0.81, 1.94]
-
-  const breathingRate =
+  const exerciseBreathingRate =
     physicalActivity.length > 0
       ? physicalActivity.reduce((accumulator, activity) => {
-          return accumulator + weights[activity]
+          return accumulator + exerciseWeights[activity]
         }, 0) / physicalActivity.length
-      : defaultValue
+      : 0.29
+
+  const vocalBreathingRate =
+    vocalActivity.length > 0
+      ? vocalActivity.reduce((accumulator, activity) => {
+          return accumulator + vocalWeights[activity]
+        }, 0) / vocalActivity.length
+      : 0
 
   // If there's singing in the space, give it a value
-  const singingValue = vocalActivity.includes(3) ? 0.59 : 0
 
   // If the singing value is greater than the physical activity value, use it instead
-  return Math.max(breathingRate, singingValue)
+  return Math.max(vocalBreathingRate, exerciseBreathingRate)
 }
 
 export const calcRespiratoryActivity = (physicalActivity: number[], vocalActivity: number[]) => {
-  // Based on physical activity if there's no vocal activity
-  // Based on vocal activity otherwise
-  const defaultValue = 0.12
-
   const physicalWeights = [0.03, 0.12, 0.12, 0.25]
   const vocalWeights = [0.82, 2.04, 4.02, 27.47]
 
   const physicalAvg =
     physicalActivity.length > 0
       ? physicalActivity.reduce((accumulator, activity) => {
+          console.log(accumulator)
           return accumulator + physicalWeights[activity]
-        }) / physicalActivity.length
-      : undefined
+        }, 0) / physicalActivity.length
+      : 0.03
 
   const vocalAvg =
     vocalActivity.length > 0
       ? vocalActivity.reduce((accumulator, activity) => {
           return accumulator + vocalWeights[activity]
-        }) / vocalActivity.length
-      : undefined
+        }, 0) / vocalActivity.length
+      : 0
 
-  return vocalAvg ? vocalAvg : physicalAvg ? physicalAvg : defaultValue
+  return Math.max(vocalAvg, physicalAvg)
 }
 
 export const calcVentilation = (ventilationSelection: number) => {
-  const values = [0, 2.5, 5, 7.5, 10]
+  const values = [0.1, 2.5, 5, 7.5, 10]
   return values[ventilationSelection]
 }
 export const calcFiltration = (filtrationSelection: number) => {

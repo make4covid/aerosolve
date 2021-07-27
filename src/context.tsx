@@ -18,41 +18,53 @@ export type VaccinationData = {
   total: number
   risk: 'Baseline' | 'Average' | 'Above Average' | 'Below Average'
 }
+
+export type UserInputs = {
+  location: { state: string; county: string }
+  spaceTypeSelection: number
+  ceilingHeight: number
+  roomArea: number
+  ageGroups: number[]
+  vocalActivity: number[]
+  physicalActivity: number[]
+  maskTypes: number[]
+  maskFit: number[]
+  ventilation: number
+  filtration: number
+  recirculation: number
+  humidity: number
+}
+
+export type ModelParams = {
+  nOfPeople: number
+  sr_age_factor: number
+  sr_strain_factor: number
+  pim: number
+  floor_area: number
+  exp_time: number
+  mean_ceiling_height: number
+  air_exchange_rate: number
+  recirc_rate?: number
+  exhaled_air_inf: number
+  def_aerosol_radius: number
+  merv: number
+  breathing_flow_rate: number
+  mask_eff: number
+  mask_fit: number
+  relative_humidity: number
+}
+
+export type ProgressType = {
+  safeOccupancy: number
+  safeHours: number
+  targetHours: number
+  targetOccupancy: number
+}
+
 export interface AppState {
-  progress: { safeHours: number; targetHours: number; targetOccupancy: number }
-  userInputs: {
-    location: { state: string; county: string }
-    spaceTypeSelection: number
-    ceilingHeight: number
-    roomArea: number
-    ageGroups: number[]
-    vocalActivity: number[]
-    physicalActivity: number[]
-    maskTypes: number[]
-    maskFit: number[]
-    ventilation: number
-    filtration: number
-    recirculation: number
-    humidity: number
-  }
-  model: {
-    nOfPeople: number
-    sr_age_factor: number
-    sr_strain_factor: number
-    pim: number
-    floor_area: number
-    exp_time: number
-    mean_ceiling_height: number
-    air_exchange_rate: number
-    recirc_rate?: number
-    exhaled_air_inf: number
-    def_aerosol_radius: number
-    merv: number
-    breathing_flow_rate: number
-    mask_eff: number
-    mask_fit: number
-    relative_humidity: number
-  }
+  progress: ProgressType
+  userInputs: UserInputs
+  model: ModelParams
   vaccinations: {
     country?: VaccinationData
     state?: VaccinationData
@@ -74,6 +86,7 @@ const initialState: AppState = {
   progress: {
     safeHours: 2,
     targetHours: 10,
+    safeOccupancy: 10,
     targetOccupancy: 15,
   },
   userInputs: {
@@ -188,9 +201,17 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
         state.userInputs.physicalActivity,
         state.userInputs.vocalActivity
       )
+      state.model.breathing_flow_rate = calcBreathingRate(
+        state.userInputs.physicalActivity,
+        state.userInputs.vocalActivity
+      )
       return { ...state }
     case 'setPhysicalActivity':
       state.userInputs.physicalActivity = action.payload.value
+      state.model.exhaled_air_inf = calcRespiratoryActivity(
+        state.userInputs.physicalActivity,
+        state.userInputs.vocalActivity
+      )
       state.model.breathing_flow_rate = calcBreathingRate(
         state.userInputs.physicalActivity,
         state.userInputs.vocalActivity
@@ -230,6 +251,7 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       return { ...state }
     case 'setSafeRecommendations':
       state.progress.safeHours = action.payload.safeHours
+      state.progress.safeOccupancy = action.payload.safeOccupancy
       return { ...state }
     case 'setDefaults':
       state.userInputs = { ...state.userInputs, ...action.payload.userInputs }

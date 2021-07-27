@@ -18,47 +18,60 @@ export type VaccinationData = {
   total: number
   risk: 'Baseline' | 'Average' | 'Above Average' | 'Below Average'
 }
+
+export type UserInputs = {
+  location: { state: string; county: string }
+  spaceTypeSelection: number
+  ceilingHeight: number
+  roomArea: number
+  ageGroups: number[]
+  vocalActivity: number[]
+  physicalActivity: number[]
+  maskTypes: number[]
+  maskFit: number[]
+  ventilation: number
+  filtration: number
+  recirculation: number
+  humidity: number
+}
+
+export type ModelParams = {
+  nOfPeople: number
+  sr_age_factor: number
+  sr_strain_factor: number
+  pim: number
+  floor_area: number
+  exp_time: number
+  mean_ceiling_height: number
+  air_exchange_rate: number
+  recirc_rate?: number
+  exhaled_air_inf: number
+  def_aerosol_radius: number
+  merv: number
+  breathing_flow_rate: number
+  mask_eff: number
+  mask_fit: number
+  relative_humidity: number
+}
+
+export type ProgressType = {
+  safeOccupancy: number
+  safeHours: number
+  targetHours: number
+  targetOccupancy: number
+}
+
 export interface AppState {
-  progress: { safeHours: number; targetHours: number; targetOccupancy: number }
-  userInputs: {
-    location: { state: string; county: string }
-    roomTypeSelection: number
-    ceilingHeight: number
-    roomArea: number
-    ageGroups: number[]
-    vocalActivity: number[]
-    physicalActivity: number[]
-    maskTypes: number[]
-    maskFit: number[]
-    ventilation: number
-    filtration: number
-    recirculation: number
-    humidity: number
-  }
-  model: {
-    nOfPeople: number
-    sr_age_factor: number
-    sr_strain_factor: number
-    pim: number
-    floor_area: number
-    exp_time: number
-    mean_ceiling_height: number
-    air_exchange_rate: number
-    recirc_rate?: number
-    exhaled_air_inf: number
-    def_aerosol_radius: number
-    merv: number
-    breathing_flow_rate: number
-    mask_eff: number
-    mask_fit: number
-    relative_humidity: number
-  }
+  progress: ProgressType
+  userInputs: UserInputs
+  model: ModelParams
   vaccinations: {
     country?: VaccinationData
     state?: VaccinationData
     county?: VaccinationData
   }
   stepStatus: StepStatus
+  stepsComplete: boolean
 }
 
 type AppContextType = [
@@ -73,11 +86,12 @@ const initialState: AppState = {
   progress: {
     safeHours: 2,
     targetHours: 10,
+    safeOccupancy: 10,
     targetOccupancy: 15,
   },
   userInputs: {
     ceilingHeight: 12,
-    roomTypeSelection: -1,
+    spaceTypeSelection: -1,
     roomArea: 1000,
     ageGroups: [1],
     vocalActivity: [1],
@@ -103,7 +117,7 @@ const initialState: AppState = {
     exhaled_air_inf: 2.04,
     def_aerosol_radius: 2,
     merv: 6,
-    breathing_flow_rate: 0.29,
+    breathing_flow_rate: 0.32,
     mask_eff: 0.5,
     mask_fit: 0.35,
     relative_humidity: 0.6,
@@ -126,6 +140,7 @@ const initialState: AppState = {
     '/mask-fit': { complete: false },
     '/ventilation-filtration': { complete: false },
   },
+  stepsComplete: false,
 }
 
 export { initialState }
@@ -148,12 +163,14 @@ export type Actions =
   | 'setHumidity'
   | 'setVaccinationData'
   | 'setSafeRecommendations'
-  | 'setRoomTypeSelection'
+  | 'setSpaceTypeSelection'
+  | 'setDefaults'
 
 export const contextReducer = (state: AppState, action: { type: Actions; payload: any }) => {
   switch (action.type) {
     case 'setStepCompleted':
       state.stepStatus[action.payload.step as string].complete = true
+      state.stepsComplete = !Object.values(state.stepStatus).some((step) => !step.complete)
       return { ...state }
     case 'setTargetHours':
       state.progress.targetHours = action.payload.value
@@ -163,9 +180,9 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       state.progress.targetOccupancy = action.payload.value
       state.model.nOfPeople = action.payload.value
       return { ...state }
-    case 'setRoomTypeSelection':
-      state.userInputs.roomTypeSelection = action.payload.value
-      return {...state}
+    case 'setSpaceTypeSelection':
+      state.userInputs.spaceTypeSelection = action.payload.value
+      return { ...state }
     case 'setCeilingHeight':
       state.userInputs.ceilingHeight = action.payload.value
       state.model.mean_ceiling_height = action.payload.value
@@ -173,8 +190,6 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
     case 'setRoomArea':
       state.userInputs.roomArea = action.payload.value
       state.model.floor_area = action.payload.value
-      console.log(state.userInputs.roomArea)
-      console.log(state.model.floor_area)
       return { ...state }
     case 'setAgeGroups':
       state.userInputs.ageGroups = action.payload.value
@@ -186,9 +201,17 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
         state.userInputs.physicalActivity,
         state.userInputs.vocalActivity
       )
+      state.model.breathing_flow_rate = calcBreathingRate(
+        state.userInputs.physicalActivity,
+        state.userInputs.vocalActivity
+      )
       return { ...state }
     case 'setPhysicalActivity':
       state.userInputs.physicalActivity = action.payload.value
+      state.model.exhaled_air_inf = calcRespiratoryActivity(
+        state.userInputs.physicalActivity,
+        state.userInputs.vocalActivity
+      )
       state.model.breathing_flow_rate = calcBreathingRate(
         state.userInputs.physicalActivity,
         state.userInputs.vocalActivity
@@ -203,47 +226,25 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       state.model.mask_fit = calcMaskFit(action.payload.value)
       return { ...state }
     case 'setVentilation':
-      if (action.payload.needCalculator) {
-        state.userInputs.ventilation = action.payload.value
-        state.model.air_exchange_rate = calcVentilation(action.payload.value)
-      }
-      else {
-        state.userInputs.ventilation = action.payload.value
-        state.model.air_exchange_rate = action.payload.value
-      }
+      state.userInputs.ventilation = action.payload.value
+      state.model.air_exchange_rate = calcVentilation(action.payload.value)
       return { ...state }
     case 'setFiltration':
-      if (action.payload.needCalculator) {
-        state.userInputs.filtration = action.payload.value
-        state.model.merv = calcFiltration(action.payload.value)
-      }
-      else{
-        state.userInputs.filtration = action.payload.value
-        state.model.merv = action.payload.value
-      }
+      state.userInputs.filtration = action.payload.value
+      state.model.merv = calcFiltration(action.payload.value)
       return { ...state }
     case 'setRecirculation':
-      if (action.payload.needCalculator){
-        state.userInputs.recirculation = action.payload.value
-        state.model.recirc_rate = calcRecirculation(action.payload.value)
-      }
-      else{
-        state.userInputs.recirculation = action.payload.value
-        state.model.recirc_rate = action.payload.value
-      }
+      state.userInputs.recirculation = action.payload.value
+      state.model.recirc_rate = calcRecirculation(action.payload.value)
+
       return { ...state }
     case 'setHumidity':
-      if (action.payload.needCalculator) {
-        state.userInputs.humidity = action.payload.value
-        state.model.relative_humidity = calcHumidity(action.payload.value)
-      }
-      else{
-        state.userInputs.humidity = action.payload.value
-        state.model.relative_humidity = action.payload.value
-      }
+      state.userInputs.humidity = action.payload.value
+      state.model.relative_humidity = calcHumidity(action.payload.value)
       return { ...state }
     case 'setLocation':
-      state.userInputs.location = action.payload
+      console.log(action.payload)
+      state.userInputs.location = { ...state.userInputs.location, ...action.payload }
       return { ...state }
     case 'setVaccinationData':
       state.vaccinations = { ...state.vaccinations, ...action.payload }
@@ -251,6 +252,25 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       return { ...state }
     case 'setSafeRecommendations':
       state.progress.safeHours = action.payload.safeHours
+      state.progress.safeOccupancy = action.payload.safeOccupancy
+      return { ...state }
+    case 'setDefaults':
+      state.userInputs = { ...state.userInputs, ...action.payload.userInputs }
+      state.model = { ...state.model, ...action.payload.model }
+
+      // Transfer values for room dimensions
+      // Calculate values for age groups, vocal, and physical activity
+      state.model.floor_area = state.userInputs.roomArea
+      state.model.mean_ceiling_height = state.userInputs.ceilingHeight
+      state.model.sr_age_factor = calcAgeFactor(state.userInputs.ageGroups)
+      state.model.breathing_flow_rate = calcBreathingRate(
+        state.userInputs.physicalActivity,
+        state.userInputs.vocalActivity
+      )
+      state.model.exhaled_air_inf = calcRespiratoryActivity(
+        state.userInputs.physicalActivity,
+        state.userInputs.vocalActivity
+      )
       return { ...state }
     default:
       throw new Error(`There is no action called '${action.type}'`)

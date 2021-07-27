@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { StepViewProps } from 'data'
 import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
 import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
@@ -38,6 +38,8 @@ export const VocalActivity: React.FC<StepViewProps> = (props) => {
   const [{ userInputs }, dispatch] = useContext(AppContext)
   const [selected, setSelected] = useState(userInputs.vocalActivity)
 
+  useEffect(() => props.onComplete(), [])
+
   const debouncedUpdate = useCallback(
     debounce(
       (selected) => dispatch({ type: 'setVocalActivity', payload: { value: selected } }),
@@ -54,7 +56,7 @@ export const VocalActivity: React.FC<StepViewProps> = (props) => {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-full mt-2">
+    <div className="flex flex-col w-full min-h-full">
       <SelectAllLabel />
       <SelectionCardGroup
         options={options}

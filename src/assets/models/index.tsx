@@ -1,4 +1,5 @@
 import abstract from './abstract.png'
+import abstractParticles from './abstractParticles.png'
 import airplane from './airplane.png'
 import classroom from './classroom.png'
 import livingroom from './livingroom.png'
@@ -10,6 +11,7 @@ import office from './office.png'
 
 export {
   abstract,
+  abstractParticles,
   airplane,
   classroom,
   livingroom,

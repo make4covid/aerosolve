@@ -63,6 +63,7 @@ export const SelectionCardGroup: React.FC<SelectionCardGroupProps> = ({
       {props.options.map((option, index) => (
         <SelectionCard
           {...option}
+          key={option.title}
           selected={selected?.includes(index)}
           onClick={() => {
             toggle(index)

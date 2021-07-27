@@ -5,7 +5,7 @@ import { AerosolveLogo } from 'components/AerosolveLogo/AerosolveLogo'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import { AppContext, useContextReducer } from './context'
-import { PageHeader } from 'components/PageHeader/PageHeader'
+import { HeaderWrapper } from 'components/PageHeader/PageHeader'
 
 import { Home } from 'views'
 
@@ -14,6 +14,8 @@ import { PageFooter } from './components/PageFooter/PageFooter'
 import { getIndoorModel } from 'service/IndoorService'
 import { useCallback } from 'react'
 import debounce from 'lodash.debounce'
+import { RecommendationList } from 'views/RecommendationList'
+import { Information } from 'views/Information'
 
 const App: React.FC<{}> = () => {
   const [context, dispatch] = useContextReducer()
@@ -24,26 +26,28 @@ const App: React.FC<{}> = () => {
   }
 
   const debounceFetchModel = useCallback(
-    debounce((model) => {
-      getIndoorModel(model).then((r: any) => {
-        console.log(r)
-        dispatch({
-          type: 'setSafeRecommendations',
-          payload: { safeHours: r['max_hour'] },
+    (model) => {
+      debounce(() => {
+        getIndoorModel(model).then((r: any) => {
+          dispatch({
+            type: 'setSafeRecommendations',
+            payload: { safeHours: r['max_hour'], safeOccupancy: r['max_people'] },
+          })
         })
-      })
-    }, 400),
-    []
+      }, 400)
+    },
+    [dispatch]
   )
 
   useEffect(() => {
     debounceFetchModel(context.model)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, Object.values(context.model))
 
   return (
     <Router>
       <AppContext.Provider value={[context, dispatch]}>
-        <div className="max-h-screen max-w-screen">
+        <div className="max-w-screen max-h-screen">
           <Switch>
             <Route exact path="/">
               <Home startRoute={data.steps[0].route} />
@@ -55,7 +59,7 @@ const App: React.FC<{}> = () => {
               shadow={false}
               open
               sidebar={
-                <div className="w-full">
+                <div className="flex flex-col w-full h-full">
                   <Link to="/">
                     <AerosolveLogo />
                   </Link>
@@ -63,30 +67,39 @@ const App: React.FC<{}> = () => {
                 </div>
               }
             >
-              <div
-                style={{ height: 'calc(100vh - 2.5rem)' }}
-                className="container w-full max-w-5xl py-5 mx-auto overflow-scroll min-w-2xl"
-              >
-                <PageHeader />
-                {data.steps.map((step, i) => {
-                  const StepView = step.component
-                  return (
-                    <Route exact path={step.route}>
-                      <div className="px-12">
-                        <div style={{ height: 'calc(100vh - 14.9rem)' }} className="pt-6 pb-3">
+              <div className="flex flex-col justify-between w-full h-screen max-h-screen">
+                <div className="min-w-2xl container flex-grow-0 flex-shrink-0 w-11/12 max-w-6xl mx-auto mt-4">
+                  <HeaderWrapper />
+                </div>
+                <div className="min-w-2xl container flex flex-col flex-grow flex-shrink w-11/12 h-full max-w-6xl mx-auto mt-6 overflow-scroll">
+                  {data.steps.map((step, i) => {
+                    const StepView = step.component
+                    return (
+                      <Route key={step.route} exact path={step.route}>
+                        <div className="h-full px-12 pt-2 pb-2">
                           <StepView
                             onComplete={() => {
                               completeStep(step.route)
                             }}
                           />
                         </div>
-                      </div>
-                    </Route>
-                  )
-                })}
-              </div>
-              <div className="absolute bottom-0 w-full mb-1 bg-white border-t border-gray-200 h-14">
-                <PageFooter className="w-full max-w-5xl pt-2.5 pb-2 mx-auto  min-w-2xl px-12" />
+                      </Route>
+                    )
+                  })}
+                  <Route exact path="/recommendations">
+                    <div className="px-12 pb-4 mt-6">
+                      <RecommendationList />
+                    </div>
+                  </Route>
+                  <Route exact path="/information">
+                    <div className="px-12 pb-12">
+                      <Information />
+                    </div>
+                  </Route>
+                </div>
+                <div className="z-10 w-full bg-white border-t border-gray-200">
+                  <PageFooter className="pt-2.5 min-w-2xl mb-2.5 w-11/12 max-w-6xl px-12 mx-auto" />
+                </div>
               </div>
             </Sidebar>
           </Switch>

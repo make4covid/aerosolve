@@ -1,162 +1,248 @@
-import React, {useContext, useState} from 'react'
-import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
-import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
+import React, { useContext } from 'react'
 import { StepViewProps } from 'data'
 import { SpaceType, SpaceTypeProps } from 'components/SpaceType/SpaceType'
 import * as Models from 'assets/models'
 import tw, { styled } from 'twin.macro'
 import { RiskChip } from 'components/RiskChip/RiskChip'
-import clsx from 'clsx'
+import { AppContext } from '../../../context'
 import { useEffect } from 'react'
-import {AppContext} from "../../../context";
+import { useState } from 'react'
 
-let options: SpaceTypeProps[] = [
+type SpaceDefaultValues = {
+  props: SpaceTypeProps
+  model: {
+    air_exchange_rate: number
+    recirc_rate: number
+    merv: number
+  }
+  userInputs: {
+    ceilingHeight: number
+    roomArea: number
+    ageGroups: number[]
+    vocalActivity: number[]
+    physicalActivity: number[]
+    ventilation: number
+    filtration: number
+    recirculation: number
+  }
+}
+
+let spaceTypes: SpaceDefaultValues[] = [
   {
-    label: 'Living Room',
-    risk: 'Low',
-    img: Models.livingroom,
-    floorArea: 400,
-    ceilingHeight: 9,
-    ventilation: 3,
-    filtration: 6,
-    recircRate: 1,
-    rh: 0.6
+    props: {
+      label: 'Living Room',
+      risk: 'Low',
+      img: Models.livingroom,
+    },
+    model: {
+      air_exchange_rate: 3,
+      merv: 6,
+      recirc_rate: 1,
+    },
+    userInputs: {
+      roomArea: 400,
+      ceilingHeight: 9,
+      ageGroups: [0, 1, 2],
+      vocalActivity: [1],
+      physicalActivity: [0],
+      ventilation: 1,
+      filtration: 1,
+      recirculation: 1,
+    },
   },
   {
-    label: 'Classroom',
-    risk: 'Low',
-    img: Models.classroom,
-    floorArea: 910,
-    ceilingHeight: 12,
-    ventilation: 3,
-    filtration: 6,
-    recircRate: 1,
-    rh: 0.6
+    props: { label: 'Classroom', risk: 'Low', img: Models.classroom },
+    model: {
+      air_exchange_rate: 3,
+      merv: 6,
+      recirc_rate: 1,
+    },
+    userInputs: {
+      roomArea: 910,
+      ceilingHeight: 12,
+      ageGroups: [0, 1, 2],
+      vocalActivity: [1],
+      physicalActivity: [0],
+      ventilation: 1,
+      filtration: 1,
+      recirculation: 1,
+    },
   },
   {
-    label: 'Place of Worship',
-    risk: 'Medium',
-    img: Models.placeofworship,
-    floorArea: 1900,
-    ceilingHeight: 30,
-    ventilation: 2,
-    filtration: 6,
-    recircRate: 1,
-    rh: 0.6
+    props: { label: 'Place of Worship', risk: 'Medium', img: Models.placeofworship },
+    model: {
+      air_exchange_rate: 2,
+      merv: 6,
+      recirc_rate: 1,
+    },
+    userInputs: {
+      roomArea: 1900,
+      ceilingHeight: 30,
+      ageGroups: [0, 1, 2],
+      vocalActivity: [1],
+      physicalActivity: [0],
+      ventilation: 1,
+      filtration: 1,
+      recirculation: 1,
+    },
   },
   {
-    label: 'Restaurant',
-    risk: 'Medium',
-    img: Models.restaraunt,
-    floorArea: 1000,
-    ceilingHeight: 12,
-    ventilation: 9,
-    filtration: 6,
-    recircRate: 1,
-    rh: 0.6
+    props: { label: 'Restaurant', risk: 'Medium', img: Models.restaraunt },
+    model: {
+      air_exchange_rate: 9,
+      merv: 6,
+      recirc_rate: 1,
+    },
+    userInputs: {
+      roomArea: 1000,
+      ceilingHeight: 12,
+      ageGroups: [1],
+      vocalActivity: [1, 2],
+      physicalActivity: [0],
+      ventilation: 3,
+      filtration: 1,
+      recirculation: 1,
+    },
   },
   {
-    label: 'Office',
-    risk: 'Medium',
-    img: Models.office,
-    floorArea: 10000,
-    ceilingHeight: 12,
-    ventilation: 8,
-    filtration: 10,
-    recircRate: 1,
-    rh: 0.6
+    props: { label: 'Office', risk: 'Medium', img: Models.office },
+    model: {
+      air_exchange_rate: 8,
+      merv: 10,
+      recirc_rate: 1,
+    },
+    userInputs: {
+      roomArea: 10000,
+      ceilingHeight: 12,
+      ageGroups: [1],
+      vocalActivity: [0, 1],
+      physicalActivity: [0],
+      ventilation: 1,
+      filtration: 2,
+      recirculation: 1,
+    },
   },
   {
-    label: 'Bus / Train',
-    risk: 'High',
-    img: Models.abstract,
-    floorArea: 380,
-    ceilingHeight: 10,
-    ventilation: 8,
-    filtration: 6,
-    recircRate: 1,
-    rh: 0.6
+    props: { label: 'Bus / Train / Subway', risk: 'High', img: Models.abstract },
+    model: {
+      air_exchange_rate: 18,
+      merv: 6,
+      recirc_rate: 54,
+    },
+    userInputs: {
+      roomArea: 380,
+      ceilingHeight: 9,
+      ageGroups: [1, 2],
+      vocalActivity: [0],
+      physicalActivity: [0],
+      ventilation: 5,
+      filtration: 1,
+      recirculation: 5,
+    },
   },
   {
-    label: 'Commercial Airline',
-    risk: 'High',
-    img: Models.airplane,
-    floorArea: 1440,
-    ceilingHeight: 6.7,
-    ventilation: 24,
-    filtration: 17,
-    recircRate: 24,
-    rh: 0.2
+    props: { label: 'Commercial Airline', risk: 'High', img: Models.airplane },
+    model: {
+      air_exchange_rate: 24,
+      merv: 17,
+      recirc_rate: 24,
+    },
+    userInputs: {
+      roomArea: 1440,
+      ceilingHeight: 9,
+      ageGroups: [1, 2],
+      vocalActivity: [0],
+      physicalActivity: [0],
+      ventilation: 5,
+      filtration: 5,
+      recirculation: 5,
+    },
   },
-  /*What the value?*/
   {
-    label: 'Museum / Gallery',
-    risk: 'High',
-    img: Models.museum,
-    floorArea: 6000 ,
-    ceilingHeight:13,
-    ventilation: 24,
-    filtration: 17,
-    recircRate: 1,
-    rh: 0.60
+    props: { label: 'Museum / Gallery', risk: 'High', img: Models.museum },
+    model: {
+      air_exchange_rate: 8,
+      merv: 10,
+      recirc_rate: 1,
+    },
+    userInputs: {
+      roomArea: 6000,
+      ceilingHeight: 16,
+      ageGroups: [1, 2],
+      vocalActivity: [0],
+      physicalActivity: [1],
+      ventilation: 4,
+      filtration: 3,
+      recirculation: 1,
+    },
   },
-  /*What the value?*/
   {
-    label: 'Gym / Fitness Center',
-    risk: 'High',
-    img: Models.gym,
-    floorArea: 1500,
-    ceilingHeight: 20,
-    ventilation: 2.2,
-    filtration: 12,
-    recircRate: 1,
-    rh: 0.6
+    props: { label: 'Gym / Fitness Center', risk: 'High', img: Models.gym },
+    model: {
+      air_exchange_rate: 8,
+      merv: 10,
+      recirc_rate: 1,
+    },
+    userInputs: {
+      roomArea: 3000,
+      ceilingHeight: 20,
+      ageGroups: [1],
+      vocalActivity: [0],
+      physicalActivity: [2, 3],
+      ventilation: 4,
+      filtration: 3,
+      recirculation: 1,
+    },
   },
 ]
 
-const OptionGrid = tw.div`grid grid-rows-3 grid-cols-3 gap-4 mt-5`
-// const Option = tw.div`pt-2 pb-3 px-3 rounded-lg font-semibold text-gray-700`
+const OptionGrid = tw.div`grid grid-cols-3 grid-rows-3 gap-4 mt-5`
+// const Option = tw.div`px-3 pt-2 pb-3 font-semibold text-gray-700 rounded-lg`
 const Option = styled.div((props: { selected: boolean }) => [
-  tw`px-3 pt-2 pb-3 font-semibold text-gray-700 transition duration-300 rounded-lg cursor-pointer select-none hover:shadow-lg`,
-  props.selected && tw`bg-white bg-blue-200 `,
+  tw`hover:shadow-lg px-3 pt-2 pb-3 font-semibold text-gray-700 transition duration-300 rounded-lg cursor-pointer select-none`,
+  props.selected && tw` bg-white bg-blue-200`,
   props.selected || tw`bg-gray-100 border-transparent`,
 ])
 
 export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
   const [context, dispatch] = useContext(AppContext)
-  const {
-    userInputs: { roomTypeSelection },
-  } = context
 
-  const setRoomArea = (value?: number) => dispatch({ type: 'setRoomArea', payload: { value } })
-  const setCeilingHeight = (value?: number) => dispatch({ type: 'setCeilingHeight', payload: { value } })
-  const setVentilation = (value?: number) => dispatch({ type: 'setVentilation', payload: { value:value, needCalculator:false } })
-  const setFiltration = (value?: number) => dispatch({ type: 'setFiltration', payload: { value:value, needCalculator:false } })
-  const setRecirculation = (value?: number) => dispatch({ type: 'setRecirculation', payload: { value:value, needCalculator:false }  })
-  const setHumidity = (value?: number) => dispatch({ type: 'setHumidity', payload: { value:value, needCalculator:false } })
-  const setRoomTypeSelection = (value:number) => dispatch({type: 'setRoomTypeSelection', payload:{value}})
+  useEffect(() => props.onComplete())
+
+  const [spaceTypeSelection, setSpaceTypeSelection] = useState(
+    context.userInputs.spaceTypeSelection
+  )
+
+  useEffect(() => {
+    if (spaceTypeSelection === -1 || spaceTypeSelection === context.userInputs.spaceTypeSelection)
+      return
+    const space = spaceTypes[spaceTypeSelection]
+    const payload = { model: space.model, userInputs: { ...space.userInputs, spaceTypeSelection } }
+    dispatch({ type: 'setDefaults', payload })
+  }, [spaceTypeSelection, dispatch])
 
   return (
     <div className="flex flex-col w-full min-h-full">
-      {(roomTypeSelection == -1 ? <SpaceType img={Models.abstract} label="Generic Room" />:<SpaceType {...options[roomTypeSelection]}/> )}
+      {spaceTypeSelection === -1 ? (
+        <SpaceType img={Models.abstract} label="Generic Room" />
+      ) : (
+        <SpaceType {...spaceTypes[spaceTypeSelection].props} />
+      )}
       <OptionGrid>
-        {options.map((option, index) => (
+        {spaceTypes.map(({ props: option }, index) => (
           <Option
-            selected= {(roomTypeSelection === index)}
-            // className={clsx(selected === index && `border-${riskColors[option.risk!]}-500`)}
+            key={option.label}
+            selected={spaceTypeSelection === index}
             onClick={() => {
               props.onComplete()
-              roomTypeSelection === index ? setRoomTypeSelection(-1) : setRoomTypeSelection(index)
-              setRoomArea(option.floorArea)
-              setCeilingHeight(option.ceilingHeight)
-              setVentilation(option.ventilation)
-              setFiltration(option.filtration)
-              setRecirculation(option.recircRate)
-              setHumidity(option.rh)
+              setSpaceTypeSelection(index)
+              // spaceTypeSelection === index
+              //   ? setSpaceTypeSelection(-1)
+              //   : setSpaceTypeSelection(index)
             }}
           >
             {option.label}
-            <RiskChip risk={option.risk!} className="mt-2 bg-gray-100 max-w-min"></RiskChip>
+            <RiskChip risk={option.risk!} className="max-w-min mt-2 bg-gray-100"></RiskChip>
           </Option>
         ))}
       </OptionGrid>

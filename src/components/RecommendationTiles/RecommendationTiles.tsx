@@ -10,7 +10,7 @@ export const RecommendationTiles: React.FC<{}> = (props) => {
   return (
     <div className="grid w-full max-w-md grid-cols-3 grid-rows-3 gap-3">
       {tiles.map((tile) => (
-        <RecommendationTile {...tile}></RecommendationTile>
+        <RecommendationTile {...tile} key={tile.description}></RecommendationTile>
       ))}
     </div>
   )

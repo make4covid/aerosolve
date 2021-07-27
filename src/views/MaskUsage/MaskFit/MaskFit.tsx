@@ -40,7 +40,7 @@ export const MaskFit: React.FC<StepViewProps> = (props) => {
   useEffect(() => props.onComplete(), [])
 
   return (
-    <div className="w-full mt-10">
+    <div className="w-full">
       <div className="relative inline-block mb-4 text-gray-600">
         <p className="inline-block text-sm">
           Please select the option that best describes your space.

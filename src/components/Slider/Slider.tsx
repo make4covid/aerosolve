@@ -26,7 +26,7 @@ export const Slider: React.FC<SliderProps> = ({
   const [dragging, setDragging] = useState(false)
   const [dragValue, setDragValue] = useState(null as number | null)
   const [indicatorPosition, setIndicatorPosition] = useState(
-    `${(100 * (value - min)) / (max - min)}%`
+    `${Math.min((100 * (value - min)) / (max - min), 100)}%`
   )
 
   const containerRef = useRef<HTMLDivElement>(null)
@@ -65,7 +65,7 @@ export const Slider: React.FC<SliderProps> = ({
   const valueFromPosition = (position: number) => (max - min) * position + min
 
   useEffect(() => {
-    !dragging && setIndicatorPosition(`${(100 * (value - min)) / (max - min)}%`)
+    !dragging && setIndicatorPosition(`${Math.min((100 * (value - min)) / (max - min), 100)}%`)
   }, [value, dragging])
 
   const tickArray = []
@@ -95,8 +95,9 @@ export const Slider: React.FC<SliderProps> = ({
           dragValue || (value >= v && 'bg-blue-500')
         )}
       />
-      <div className="overflow-visible text-sm text-center select-none filter drop-shadow-none">
+      <div className="filter drop-shadow-none overflow-visible text-sm text-center select-none">
         {v.toLocaleString()}
+        {v >= max && v < value && '+'}
       </div>
     </div>
   ))
@@ -105,7 +106,7 @@ export const Slider: React.FC<SliderProps> = ({
     <div
       ref={containerRef}
       style={{ cursor: dragging ? 'grabbing' : 'auto' }}
-      className="flex flex-col w-full pb-5 mb-2.5 px-2 border-blue-500"
+      className="mb-2.5 px-2.5 flex flex-col w-full pb-5 border-blue-500"
       onMouseMove={(e): void => {
         if (dragging) {
           const dragPercent = mousePercentPosition(containerRef, e)
@@ -125,7 +126,7 @@ export const Slider: React.FC<SliderProps> = ({
         </div>
       </div>
       <div
-        className="relative cursor-pointer filter drop-shadow-md"
+        className="filter drop-shadow-md relative cursor-pointer"
         onClick={(e) => {
           const position = mousePercentPosition(containerRef, e)
           onChange(Math.round(valueFromPosition(position)))

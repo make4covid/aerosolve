@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Images from 'assets/images'
 import { SelectionCardGroup } from 'components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from 'components/SelectionCard/SelectionCard'
@@ -35,20 +35,16 @@ export const OccupantAgeGroups: React.FC<StepViewProps> = (props) => {
   const [{ userInputs }, dispatch] = useContext(AppContext)
   const [selected, setSelected] = useState(userInputs.ageGroups)
 
-  const debouncedUpdate = useCallback(
-    debounce((selected) => dispatch({ type: 'setAgeGroups', payload: { value: selected } }), 1000),
-    []
-  )
+  useEffect(() => props.onComplete(), [])
 
   const update = (selected: number[]) => {
-    // debouncedUpdate(selected)
     setSelected(selected)
     dispatch({ type: 'setAgeGroups', payload: { value: selected } })
     props.onComplete()
   }
 
   return (
-    <div className="flex flex-col w-full h-full mt-2">
+    <div className="flex flex-col w-full h-full">
       <SelectAllLabel />
 
       <SelectionCardGroup

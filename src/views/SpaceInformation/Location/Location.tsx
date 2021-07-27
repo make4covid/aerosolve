@@ -15,9 +15,9 @@ import { stateCodes } from 'data/state-county'
 import { CovidCard } from 'components/CovidCard/CovidCard'
 import { RiskChip } from 'components/RiskChip/RiskChip'
 
-const Section = tw.div`p-4 rounded-xl bg-gray-100`
-const Card = tw.div` bg-gray-200 rounded-lg overflow-hidden h-full`
-const Placeholder = tw.div`h-full flex flex-col text-2xl text-gray-400 items-center justify-center`
+const Section = tw.div`rounded-xl p-4 bg-gray-100`
+const Card = tw.div` h-full overflow-hidden bg-gray-200 rounded-lg`
+const Placeholder = tw.div`flex flex-col items-center justify-center h-full text-2xl text-gray-400`
 
 export const Location: React.FC<StepViewProps> = (props) => {
   const [{ userInputs, vaccinations }, dispatch] = useContext(AppContext)
@@ -29,12 +29,13 @@ export const Location: React.FC<StepViewProps> = (props) => {
   const [risk, setRisk] = useState('Medium' as 'Low' | 'Medium' | 'High')
 
   useEffect(() => {
-    // dispatch({ type: 'setVaccinationData', payload: { county: undefined } })
-    dispatch({ type: 'setLocation', payload: { state, county } })
+    if (county === userInputs.location.county) return
+    dispatch({ type: 'setLocation', payload: { county } })
   }, [county])
 
   useEffect(() => {
-    // dispatch({ type: 'setVaccinationData', payload: { state: undefined } })
+    if (state === userInputs.location.state) return
+    setCounty('County')
     dispatch({ type: 'setLocation', payload: { state, county: 'County' } })
   }, [state])
 
@@ -50,6 +51,7 @@ export const Location: React.FC<StepViewProps> = (props) => {
     setRisk(risk)
   }, [vaccinations])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => props.onComplete(), [])
 
   return (
@@ -66,14 +68,14 @@ export const Location: React.FC<StepViewProps> = (props) => {
             <CountryCard />
           </Card>
           <Card>
-            {state != 'State' ? (
+            {state !== 'State' ? (
               <StateCard state={state} />
             ) : (
               <Placeholder>Select a State</Placeholder>
             )}
           </Card>
           <Card>
-            {county != 'County' ? (
+            {county !== 'County' ? (
               <CountyCard state={state} county={county} />
             ) : (
               <Placeholder>Select a County</Placeholder>
@@ -139,11 +141,16 @@ const StateCard: React.FC<{ state: string }> = (props) => {
         dispatch({ type: 'setVaccinationData', payload: { state } })
         setLoading(false)
       })
-      .catch((e) => setError(e.name))
+      .catch((e) => {
+        setLoading(false)
+        setError(e.name)
+      })
   }, [props.state])
 
   return loading ? (
     <FetchLoading />
+  ) : error ? (
+    <FetchError label={`${props.state}`} />
   ) : vaccinations.state ? (
     <CovidCard
       label={props.state}
@@ -151,8 +158,6 @@ const StateCard: React.FC<{ state: string }> = (props) => {
       total={vaccinations.state.total}
       risk={vaccinations.state.risk}
     />
-  ) : error ? (
-    <FetchError label={`${props.state}`} />
   ) : (
     <div></div>
   )
@@ -165,6 +170,7 @@ const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
 
   useEffect(() => {
     setError('')
+    console.log('Reset error')
     setLoading(true)
     getCountyVaccineData(stateCodes[props.state], props.county)
       .then((data) => {
@@ -175,11 +181,17 @@ const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
         dispatch({ type: 'setVaccinationData', payload: { county } })
         setLoading(false)
       })
-      .catch((e: Error) => setError(e.name))
+      .catch((e: Error) => {
+        console.log(e)
+        setLoading(false)
+        setError(e.name)
+      })
   }, [props.county])
 
   return loading ? (
     <FetchLoading />
+  ) : error !== '' ? (
+    <FetchError label={`${props.county}`} />
   ) : vaccinations.county ? (
     <CovidCard
       label={props.county}
@@ -187,8 +199,6 @@ const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
       total={vaccinations.county.total}
       risk={vaccinations.county.risk}
     />
-  ) : error ? (
-    <FetchError label={`${props.county}`} />
   ) : (
     <div></div>
   )
@@ -196,16 +206,16 @@ const CountyCard: React.FC<{ state: string; county: string }> = (props) => {
 
 export const FetchError: React.FC<{ label: string }> = (props) => {
   return (
-    <div className="flex flex-col items-center justify-center h-full mx-10 font-semibold text-center text-red-600 opacity-60">
+    <div className="opacity-60 flex flex-col items-center justify-center h-full mx-10 font-semibold text-center text-red-600">
       Vaccination data is unavailable for {props.label}.
     </div>
   )
 }
 export const FetchLoading: React.FC<{}> = () => {
   return (
-    <div className="flex flex-col w-full h-full gap-2 p-5 animate-pulse">
+    <div className="animate-pulse flex flex-col w-full h-full gap-2 p-5">
       <div className="w-1/2 h-5 bg-gray-300 rounded-lg"></div>
-      <div className="flex-grow w-full bg-gray-300 rounded-lg h-1/2"></div>
+      <div className="h-1/2 flex-grow w-full bg-gray-300 rounded-lg"></div>
     </div>
   )
 }

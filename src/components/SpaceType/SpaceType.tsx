@@ -5,27 +5,21 @@ export type SpaceTypeProps = {
   label: string
   img: string
   risk?: 'High' | 'Medium' | 'Low'
-  floorArea?: number,
-  ceilingHeight?: number,
-  ventilation?: number,
-  filtration?: number,
-  recircRate?: number,
-  rh?: number
 }
 
 export const SpaceType: React.FC<SpaceTypeProps> = (props) => {
   return (
-    <div className="relative flex flex-row items-center justify-between w-full h-40 overflow-hidden bg-gray-100 shadow-lg rounded-xl">
+    <div className="rounded-xl relative flex flex-row items-center justify-between w-full h-40 overflow-hidden bg-gray-100 shadow-lg">
       <div className="ml-5 text-2xl font-semibold text-gray-600">{props.label}</div>
       <Suspense fallback={<div></div>}>
         <img
           src={props.img}
           alt={props.label}
-          className="object-cover w-7/12 min-h-full mix-blend-multiply"
+          className="mix-blend-multiply object-cover w-7/12 min-h-full"
         />
       </Suspense>
       {props.risk && (
-        <RiskChip risk={props.risk} className="absolute bg-white bg-opacity-80 top-3 right-3 " />
+        <RiskChip risk={props.risk} className="bg-opacity-80 top-3 right-3  absolute bg-white" />
       )}
     </div>
   )

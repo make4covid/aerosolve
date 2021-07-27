@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { StepViewProps } from 'data'
 import { SelectionCardGroup } from '../../../components/SelectionCardGroup/SelectionCardGroup'
 import { SelectionOptions } from '../../../components/SelectionCard/SelectionCard'
@@ -38,13 +38,7 @@ export const PhysicalActivity: React.FC<StepViewProps> = (props) => {
   const [{ userInputs }, dispatch] = useContext(AppContext)
   const [selected, setSelected] = useState(userInputs.physicalActivity)
 
-  const debouncedUpdate = useCallback(
-    debounce(
-      (selected) => dispatch({ type: 'setPhysicalActivity', payload: { value: selected } }),
-      1000
-    ),
-    []
-  )
+  useEffect(() => props.onComplete(), [])
 
   const update = (selected: number[]) => {
     // debouncedUpdate(selected)
@@ -53,7 +47,7 @@ export const PhysicalActivity: React.FC<StepViewProps> = (props) => {
     props.onComplete()
   }
   return (
-    <div className="flex flex-col w-full min-h-full mt-2">
+    <div className="flex flex-col w-full min-h-full">
       <SelectAllLabel />
       <SelectionCardGroup
         options={options}

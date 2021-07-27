@@ -12,7 +12,7 @@ export type NumberOfOccupantsProps = {
   onChange: (value: number) => void
 }
 
-const GridCell = tw.div`w-full h-full cursor-pointer p-0.5`
+const GridCell = tw.div`p-0.5 w-full h-full cursor-pointer`
 
 export const NumberOfOccupants: React.FC<NumberOfOccupantsProps> = ({
   lineBreak = 5,
@@ -34,6 +34,7 @@ export const NumberOfOccupants: React.FC<NumberOfOccupantsProps> = ({
         .map((_, index) => {
           return (
             <GridCell
+              key={index}
               onClick={() => {
                 props.onChange(index + 1)
               }}

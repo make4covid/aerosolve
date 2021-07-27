@@ -25,17 +25,17 @@ export const InputLocation: React.FC<InputLocationProps> = ({
 
   useEffect(() => {
     counties[state]?.length === 1 ? setCountyList([]) : setCountyList(counties[state])
-    counties[state]?.length > 1 && setCounty('County')
-  }, [state])
+    // counties[state]?.length > 1 && setCounty('County')
+  }, [state, setCounty])
 
   return (
     <div className={clsx('w-full bg-gray-100 rounded-xl shadow-lg p-2', props.className)}>
       <div className="flex flex-row items-center justify-between w-full gap-4">
-        <div className="flex flex-row items-center mx-1.5 flex-grow-0">
+        <div className="mx-1.5 flex flex-row items-center flex-grow-0">
           <Location className="w-6 h-6 mr-4" />
           <div className="font-semibold text-gray-700">Location</div>
         </div>
-        <div className="flex flex-row w-2/3 gap-2 min-w-sm">
+        <div className="min-w-sm flex flex-row w-2/3 gap-2">
           <DropdownSelector
             isIntegration={true}
             options={states}

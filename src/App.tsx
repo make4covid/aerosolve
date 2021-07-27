@@ -26,16 +26,18 @@ const App: React.FC<{}> = () => {
   }
 
   const debounceFetchModel = useCallback(
-    (model) => {
-      debounce(() => {
-        getIndoorModel(model).then((r: any) => {
-          dispatch({
-            type: 'setSafeRecommendations',
-            payload: { safeHours: r['max_hour'], safeOccupancy: r['max_people'] },
-          })
+    // (model) => {
+    debounce((model) => {
+      console.log('testing')
+      getIndoorModel(model).then((r: any) => {
+        console.log(r)
+        dispatch({
+          type: 'setSafeRecommendations',
+          payload: { safeHours: r['max_hour'], safeOccupancy: r['max_people'] },
         })
-      }, 400)
-    },
+      })
+    }, 400),
+    // },
     [dispatch]
   )
 

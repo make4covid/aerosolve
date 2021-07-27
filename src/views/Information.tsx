@@ -9,7 +9,7 @@ export const Information: React.FC<{}> = (props) => {
       <h1 className="text-3xl font-bold">Aerosolve Information</h1>
       {steps.map((step) => {
         return (
-          <div className="my-6">
+          <div className="my-6" key={step.title}>
             <header className="mb-2 text-xl font-semibold">{step.title}</header>
             <section>{loremIpsum}</section>
           </div>

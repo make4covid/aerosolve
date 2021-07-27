@@ -9,6 +9,12 @@ import debounce from 'lodash.debounce'
 
 let options: SelectionOptions[] = [
   {
+    title: 'No Masks',
+    description: 'There are people in the space without masks.',
+    img: maskNone,
+    risk: 'High',
+  },
+  {
     title: 'Cloth Masks',
     description: 'Some people are wearing cloth masks.',
     img: maskCloth,
@@ -22,14 +28,8 @@ let options: SelectionOptions[] = [
   },
   {
     title: 'Disposable / Surgical Masks',
-    description: 'Some people are wearing disposable or surgical masks.',
+    description: 'Some people are wearing disposable masks, surgical masks, or better.',
     img: maskDisposable,
-    risk: 'Low',
-  },
-  {
-    title: 'N95 Respirators',
-    description: 'Some people are wearing N95 respirators.',
-    img: maskN95,
     risk: 'Low',
   },
 ]

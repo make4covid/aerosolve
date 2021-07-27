@@ -10,7 +10,7 @@ export const calcAgeFactor = (ageGroups: number[]) => {
 }
 
 export const calcMaskEff = (maskTypes: number[]) => {
-  const weights = [0.5, 0.7, 0.9, 0.95]
+  const weights = [0, 0.5, 0.7, 0.9]
   const sum = maskTypes.reduce((accumulator, maskType) => {
     return accumulator + weights[maskType]
   }, 0)

@@ -96,7 +96,7 @@ const initialState: AppState = {
     ageGroups: [1],
     vocalActivity: [1],
     physicalActivity: [1],
-    maskTypes: [0],
+    maskTypes: [1],
     maskFit: [1],
     ventilation: 2,
     filtration: 2,

@@ -68,7 +68,7 @@ export const HeaderWrapper: React.FC<object> = () => {
         />
       ) : (
         <PageHeader
-          title={steps[stepIndex].title}
+          title={`${stepIndex + 1}. ${steps[stepIndex].title}`}
           prompt={steps[stepIndex].header.prompt}
           description={steps[stepIndex].header.description}
         />

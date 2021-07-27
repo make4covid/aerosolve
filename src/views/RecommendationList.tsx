@@ -69,7 +69,7 @@ type Recommendation = {
   Description?: FunctionComponent<ProgressType>
   image: string
   icon: FunctionComponent<SVGProps<SVGSVGElement>>
-  color: 'red' | 'blue' | 'cyan' | 'purple'
+  color: 'red' | 'blue' | 'light-blue' | 'purple'
   rank: number
 }
 
@@ -158,7 +158,7 @@ const recs: Recommendations = {
     description:
       'Filters rated at MERV 13 or higher trap tiny airborne particles, including most viruses. These high efficiency filters are particularly effective in filtration systems with very high recirculation rates.',
     image: Images.hepa,
-    color: 'cyan',
+    color: 'light-blue',
     icon: Checkmark,
     rank: 0,
   },
@@ -167,7 +167,7 @@ const recs: Recommendations = {
     description:
       'Disposable masks are inexpensive and effectively preventing the spread of COVID-19 indoors. Consider providing free disposable masks, especially if you decide to make masks mandatory in your space.',
     image: Images.maskDisposable,
-    color: 'cyan',
+    color: 'light-blue',
     icon: Checkmark,
     rank: 0,
   },
@@ -186,7 +186,7 @@ const recs: Recommendations = {
     Description: DurationDescription,
     Header: DurationHeader,
     image: Images.window,
-    color: 'cyan',
+    color: 'light-blue',
     icon: Checkmark,
     rank: 0,
   },

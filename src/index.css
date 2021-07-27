@@ -11,7 +11,9 @@
 /* purgecss start ignore */
 .cyanbox {
   @apply border-cyan-500;
+  @apply border-light-blue-500;
   @apply text-cyan-500;
+  @apply text-light-blue-500;
 }
 
 /* purgecss end ignore */

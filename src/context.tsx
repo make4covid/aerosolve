@@ -243,7 +243,6 @@ export const contextReducer = (state: AppState, action: { type: Actions; payload
       state.model.relative_humidity = calcHumidity(action.payload.value)
       return { ...state }
     case 'setLocation':
-      console.log(action.payload)
       state.userInputs.location = { ...state.userInputs.location, ...action.payload }
       return { ...state }
     case 'setVaccinationData':

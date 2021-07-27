@@ -3,7 +3,15 @@
 @tailwind utilities;
 
 @layer utilities {
-  .scrollbar-width-thin{
-    scrollbar-width: thin
+  .scrollbar-width-thin {
+    scrollbar-width: thin;
   }
 }
+
+/* purgecss start ignore */
+.cyanbox {
+  @apply border-cyan-500;
+  @apply text-cyan-500;
+}
+
+/* purgecss end ignore */

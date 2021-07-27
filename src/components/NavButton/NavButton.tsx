@@ -16,7 +16,7 @@ export const NavButton: React.FC<NavButtonProps> = (props) => {
     <button
       onClick={props.onClick}
       className={clsx(
-        'transition-all duration-200 outline-none focus:outline-none text-purple-700 bg-white border-purple-700 hover:bg-purple-700 p-0.5 rounded-full border-2 hover:text-white',
+        'transition-all duration-200 outline-none focus:outline-none focus:ring-4 ring-gray-300 text-purple-700 bg-white border-purple-700 hover:bg-purple-700 p-0.5 rounded-full border-2 hover:text-white',
         props.className
       )}
     >

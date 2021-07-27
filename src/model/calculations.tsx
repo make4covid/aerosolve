@@ -55,7 +55,6 @@ export const calcRespiratoryActivity = (physicalActivity: number[], vocalActivit
   const physicalAvg =
     physicalActivity.length > 0
       ? physicalActivity.reduce((accumulator, activity) => {
-          console.log(accumulator)
           return accumulator + physicalWeights[activity]
         }, 0) / physicalActivity.length
       : 0.03

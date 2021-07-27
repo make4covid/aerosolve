@@ -58,8 +58,8 @@ let spaceTypes: SpaceDefaultValues[] = [
       recirc_rate: 1,
     },
     userInputs: {
-      roomArea: 400,
-      ceilingHeight: 9,
+      roomArea: 910,
+      ceilingHeight: 12,
       ageGroups: [0, 1, 2],
       vocalActivity: [1],
       physicalActivity: [0],
@@ -207,16 +207,17 @@ const Option = styled.div((props: { selected: boolean }) => [
 export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
   const [context, dispatch] = useContext(AppContext)
 
-  useEffect(() => props.onComplete(), [])
+  useEffect(() => props.onComplete())
 
   const [spaceTypeSelection, setSpaceTypeSelection] = useState(
     context.userInputs.spaceTypeSelection
   )
 
   useEffect(() => {
-    if (spaceTypeSelection === -1) return
+    if (spaceTypeSelection === -1 || spaceTypeSelection === context.userInputs.spaceTypeSelection)
+      return
     const space = spaceTypes[spaceTypeSelection]
-    const payload = { model: space.model, userInputs: space.userInputs }
+    const payload = { model: space.model, userInputs: { ...space.userInputs, spaceTypeSelection } }
     dispatch({ type: 'setDefaults', payload })
   }, [spaceTypeSelection, dispatch])
 
@@ -230,6 +231,7 @@ export const TypeOfSpace: React.FC<StepViewProps> = (props) => {
       <OptionGrid>
         {spaceTypes.map(({ props: option }, index) => (
           <Option
+            key={option.label}
             selected={spaceTypeSelection === index}
             onClick={() => {
               props.onComplete()

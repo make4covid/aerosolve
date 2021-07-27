@@ -59,7 +59,9 @@ export const HeaderWrapper: React.FC<object> = () => {
 
   return (
     <>
-      {location.pathname === '/recommendations' || !steps[stepIndex] ? (
+      {location.pathname === '/information' ? (
+        <></>
+      ) : location.pathname === '/recommendations' || !steps[stepIndex] ? (
         <PageHeader
           title="Safety Recommendations"
           prompt="Based on the information you provided, here are some recommendations for how to make your space safer!"

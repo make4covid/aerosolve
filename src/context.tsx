@@ -123,7 +123,7 @@ const initialState: AppState = {
     relative_humidity: 0.6,
   },
   vaccinations: {
-    country: { percent: 48.8, total: 160126516, risk: 'Baseline' },
+    //country: { percent: 48.8, total: 160126516, risk: 'Baseline' },
     // state: { percent: 0, total: 0, risk: 'Average' },
     // county: { percent: 0, total: 0, risk: 'Average' },
   },

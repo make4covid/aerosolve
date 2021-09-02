@@ -33,8 +33,8 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
   // const [enableRecLink, setEnableRecLink] = useState(false)
 
   return (
-    <div className="flex flex-col justify-between flex-grow h-full">
-      <div>
+    <div className="scrollbar-width-thin flex flex-col justify-between flex-grow h-full overflow-hidden">
+      <div className="px-6 overflow-scroll" style={{ marginBottom: '53px' }}>
         {props.navGroups.map((group) => (
           <NavigationGroup key={group.header} header={group.header}>
             {group.steps.map((step, i) => {
@@ -58,7 +58,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
         <button
           disabled={!stepsComplete}
           className={clsx(
-            'rounded-md w-full px-4 py-4 mt-4 cursor-pointer border-2',
+            'rounded-md w-full px-4 py-4 mt-4 cursor-pointer border-2 mb-2',
             stepsComplete &&
               location.pathname !== '/recommendations' &&
               'bg-white text-blue-600  border-blue-600 hover:bg-blue-50 transition-colors duration-150',
@@ -77,7 +77,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
         </button>
         {/* </Link> */}
       </div>
-      <div className="flex flex-row items-center justify-between pt-3 pb-1 border-t border-gray-300">
+      <div className="absolute bottom-0 left-0 flex flex-row items-center justify-between w-full px-4 py-3 ml-0 bg-white border-t border-gray-200">
         <div className="text-xs font-semibold text-gray-700">
           {Object.values(stepStatus).filter((step) => step.complete).length} of {steps.length}{' '}
           <br />

@@ -84,10 +84,10 @@ type AppContextType = [
 
 const initialState: AppState = {
   progress: {
-    safeHours: 2,
-    targetHours: 10,
-    safeOccupancy: 10,
-    targetOccupancy: 15,
+    safeHours: 2.1,
+    targetHours: 4,
+    safeOccupancy: 5,
+    targetOccupancy: 5,
   },
   userInputs: {
     ceilingHeight: 12,
@@ -105,10 +105,10 @@ const initialState: AppState = {
     location: { state: 'State', county: 'County' },
   },
   model: {
-    nOfPeople: 20,
-    exp_time: 20,
+    nOfPeople: 5,
+    exp_time: 4,
     sr_age_factor: 0.68,
-    sr_strain_factor: 1,
+    sr_strain_factor: 2.52,
     pim: 0.487,
     floor_area: 1000,
     mean_ceiling_height: 12,
@@ -123,7 +123,7 @@ const initialState: AppState = {
     relative_humidity: 0.6,
   },
   vaccinations: {
-    //country: { percent: 48.8, total: 160126516, risk: 'Baseline' },
+    // country: { percent: 53.2, total: 160126516, risk: 'Baseline' },
     // state: { percent: 0, total: 0, risk: 'Average' },
     // county: { percent: 0, total: 0, risk: 'Average' },
   },

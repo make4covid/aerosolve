@@ -26,7 +26,7 @@ export const Location: React.FC<StepViewProps> = (props) => {
 
   const inputProps = { county, setCounty, state, setState }
 
-  const [risk, setRisk] = useState('Medium' as 'Low' | 'Medium' | 'High')
+  const [risk, setRisk] = useState('Average' as 'Average' | 'Below Average' | 'Above Average')
 
   useEffect(() => {
     if (county === userInputs.location.county) return
@@ -40,27 +40,34 @@ export const Location: React.FC<StepViewProps> = (props) => {
   }, [state])
 
   useEffect(() => {
-    const vaccinated =
-      vaccinations.county?.percent ||
-      vaccinations.state?.percent ||
-      vaccinations.country?.percent ||
-      40
+    if (vaccinations.country === undefined || vaccinations.state === undefined) return
+    const localVaccinations = vaccinations.county?.percent || vaccinations.state.percent
 
-    const risk = vaccinated < 40 ? 'High' : vaccinated < 55 ? 'Medium' : 'Low'
+    const risk2 = relativeRisk(vaccinations.country.percent, localVaccinations)
+    // const risk = vaccinated < 40 ? 'High' : vaccinated < 55 ? 'Medium' : 'Low'
 
-    setRisk(risk)
+    setRisk(risk2)
   }, [vaccinations])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => props.onComplete(), [])
 
   return (
-    <div className="flex flex-col w-full min-h-full gap-6">
+    <div className="flex flex-col w-full h-56 min-h-full gap-6">
       <InputLocation className="z-30" {...inputProps} />
       <Section>
         <div className="flex flex-row items-center gap-5 pb-3 text-xl font-semibold text-gray-600 border-b-2 border-gray-300">
-          <div>Current COVID-19 risk in your area:</div>
-          <RiskChip risk={risk} className="text-lg" />
+          <div>Relative COVID-19 immunity in your area:</div>
+          <RiskChip
+            risk={
+              { 'Above Average': 'Low', Average: 'Medium', 'Below Average': 'High' }[risk] as
+                | 'Low'
+                | 'Medium'
+                | 'High'
+            }
+            className="text-lg"
+            label={risk}
+          />
         </div>
         <div className="my-3 font-semibold text-gray-500">% of population fully vaccinated in:</div>
         <div className="grid items-stretch grid-cols-3 gap-3">
@@ -104,7 +111,7 @@ const CountryCard: React.FC<{}> = () => {
   }, [])
 
   return (
-    <div>
+    <div className="h-48">
       {vaccinations.country ? (
         <CovidCard
           label="United States"
@@ -113,7 +120,7 @@ const CountryCard: React.FC<{}> = () => {
           risk="Baseline"
         />
       ) : (
-        <div>No country data</div>
+        <FetchLoading />
       )}
     </div>
   )

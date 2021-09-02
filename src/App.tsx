@@ -29,6 +29,8 @@ const App: React.FC<{}> = () => {
     // (model) => {
     debounce((model) => {
       getIndoorModel(model).then((r: any) => {
+        console.log(model)
+        console.log(r)
         dispatch({
           type: 'setSafeRecommendations',
           payload: { safeHours: r['max_hour'], safeOccupancy: r['max_people'] },
@@ -53,13 +55,13 @@ const App: React.FC<{}> = () => {
               <Home startRoute={data.steps[0].route} />
             </Route>
             <Sidebar
-              sidebarClassName="fixed left-0 max-w-xs px-8 py-2 bg-gray-200 w-72 shadow-lg"
+              sidebarClassName="fixed left-0 max-w-xs px-2 py-2 bg-gray-200 w-72 shadow-lg scrollbar-width-thin overflow-hidden"
               transitions={false}
               docked
               shadow={false}
               open
               sidebar={
-                <div className="flex flex-col w-full h-full">
+                <div className="flex flex-col w-full h-full overflow-hidden">
                   <Link to="/">
                     <AerosolveLogo />
                   </Link>

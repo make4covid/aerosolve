@@ -70,7 +70,7 @@ const App: React.FC<{}> = () => {
               }
             >
               {/* quick fix to make sure these cyan colors get bundled */}
-              <div className="hidden text-light-blue-500 border-light-blue-500" />
+              <div className="hidden text-light-blue-500 border-light-blue-500 bg-light-blue-50" />
               <div className="flex flex-col justify-between w-full h-screen max-h-screen">
                 <div className="container flex-grow-0 flex-shrink-0 w-11/12 max-w-6xl mx-auto mt-4 min-w-2xl">
                   <HeaderWrapper />

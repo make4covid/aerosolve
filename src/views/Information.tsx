@@ -326,16 +326,6 @@ export const Information: React.FC<{}> = (props) => {
                   </a>{" "}
                   - Kasim Khan, John W. M. Bush, and Martin Z. Bazant
                 </li>
-                <li id="ref1">
-                  <a
-                    href="https://indoor-covid-safety.herokuapp.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    COVID-19 Indoor Safety Guideline
-                  </a>{" "}
-                  - Kasim Khan, John W. M. Bush, and Martin Z. Bazant
-                </li>
               </ol>
             </SectionContent>
           </section>

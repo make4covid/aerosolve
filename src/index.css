@@ -12,6 +12,7 @@
 .cyanbox {
   @apply border-light-blue-500;
   @apply text-light-blue-500;
+  @apply bg-light-blue-50;
 }
 
 /* purgecss end ignore */
